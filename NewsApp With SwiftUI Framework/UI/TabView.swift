@@ -11,9 +11,9 @@ import SwiftUI
 struct TabView : View {
     var body: some View {
         TabbedView() {
-            OverView().tabItemLabel(Text("Overview")).tag(1)
-            SourcesList().tabItemLabel(Text("Sources")).tag(2)
-            SearchForSourcesList().tabItemLabel(Text("Search")).tag(3)
+            OverView().tabItemLabel(Image("top_headlines")).tag(1)
+            SourcesList().tabItemLabel(Image("sources")).tag(2)
+            SearchForSourcesList().tabItemLabel(Image("search")).tag(3)
         }
     }
 }

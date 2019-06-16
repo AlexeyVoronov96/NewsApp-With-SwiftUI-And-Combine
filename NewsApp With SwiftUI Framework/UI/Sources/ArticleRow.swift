@@ -15,9 +15,10 @@ struct ArticleRow : View {
         VStack(alignment: .leading) {
             Text(verbatim: article.title)
                 .lineLimit(nil)
-            Text(verbatim: article.description)
+            Text(verbatim: article.description ?? "")
                 .color(.gray)
                 .lineLimit(nil)
         }
+        .padding()
     }
 }

@@ -19,9 +19,8 @@ struct NewsList : View {
     var body: some View {
         List {
             ForEach(self.articles.identified(by: \.self)) { article in
-                ArticleRow(article: article)
+                PresentationButton(ArticleRow(article: article), destination: ArticleView(article: article))
             }
-            .listRowInsets(EdgeInsets())
         }
         .onAppear {
             self.getArticles()

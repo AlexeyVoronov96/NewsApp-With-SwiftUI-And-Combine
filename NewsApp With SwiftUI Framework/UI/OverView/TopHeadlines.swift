@@ -14,19 +14,15 @@ struct TopHeadlines : View {
     private let apiProvider = APIProvider()
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Top headlines:")
-                .font(.headline)
-            ScrollView(showsHorizontalIndicator: false) {
-                HStack(alignment: .center, spacing: 8) {
-                    ForEach(self.articles.identified(by: \.self)) { article in
-                        TopHeadlineRow(imageURL: article.urlToImage)
-                    }
+        ScrollView(showsHorizontalIndicator: false) {
+            HStack(alignment: .center, spacing: 8) {
+                ForEach(self.articles.identified(by: \.self)) { article in
+                    TopHeadlineRow(imageURL: article.urlToImage)
                 }
-                }
-            .onAppear {
-                self.getTopHeadlines()
             }
+            }
+        .onAppear {
+            self.getTopHeadlines()
         }
     }
     
