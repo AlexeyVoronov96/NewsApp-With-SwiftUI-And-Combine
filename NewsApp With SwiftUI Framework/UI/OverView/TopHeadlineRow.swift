@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct TopHeadlineRow : View {
+    private let placeholder = UIImage(named: "article_placeholder")!
+    @State private var headlineImage = UIImage(named: "article_placeholder")
+    
     var imageURL: URL? = nil
-    @State private var headlinemage = UIImage(systemName: "star.fill")
-    private let placeholder = UIImage(systemName: "star.fill")!
     
     var body: some View {
-        Image(uiImage: self.headlinemage ?? self.placeholder)
+        Image(uiImage: self.headlineImage ?? self.placeholder)
             .resizable()
             .onAppear(perform: downloadWebImage)
             .frame(width: Length(150),
@@ -28,8 +29,9 @@ struct TopHeadlineRow : View {
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let data = data, let image = UIImage(data: data) {
-                self.headlinemage = image
+                self.headlineImage = image
             }
-        }.resume()
+        }
+        .resume()
     }
 }

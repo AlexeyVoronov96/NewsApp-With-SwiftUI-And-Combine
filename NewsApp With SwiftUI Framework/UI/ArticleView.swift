@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ArticleView : View {
-    @State private var articleImage = UIImage(systemName: "star.fill")
-    private let placeholder = UIImage(systemName: "star.fill")!
+    private let placeholder = UIImage(named: "article_placeholder")!
+    @State private var articleImage = UIImage(named: "article_placeholder")
     
     var article: Article
     
@@ -43,7 +43,7 @@ struct ArticleView : View {
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let data = data, let image = UIImage(data: data) {
                 self.articleImage = image
-            }
-            }.resume()
+        }
+        }.resume()
     }
 }

@@ -29,16 +29,6 @@ class APIProvider {
     
     private let jsonDecoder = JSONDecoder()
     
-    private func performRequest(with url: URL) -> URLRequest {
-        var request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
-        
-        for header in self.headers {
-            request.setValue(header.value, forHTTPHeaderField: header.key)
-        }
-        
-        return request
-    }
-    
     func getSources(completion: @escaping ((Sources?, Error?) -> Void)) {
         let params: [String: String] = [
             "language": self.locale
@@ -137,6 +127,16 @@ class APIProvider {
         }
     }
     
+    private func performRequest(with url: URL) -> URLRequest {
+        var request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
+        
+        for header in self.headers {
+            request.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+        
+        return request
+    }
+    
     private func getData<T: Decodable>(_ url: URL, with type: T.Type, completion: @escaping ((T?, Error?) -> Void)) {
         let urlRequest = self.performRequest(with: url)
         
@@ -164,11 +164,6 @@ class APIProvider {
     }
     
     private func parse<T: Decodable>(with type: T.Type, from data: Data) -> T? {
-        do {
-            return try self.jsonDecoder.decode(type, from: data)
-        } catch {
-            return nil
-        }
-//        return try? self.jsonDecoder.decode(type, from: data)
+        return try? self.jsonDecoder.decode(type, from: data)
     }
 }
