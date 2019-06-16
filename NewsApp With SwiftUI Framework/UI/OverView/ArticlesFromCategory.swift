@@ -34,11 +34,3 @@ struct ArticlesFromCategory : View {
         }
     }
 }
-
-#if DEBUG
-struct ArticlesFromCategory_Previews : PreviewProvider {
-    static var previews: some View {
-        ArticlesFromCategory()
-    }
-}
-#endif

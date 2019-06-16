@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  NewsApp With SwiftUI Framework
+
+  Created by Алексей Воронов on 16.06.2019.
+  Copyright © 2019 Алексей Воронов. All rights reserved.
+*/
+
+"Search articles..." = "Поиск статей...";
+"Search" = "Поиск";
+"Sources" = "Ресурсы";
+"Top headlines" = "Лучшие заголовки";
+"business" = "бизнес";
+"entertainment" = "развлечения";
+"general" = "главное";
+"health" = "здоровье";
+"science" = "наука";
+"sports" = "спорт";
+"technology" = "технологии";
+"Categories" = "Категории";
+"Overview" = "Обзор";

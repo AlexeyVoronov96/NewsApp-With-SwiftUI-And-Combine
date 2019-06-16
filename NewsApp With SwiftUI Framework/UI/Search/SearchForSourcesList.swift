@@ -18,7 +18,7 @@ struct SearchForSourcesList : View {
         NavigationView {
             VStack {
                 TextField($text,
-                          placeholder: Text("Search sources..."),
+                          placeholder: Text("Search articles...".localized()),
                           onCommit: { self.searchForSources() })
                     .frame(height: 40)
                     .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
@@ -30,7 +30,7 @@ struct SearchForSourcesList : View {
                     }
                 }
             }
-            .navigationBarTitle(Text("Search"), displayMode: .large)
+            .navigationBarTitle(Text("Search".localized()), displayMode: .large)
         }
     }
     

@@ -34,11 +34,3 @@ struct TopHeadlines : View {
         }
     }
 }
-
-#if DEBUG
-struct TopHeadlines_Previews : PreviewProvider {
-    static var previews: some View {
-        TopHeadlines()
-    }
-}
-#endif

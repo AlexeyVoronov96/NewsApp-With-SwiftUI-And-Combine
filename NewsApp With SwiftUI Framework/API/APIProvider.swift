@@ -9,7 +9,15 @@
 import Foundation
 
 class APIProvider {
-    var headers: [String: String] {
+    private var locale: String {
+        return Locale.current.languageCode ?? "en"
+    }
+    
+    private var region: String {
+        return Locale.current.regionCode ?? "us"
+    }
+    
+    private var headers: [String: String] {
         return [
             "X-Api-Key": "6a4297c36e284e0bb57d89b044645c2e",
             "Content-type": "application/json",
@@ -17,7 +25,7 @@ class APIProvider {
         ]
     }
     
-    let baseUrl: String = "https://newsapi.org/v2/"
+    private let baseUrl: String = "https://newsapi.org/v2/"
     
     private let jsonDecoder = JSONDecoder()
     
@@ -33,7 +41,7 @@ class APIProvider {
     
     func getSources(completion: @escaping ((Sources?, Error?) -> Void)) {
         let params: [String: String] = [
-            "language": "ru"
+            "language": self.locale
         ]
         
         let queryParameters = params.compactMap({ (parameter) -> String in
@@ -53,7 +61,7 @@ class APIProvider {
     func getArticles(with source: String, completion: @escaping ((Articles?, Error?) -> Void)) {
         let params: [String: String] = [
             "sources": source,
-            "language": "ru"
+            "language": self.locale
         ]
         
         let queryParameters = params.compactMap({ (parameter) -> String in
@@ -70,10 +78,10 @@ class APIProvider {
         }
     }
     
-    func searchForArticles(search value: String, completion: @escaping ((Articles?, Error?) -> Void)) {
+    func searchForArticles(search value: String, page: Int = 1, completion: @escaping ((Articles?, Error?) -> Void)) {
         let params: [String: String] = [
             "q": value,
-            "language": "ru"
+            "language": self.locale
         ]
         
         let queryParameters = params.compactMap({ (parameter) -> String in
@@ -92,7 +100,7 @@ class APIProvider {
     
     func getTopHeadlines(completion: @escaping ((Articles?, Error?) -> Void)) {
         let params: [String: String] = [
-            "country": "ru"
+            "country": self.region
         ]
         
         let queryParameters = params.compactMap({ (parameter) -> String in
@@ -111,7 +119,7 @@ class APIProvider {
     
     func getArticleFromCategory(_ category: String, completion: @escaping ((Articles?, Error?) -> Void)) {
         let params: [String: String] = [
-            "country": "ru",
+            "country": self.locale,
             "category": category
         ]
         
@@ -134,7 +142,7 @@ class APIProvider {
         
         let session = URLSession.shared
         
-        session.dataTask(with: urlRequest) { (data, _, error) in
+        session.dataTask(with: urlRequest) { (data, response, error) in
             if error != nil {
                 completion(nil, nil)
                 return
@@ -151,10 +159,16 @@ class APIProvider {
             }
             
             completion(decodedData, nil)
-            }.resume()
+        }
+        .resume()
     }
     
     private func parse<T: Decodable>(with type: T.Type, from data: Data) -> T? {
-        return try? self.jsonDecoder.decode(type, from: data)
+        do {
+            return try self.jsonDecoder.decode(type, from: data)
+        } catch {
+            return nil
+        }
+//        return try? self.jsonDecoder.decode(type, from: data)
     }
 }
