@@ -15,20 +15,20 @@ struct OverView : View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Top headlines")
+                Section(header: Text("Top headlines".localized())
                     .font(.headline)) {
                         TopHeadlines()
                             .frame(height: 150)
                 }
                 
-                Section(header: Text("Categories")
+                Section(header: Text("Categories".localized())
                     .font(.headline)) {
                         ForEach(self.categories.identified(by: \.self)) { category in
                             NavigationButton(
                                 destination: ArticlesFromCategory(category: category)
-                                .navigationBarTitle(Text(category.capitalizeFirstLetter()), displayMode: .large)
+                                .navigationBarTitle(Text(category.localized().capitalizeFirstLetter()), displayMode: .large)
                             ) {
-                                Text(category.capitalizeFirstLetter())
+                                Text(category.localized().capitalizeFirstLetter())
                             }
                         }
                 }
@@ -36,7 +36,7 @@ struct OverView : View {
             .onAppear {
                 self.getCategories()
             }
-            .navigationBarTitle(Text("Overview"), displayMode: .large)
+            .navigationBarTitle(Text("Overview".localized()), displayMode: .large)
         }
     }
     

@@ -28,7 +28,7 @@ struct SourcesList : View {
             .onAppear {
                 self.getSources()
             }
-            .navigationBarTitle(Text("Sources"), displayMode: .large)
+            .navigationBarTitle(Text("Sources".localized()), displayMode: .large)
         }
     }
     
