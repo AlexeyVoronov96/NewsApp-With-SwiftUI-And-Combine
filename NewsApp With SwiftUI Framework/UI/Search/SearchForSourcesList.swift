@@ -39,6 +39,7 @@ struct SearchForSourcesList : View {
             self.articles = []
             return
         }
+        
         apiProvider.searchForArticles(search: self.text) { (articles, error) in
             guard let articlesList = articles?.articles else { return }
             self.articles = articlesList

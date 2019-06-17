@@ -6,10 +6,14 @@
   Copyright © 2019 Алексей Воронов. All rights reserved.
 */
 
-"Search articles..." = "Поиск статей...";
-"Search" = "Поиск";
-"Sources" = "Ресурсы";
+"Overview" = "Обзор";
 "Top headlines" = "Лучшие заголовки";
+"Sources" = "Ресурсы";
+"Search" = "Поиск";
+"Search articles..." = "Поиск статей...";
+
+// MARK: - Categories
+"Categories" = "Категории";
 "business" = "бизнес";
 "entertainment" = "развлечения";
 "general" = "главное";
@@ -17,5 +21,10 @@
 "science" = "наука";
 "sports" = "спорт";
 "technology" = "технологии";
-"Categories" = "Категории";
-"Overview" = "Обзор";
+
+// MARK: Errors
+"You made too many requests within a window of time and have been rate limited. Back off for a while." = "Вы превысили допустимое количество запросов. Попробуйте повторить попытку через некоторое время";
+"Server error." = "Ошибка сервера";
+"Empty data." = "Данные отсутствуют";
+"Data has invalid format." = "Не удалось прочитать данные, так как они имеют неверный формат";
+"Something goes wrong." = "Что-то пошло не так";

@@ -9,6 +9,12 @@
 import Foundation
 
 class APIProvider {
+    enum Paths: String {
+        case sources = "sources"
+        case articles = "everything"
+        case topHeadlines = "top-headlines"
+    }
+    
     private var locale: String {
         return Locale.current.languageCode ?? "en"
     }
@@ -29,17 +35,16 @@ class APIProvider {
     
     private let jsonDecoder = JSONDecoder()
     
+    // MARK: - Requests
     func getSources(completion: @escaping ((Sources?, Error?) -> Void)) {
         let params: [String: String] = [
             "language": self.locale
         ]
         
-        let queryParameters = params.compactMap({ (parameter) -> String in
-            return "\(parameter.key)=\(parameter.value)"
-        }).joined(separator: "&")
+        let query = self.createQuery(with: params)
         
-        guard let  url = URL(string: self.baseUrl + "sources" + "?" + queryParameters) else {
-            completion(nil, nil)
+        guard let  url = URL(string: self.baseUrl + Paths.sources.rawValue + query) else {
+            completion(nil, APIProviderErrors.invalidURL)
             return
         }
         
@@ -54,12 +59,10 @@ class APIProvider {
             "language": self.locale
         ]
         
-        let queryParameters = params.compactMap({ (parameter) -> String in
-            return "\(parameter.key)=\(parameter.value)"
-        }).joined(separator: "&")
+        let query = self.createQuery(with: params)
         
-        guard let url = URL(string: self.baseUrl + "everything" + "?" + queryParameters) else {
-            completion(nil, nil)
+        guard let url = URL(string: self.baseUrl + Paths.articles.rawValue + query) else {
+            completion(nil, APIProviderErrors.invalidURL)
             return
         }
         
@@ -74,12 +77,10 @@ class APIProvider {
             "language": self.locale
         ]
         
-        let queryParameters = params.compactMap({ (parameter) -> String in
-            return "\(parameter.key)=\(parameter.value)"
-        }).joined(separator: "&")
+        let query = self.createQuery(with: params)
         
-        guard let url = URL(string: self.baseUrl + "everything" + "?" + queryParameters) else {
-            completion(nil, nil)
+        guard let url = URL(string: self.baseUrl + Paths.articles.rawValue + query) else {
+            completion(nil, APIProviderErrors.invalidURL)
             return
         }
         
@@ -93,12 +94,10 @@ class APIProvider {
             "country": self.region
         ]
         
-        let queryParameters = params.compactMap({ (parameter) -> String in
-            return "\(parameter.key)=\(parameter.value)"
-        }).joined(separator: "&")
+        let query = self.createQuery(with: params)
         
-        guard let url = URL(string: self.baseUrl + "top-headlines" + "?" + queryParameters) else {
-            completion(nil, nil)
+        guard let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query) else {
+            completion(nil, APIProviderErrors.invalidURL)
             return
         }
         
@@ -107,24 +106,31 @@ class APIProvider {
         }
     }
     
-    func getArticleFromCategory(_ category: String, completion: @escaping ((Articles?, Error?) -> Void)) {
+    func getArticlesFromCategory(_ category: String, completion: @escaping ((Articles?, Error?) -> Void)) {
         let params: [String: String] = [
-            "country": self.locale,
+            "country": self.region,
             "category": category
         ]
         
-        let queryParameters = params.compactMap({ (parameter) -> String in
-            return "\(parameter.key)=\(parameter.value)"
-        }).joined(separator: "&")
+        let query = self.createQuery(with: params)
         
-        guard let url = URL(string: self.baseUrl + "top-headlines" + "?" + queryParameters) else {
-            completion(nil, nil)
+        guard let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query) else {
+            completion(nil, APIProviderErrors.invalidURL)
             return
         }
         
         self.getData(url, with: Articles.self) { (data, error) in
             completion(data, error)
         }
+    }
+    
+    // MARK: - Request building
+    private func createQuery(with params: [String: String]) -> String {
+        let queryParameters = params.compactMap({ (parameter) -> String in
+            return "\(parameter.key)=\(parameter.value)"
+        }).joined(separator: "&")
+        
+        return "?\(queryParameters)"
     }
     
     private func performRequest(with url: URL) -> URLRequest {
@@ -137,6 +143,7 @@ class APIProvider {
         return request
     }
     
+    // MARK: - Getting data
     private func getData<T: Decodable>(_ url: URL, with type: T.Type, completion: @escaping ((T?, Error?) -> Void)) {
         let urlRequest = self.performRequest(with: url)
         
@@ -144,17 +151,23 @@ class APIProvider {
         
         session.dataTask(with: urlRequest) { (data, response, error) in
             if error != nil {
-                completion(nil, nil)
+                guard let httpResponse = response as? HTTPURLResponse,
+                    let apiError = APIErrors(rawValue: httpResponse.statusCode) else {
+                        completion(nil, APIProviderErrors.unknownError)
+                        return
+                }
+                
+                completion(nil, apiError)
                 return
             }
             
             guard let data = data else {
-                completion(nil, nil)
+                completion(nil, APIProviderErrors.dataNil)
                 return
             }
             
             guard let decodedData = self.parse(with: type, from: data) else {
-                completion(nil, nil)
+                completion(nil, APIProviderErrors.decodingError)
                 return
             }
             
@@ -163,6 +176,7 @@ class APIProvider {
         .resume()
     }
     
+    // MARK: - Parsing data
     private func parse<T: Decodable>(with type: T.Type, from data: Data) -> T? {
         return try? self.jsonDecoder.decode(type, from: data)
     }
