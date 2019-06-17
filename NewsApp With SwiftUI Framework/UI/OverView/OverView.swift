@@ -10,6 +10,7 @@ import SwiftUI
 
 struct OverView : View {
     @State private var topHeadlines: [Article] = []
+    
     private var categories: [String] = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
     
     var body: some View {

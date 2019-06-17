@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct TopHeadlineRow : View {
-    private let placeholder = UIImage(named: "article_placeholder")!
     @State private var headlineImage = UIImage(named: "article_placeholder")
+    
+    private let placeholder = UIImage(named: "article_placeholder")!
     
     var imageURL: URL? = nil
     

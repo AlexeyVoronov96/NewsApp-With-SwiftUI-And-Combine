@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct ArticlesFromCategory : View {
-    var category: String = ""
-    
     @State private var articles: [Article] = []
     
     private let apiProvider = APIProvider()
+    
+    var category: String = ""
     
     var body: some View {
         List {
@@ -27,7 +27,7 @@ struct ArticlesFromCategory : View {
     }
     
     private func getArticles() {
-        apiProvider.getArticleFromCategory(self.category) { (articles, error) in
+        apiProvider.getArticlesFromCategory(self.category) { (articles, error) in
             guard let articlesList = articles?.articles else { return }
             
             self.articles = articlesList

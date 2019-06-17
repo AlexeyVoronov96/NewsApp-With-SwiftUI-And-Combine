@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SourceRow : View {
     var source: Source
+    
     var body: some View {
         HStack {
             Text(source.name)
