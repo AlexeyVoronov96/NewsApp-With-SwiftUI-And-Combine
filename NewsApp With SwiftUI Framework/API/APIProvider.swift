@@ -9,6 +9,8 @@
 import Foundation
 
 class APIProvider {
+    static let shared = APIProvider()
+    
     enum Paths: String {
         case sources = "sources"
         case articles = "everything"

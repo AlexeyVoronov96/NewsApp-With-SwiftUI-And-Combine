@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Sources: Codable, Hashable {
+struct Sources: Codable {
     let status: String
     let sources: [Source]
 }
@@ -17,15 +17,14 @@ struct Source: Codable, Hashable {
     let id: String
     let name: String
     let description: String?
-    let url: URL
+    let url: String
     let category: String
     let language: String
     let country: String
 }
 
-struct Articles: Codable, Hashable {
+struct Articles: Codable {
     let status: String
-    let totalResults: Int
     let articles: [Article]
 }
 
@@ -33,6 +32,6 @@ struct Article: Codable, Hashable {
     let author: String?
     let title: String
     let description: String?
-    let url: URL
-    let urlToImage: URL?
+    let url: String
+    let urlToImage: String?
 }

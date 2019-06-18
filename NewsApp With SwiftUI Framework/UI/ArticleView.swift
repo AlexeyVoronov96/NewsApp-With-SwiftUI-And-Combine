@@ -38,7 +38,7 @@ struct ArticleView : View {
     }
     
     private func downloadWebImage() {
-        guard let url = self.article.urlToImage else { return }
+        guard let url = URL(string: self.article.urlToImage ?? "") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let data = data, let image = UIImage(data: data) {

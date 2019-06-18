@@ -17,7 +17,7 @@ struct TopHeadlines : View {
         ScrollView(showsHorizontalIndicator: false) {
             HStack(alignment: .center, spacing: 8) {
                 ForEach(self.articles.identified(by: \.self)) { article in
-                    TopHeadlineRow(imageURL: article.urlToImage)
+                    TopHeadlineRow(imageURL: article.urlToImage ?? "")
                 }
             }
             }

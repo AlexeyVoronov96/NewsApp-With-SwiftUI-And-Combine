@@ -13,7 +13,7 @@ struct TopHeadlineRow : View {
     
     private let placeholder = UIImage(named: "article_placeholder")!
     
-    var imageURL: URL? = nil
+    var imageURL: String
     
     var body: some View {
         Image(uiImage: self.headlineImage ?? self.placeholder)
@@ -26,7 +26,7 @@ struct TopHeadlineRow : View {
     }
     
     private func downloadWebImage() {
-        guard let url = self.imageURL else { return }
+        guard let url = URL(string: self.imageURL) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let data = data, let image = UIImage(data: data) {
