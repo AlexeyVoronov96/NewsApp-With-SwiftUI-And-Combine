@@ -26,7 +26,9 @@ struct SearchForSourcesList : View {
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 List {
                     ForEach(self.articles.identified(by: \.self)) { article in
-                        PresentationButton(ArticleRow(article: article), destination: ArticleView(article: article))
+                        PresentationButton(destination: ArticleView(article: article)) {
+                            ArticleRow(article: article)
+                        }
                     }
                 }
             }

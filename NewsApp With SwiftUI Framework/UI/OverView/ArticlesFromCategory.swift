@@ -18,11 +18,13 @@ struct ArticlesFromCategory : View {
     var body: some View {
         List {
             ForEach(self.articles.identified(by: \.self)) { article in
-                PresentationButton(ArticleRow(article: article), destination: ArticleView(article: article))
+                PresentationButton(destination: ArticleView(article: article)) {
+                    ArticleRow(article: article)
                 }
             }
-            .onAppear {
-                self.getArticles()
+        }
+        .onAppear {
+            self.getArticles()
         }
     }
     
