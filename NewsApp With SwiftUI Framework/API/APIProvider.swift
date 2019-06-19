@@ -180,11 +180,6 @@ class APIProvider {
     
     // MARK: - Parsing data
     private func parse<T: Decodable>(with type: T.Type, from data: Data) -> T? {
-        do {
-            return try self.jsonDecoder.decode(type, from: data)
-        } catch {
-            return nil
-        }
         return try? self.jsonDecoder.decode(type, from: data)
     }
 }
