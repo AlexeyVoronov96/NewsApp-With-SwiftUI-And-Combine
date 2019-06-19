@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2A579663-FCF7-429B-84A2-E2495E659DD8"
+            uuid = "D06DC4A7-4D9E-4B30-B98A-FD3656E57705"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NewsApp With SwiftUI Framework/UI/OverView/TopHeadlines.swift"
+            filePath = "NewsApp With SwiftUI Framework/API/APIProvider.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "getTopHeadlines()"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "parse(with:from:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -17,13 +17,7 @@ struct NewsList : View {
     private let apiProvider = APIProvider()
     
     var body: some View {
-        List {
-            ForEach(self.articles.identified(by: \.self)) { article in
-                PresentationButton(destination: ArticleView(article: article)) {
-                    ArticleRow(article: article)
-                }
-            }
-        }
+        ArticlesList(articles: articles)
         .onAppear {
             self.getArticles()
         }

@@ -13,7 +13,7 @@ struct ArticleRow : View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(verbatim: article.title)
+            Text(verbatim: article.title ?? "")
                 .lineLimit(nil)
             Text(verbatim: article.description ?? "")
                 .color(.gray)

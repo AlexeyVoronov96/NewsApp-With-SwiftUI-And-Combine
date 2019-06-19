@@ -22,7 +22,7 @@ struct ArticleView : View {
                     .frame(width: 150, height: 150)
                     .clipShape(Circle())
                 
-                Text(verbatim: self.article.title)
+                Text(verbatim: self.article.title ?? "")
                     .lineLimit(nil)
                     .font(.headline)
             }

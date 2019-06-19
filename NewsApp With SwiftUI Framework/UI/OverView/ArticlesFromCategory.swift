@@ -16,13 +16,7 @@ struct ArticlesFromCategory : View {
     var category: String = ""
     
     var body: some View {
-        List {
-            ForEach(self.articles.identified(by: \.self)) { article in
-                PresentationButton(destination: ArticleView(article: article)) {
-                    ArticleRow(article: article)
-                }
-            }
-        }
+        ArticlesList(articles: articles)
         .onAppear {
             self.getArticles()
         }

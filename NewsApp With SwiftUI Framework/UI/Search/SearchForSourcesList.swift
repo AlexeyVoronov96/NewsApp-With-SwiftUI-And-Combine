@@ -18,25 +18,24 @@ struct SearchForSourcesList : View {
         NavigationView {
             VStack {
                 TextField($text,
-                          placeholder: Text("Search articles...".localized()),
-                          onCommit: { self.searchForSources() })
-                    .frame(height: 40)
-                    .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
-                    .border(Color.gray.opacity(0.2), cornerRadius: 8)
-                    .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                List {
-                    ForEach(self.articles.identified(by: \.self)) { article in
-                        PresentationButton(destination: ArticleView(article: article)) {
-                            ArticleRow(article: article)
+                    placeholder: Text("Search articles...".localized()),
+                    onEditingChanged: { (opened) in
+                        if !opened {
+                            self.searchForArticles()
                         }
-                    }
-                }
+                })
+                .frame(height: 40)
+                .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+                .border(Color.gray.opacity(0.2), cornerRadius: 8)
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                
+                ArticlesList(articles: articles)
             }
             .navigationBarTitle(Text("Search".localized()), displayMode: .large)
         }
     }
     
-    private func searchForSources() {
+    private func searchForArticles() {
         if text.isEmpty {
             self.articles = []
             return
