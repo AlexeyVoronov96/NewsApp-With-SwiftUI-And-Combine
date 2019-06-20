@@ -23,7 +23,11 @@ final class SourcesListViewModel: BindableObject {
     }
     
     func getSources() {
-        _ = apiProvider.getDataDemo(with: apiProvider.performSourcesRequest())
+        guard let request = apiProvider.performSourcesRequest() else {
+            return sources = []
+        }
+        
+        _ = apiProvider.getData(with: request)
             .decode(type: Sources.self, decoder: JSONDecoder())
             .map { $0.sources }
             .replaceError(with: [])

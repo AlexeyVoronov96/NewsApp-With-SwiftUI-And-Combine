@@ -1,5 +1,5 @@
 //
-//  SearchForArticlesViewModel.swift
+//  MainViewModel.swift
 //  NewsApp With SwiftUI Framework
 //
 //  Created by Алексей Воронов on 20.06.2019.
@@ -9,12 +9,12 @@
 import SwiftUI
 import Combine
 
-final class SearchForArticlesViewModel: BindableObject {
+final class MainViewModel: BindableObject {
     private let apiProvider = APIProvider()
     
-    var didChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
+    var didChange = PassthroughSubject<MainViewModel, Never>()
     
-    private(set) var articles: [Article] = [] {
+    private(set) var topHeadlines: [Article] = [] {
         didSet {
             DispatchQueue.main.async { [unowned self] in
                 self.didChange.send(self)
@@ -22,10 +22,9 @@ final class SearchForArticlesViewModel: BindableObject {
         }
     }
     
-    func searchForArticles(searchFilter: String) {
-        guard let request = apiProvider.performSearchForArticlesRequest(search: searchFilter),
-            !searchFilter.isEmpty else {
-            return articles = []
+    func getTopHeadlines() {
+        guard let request = apiProvider.performTopHeadlinesRequest() else {
+            return topHeadlines = []
         }
         
         _ = apiProvider.getData(with: request)
@@ -33,7 +32,7 @@ final class SearchForArticlesViewModel: BindableObject {
             .map { $0.articles }
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (articles) in
-                self?.articles = articles
+                self?.topHeadlines = articles
             })
     }
 }

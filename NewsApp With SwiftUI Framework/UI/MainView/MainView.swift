@@ -1,5 +1,5 @@
 //
-//  OverView.swift
+//  MainView.swift
 //  NewsApp With SwiftUI Framework
 //
 //  Created by Алексей Воронов on 16.06.2019.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct OverView : View {
-    @State private var topHeadlines: [Article] = []
+struct MainView : View {
+    @ObjectBinding var viewModel = MainViewModel()
     
     private var categories: [String] = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
     
@@ -18,7 +18,7 @@ struct OverView : View {
             List {
                 Section(header: Text("Top headlines".localized())
                     .font(.headline)) {
-                        TopHeadlines()
+                        TopHeadlinesView(viewModel: viewModel)
                             .frame(height: 150)
                 }
                 
@@ -26,7 +26,7 @@ struct OverView : View {
                     .font(.headline)) {
                         ForEach(self.categories.identified(by: \.self)) { category in
                             NavigationButton(
-                                destination: ArticlesFromCategory(category: category)
+                                destination: ArticlesFromCategoryView(category: category)
                                 .navigationBarTitle(Text(category.localized().capitalizeFirstLetter()), displayMode: .large)
                             ) {
                                 Text(category.localized().capitalizeFirstLetter())
@@ -34,14 +34,7 @@ struct OverView : View {
                         }
                 }
             }
-            .onAppear {
-                self.getCategories()
-            }
             .navigationBarTitle(Text("Overview".localized()), displayMode: .large)
         }
-    }
-    
-    private func getCategories() {
-        
     }
 }

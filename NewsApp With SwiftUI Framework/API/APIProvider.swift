@@ -40,37 +40,36 @@ class APIProvider {
     private let jsonDecoder = JSONDecoder()
     
     // MARK: - Requests
-    func performSourcesRequest() -> URLRequest {
+    func performSourcesRequest() -> URLRequest? {
         let params: [String: String] = [
-            "language": self.locale
+            "language": locale
         ]
         
-        let query = self.createQuery(with: params)
+        let query = createQuery(with: params)
         
-        let url = URL(string: self.baseUrl + Paths.sources.rawValue + query)!
+        guard let url = URL(string: baseUrl + Paths.sources.rawValue + query) else {
+            return nil
+        }
         
         return performRequest(with: url)
     }
     
-    func getArticles(with source: String, completion: @escaping ((Articles?, Error?) -> Void)) {
+    func performArticlesFromSourceRequest(with source: String) -> URLRequest? {
         let params: [String: String] = [
             "sources": source,
-            "language": self.locale
+            "language": locale
         ]
         
-        let query = self.createQuery(with: params)
+        let query = createQuery(with: params)
         
-        guard let url = URL(string: self.baseUrl + Paths.articles.rawValue + query) else {
-            completion(nil, APIProviderErrors.invalidURL)
-            return
+        guard let url = URL(string: baseUrl + Paths.articles.rawValue + query) else {
+            return nil
         }
         
-        self.getData(url, with: Articles.self) { (data, error) in
-            completion(data, error)
-        }
+        return performRequest(with: url)
     }
     
-    func searchForArticles(search value: String, page: Int = 1, completion: @escaping ((Articles?, Error?) -> Void)) {
+    func performSearchForArticlesRequest(search value: String, page: Int = 1) -> URLRequest? {
         let params: [String: String] = [
             "q": value,
             "language": self.locale
@@ -79,16 +78,13 @@ class APIProvider {
         let query = self.createQuery(with: params)
         
         guard let url = URL(string: self.baseUrl + Paths.articles.rawValue + query) else {
-            completion(nil, APIProviderErrors.invalidURL)
-            return
+            return nil
         }
         
-        self.getData(url, with: Articles.self) { (data, error) in
-            completion(data, error)
-        }
+        return performRequest(with: url)
     }
     
-    func getTopHeadlines(completion: @escaping ((Articles?, Error?) -> Void)) {
+    func performTopHeadlinesRequest() -> URLRequest? {
         let params: [String: String] = [
             "country": self.region
         ]
@@ -96,16 +92,13 @@ class APIProvider {
         let query = self.createQuery(with: params)
         
         guard let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query) else {
-            completion(nil, APIProviderErrors.invalidURL)
-            return
+            return nil
         }
         
-        self.getData(url, with: Articles.self) { (data, error) in
-            completion(data, error)
-        }
+        return performRequest(with: url)
     }
     
-    func getArticlesFromCategory(_ category: String, completion: @escaping ((Articles?, Error?) -> Void)) {
+    func performArticlesFromCategoryRequest(_ category: String) -> URLRequest? {
         let params: [String: String] = [
             "country": self.region,
             "category": category
@@ -114,13 +107,10 @@ class APIProvider {
         let query = self.createQuery(with: params)
         
         guard let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query) else {
-            completion(nil, APIProviderErrors.invalidURL)
-            return
+            return nil
         }
         
-        self.getData(url, with: Articles.self) { (data, error) in
-            completion(data, error)
-        }
+        return performRequest(with: url)
     }
     
     // MARK: - Request building
@@ -142,42 +132,8 @@ class APIProvider {
         return request
     }
     
-    // MARK: - Getting data
-    private func getData<T: Decodable>(_ url: URL, with type: T.Type, completion: @escaping ((T?, Error?) -> Void)) {
-        let urlRequest = self.performRequest(with: url)
-        
-        let session = URLSession.shared
-        
-        session.dataTask(with: urlRequest) { (data, response, error) in
-            if error != nil {
-                guard let httpResponse = response as? HTTPURLResponse,
-                    let apiError = APIErrors(rawValue: httpResponse.statusCode) else {
-                        completion(nil, APIProviderErrors.unknownError)
-                        return
-                }
-                
-                completion(nil, apiError)
-                return
-            }
-            
-            guard let data = data else {
-                completion(nil, APIProviderErrors.dataNil)
-                return
-            }
-            
-            guard let decodedData = self.parse(with: type, from: data) else {
-                completion(nil, APIProviderErrors.decodingError)
-                return
-            }
-            
-            completion(decodedData, nil)
-        }
-        .resume()
-    }
-    
-    func getDataDemo(with request: URLRequest) -> AnyPublisher<Data, Error> {
+    func getData(with request: URLRequest) -> AnyPublisher<Data, Error> {
         AnyPublisher { subscriber in
-            
             let session = URLSession.shared
             
             session.dataTask(with: request) { (data, response, error) in
@@ -200,11 +156,4 @@ class APIProvider {
             .resume()
         }
     }
-    
-    // MARK: - Parsing data
-    private func parse<T: Decodable>(with type: T.Type, from data: Data) -> T? {
-        return try? self.jsonDecoder.decode(type, from: data)
-    }
 }
-
-extension JSONDecoder: TopLevelDecoder {}

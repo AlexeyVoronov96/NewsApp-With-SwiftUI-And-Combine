@@ -1,5 +1,5 @@
 //
-//  SearchForArticlesViewModel.swift
+//  ArticlesFromCategoryViewModel.swift
 //  NewsApp With SwiftUI Framework
 //
 //  Created by Алексей Воронов on 20.06.2019.
@@ -9,10 +9,10 @@
 import SwiftUI
 import Combine
 
-final class SearchForArticlesViewModel: BindableObject {
+final class ArticlesFromCategoryViewModel: BindableObject {
     private let apiProvider = APIProvider()
     
-    var didChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
+    var didChange = PassthroughSubject<ArticlesFromCategoryViewModel, Never>()
     
     private(set) var articles: [Article] = [] {
         didSet {
@@ -22,9 +22,8 @@ final class SearchForArticlesViewModel: BindableObject {
         }
     }
     
-    func searchForArticles(searchFilter: String) {
-        guard let request = apiProvider.performSearchForArticlesRequest(search: searchFilter),
-            !searchFilter.isEmpty else {
+    func getArticles(from category: String) {
+        guard let request = apiProvider.performArticlesFromCategoryRequest(category) else {
             return articles = []
         }
         
@@ -37,3 +36,4 @@ final class SearchForArticlesViewModel: BindableObject {
             })
     }
 }
+

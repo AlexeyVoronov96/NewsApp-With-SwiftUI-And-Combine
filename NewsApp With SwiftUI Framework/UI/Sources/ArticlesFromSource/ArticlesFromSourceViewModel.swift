@@ -1,5 +1,5 @@
 //
-//  SearchForArticlesViewModel.swift
+//  ArticlesFromSourceViewModel.swift
 //  NewsApp With SwiftUI Framework
 //
 //  Created by Алексей Воронов on 20.06.2019.
@@ -9,22 +9,21 @@
 import SwiftUI
 import Combine
 
-final class SearchForArticlesViewModel: BindableObject {
+final class ArticlesFromSourceViewModel: BindableObject {
     private let apiProvider = APIProvider()
     
-    var didChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
+    var didChange = PassthroughSubject<ArticlesFromSourceViewModel, Never>()
     
     private(set) var articles: [Article] = [] {
         didSet {
-            DispatchQueue.main.async { [unowned self] in
+            DispatchQueue.main.async {
                 self.didChange.send(self)
             }
         }
     }
     
-    func searchForArticles(searchFilter: String) {
-        guard let request = apiProvider.performSearchForArticlesRequest(search: searchFilter),
-            !searchFilter.isEmpty else {
+    func getArticles(from source: String) {
+        guard let request = apiProvider.performArticlesFromSourceRequest(with: source) else {
             return articles = []
         }
         

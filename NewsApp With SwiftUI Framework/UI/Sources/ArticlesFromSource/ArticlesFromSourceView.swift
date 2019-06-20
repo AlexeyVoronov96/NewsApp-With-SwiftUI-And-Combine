@@ -7,27 +7,16 @@
 //
 
 import SwiftUI
-import SafariServices
 
 struct ArticlesFromSourceView: View {
-    @State private var articles: [Article] = []
+    @ObjectBinding var viewModel = ArticlesFromSourceViewModel()
     
     var source: String
     
-    private let apiProvider = APIProvider()
-    
     var body: some View {
-        ArticlesList(articles: articles)
+        ArticlesList(articles: viewModel.articles)
         .onAppear {
-            self.getArticles()
-        }
-    }
-    
-    func getArticles() {
-        apiProvider.getArticles(with: source) { (articles, error) in
-            guard let articlesList = articles?.articles else { return }
-            
-            self.articles = articlesList
+            self.viewModel.getArticles(from: self.source)
         }
     }
 }
