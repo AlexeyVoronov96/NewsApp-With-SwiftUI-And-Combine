@@ -9,7 +9,7 @@
 import SwiftUI
 import SafariServices
 
-struct NewsList : View {
+struct ArticlesFromSourceView: View {
     @State private var articles: [Article] = []
     
     var source: String

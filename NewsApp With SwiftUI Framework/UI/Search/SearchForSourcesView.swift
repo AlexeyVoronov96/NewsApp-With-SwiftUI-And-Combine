@@ -1,5 +1,5 @@
 //
-//  SearchForSourcesList.swift
+//  SearchForArticlesView.swift
 //  NewsApp With SwiftUI Framework
 //
 //  Created by Алексей Воронов on 15.06.2019.
@@ -8,20 +8,19 @@
 
 import SwiftUI
 
-struct SearchForSourcesList : View {
-    @State private var articles: [Article] = []
-    @State private var text: String = ""
+struct SearchForArticlesView : View {
+    @ObjectBinding var viewModel = SearchForArticlesViewModel()
     
-    private let apiProvider = APIProvider()
+    @State private var searchFilter: String = ""
     
     var body: some View {
         NavigationView {
             VStack {
-                TextField($text,
+                TextField($searchFilter,
                     placeholder: Text("Search articles...".localized()),
                     onEditingChanged: { (opened) in
                         if !opened {
-                            self.searchForArticles()
+                            self.viewModel.searchForArticles(searchFilter: self.searchFilter)
                         }
                 })
                 .frame(height: 40)
@@ -29,21 +28,9 @@ struct SearchForSourcesList : View {
                 .border(Color.gray.opacity(0.2), cornerRadius: 8)
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 
-                ArticlesList(articles: articles)
+                ArticlesList(articles: self.viewModel.articles)
             }
             .navigationBarTitle(Text("Search".localized()), displayMode: .large)
-        }
-    }
-    
-    private func searchForArticles() {
-        if text.isEmpty {
-            self.articles = []
-            return
-        }
-        
-        apiProvider.searchForArticles(search: self.text) { (articles, error) in
-            guard let articlesList = articles?.articles else { return }
-            self.articles = articlesList
         }
     }
 }

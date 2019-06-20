@@ -12,8 +12,8 @@ struct TabView : View {
     var body: some View {
         TabbedView() {
             OverView().tabItemLabel(Image("top_headlines")).tag(1)
-            SourcesList().tabItemLabel(Image("sources")).tag(2)
-            SearchForSourcesList().tabItemLabel(Image("search")).tag(3)
+            SourcesListView().tabItemLabel(Image("sources")).tag(2)
+            SearchForArticlesView().tabItemLabel(Image("search")).tag(3)
         }
     }
 }

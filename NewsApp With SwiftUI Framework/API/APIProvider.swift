@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import SwiftUI
+import Combine
 
 class APIProvider {
     static let shared = APIProvider()
@@ -38,21 +40,16 @@ class APIProvider {
     private let jsonDecoder = JSONDecoder()
     
     // MARK: - Requests
-    func getSources(completion: @escaping ((Sources?, Error?) -> Void)) {
+    func performSourcesRequest() -> URLRequest {
         let params: [String: String] = [
             "language": self.locale
         ]
         
         let query = self.createQuery(with: params)
         
-        guard let  url = URL(string: self.baseUrl + Paths.sources.rawValue + query) else {
-            completion(nil, APIProviderErrors.invalidURL)
-            return
-        }
+        let url = URL(string: self.baseUrl + Paths.sources.rawValue + query)!
         
-        self.getData(url, with: Sources.self) { (data, error) in
-            completion(data, error)
-        }
+        return performRequest(with: url)
     }
     
     func getArticles(with source: String, completion: @escaping ((Articles?, Error?) -> Void)) {
@@ -135,7 +132,7 @@ class APIProvider {
         return "?\(queryParameters)"
     }
     
-    private func performRequest(with url: URL) -> URLRequest {
+    func performRequest(with url: URL) -> URLRequest {
         var request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
         
         for header in self.headers {
@@ -178,8 +175,36 @@ class APIProvider {
         .resume()
     }
     
+    func getDataDemo(with request: URLRequest) -> AnyPublisher<Data, Error> {
+        AnyPublisher { subscriber in
+            
+            let session = URLSession.shared
+            
+            session.dataTask(with: request) { (data, response, error) in
+                if error != nil {
+                    guard let httpResponse = response as? HTTPURLResponse,
+                        let apiError = APIErrors(rawValue: httpResponse.statusCode) else {
+                            return subscriber.receive(completion: .failure(APIProviderErrors.unknownError))
+                    }
+                    
+                    subscriber.receive(completion: .failure(apiError))
+                }
+                
+                guard let data = data else {
+                    return subscriber.receive(completion: .failure(APIProviderErrors.dataNil))
+                }
+                
+                _ = subscriber.receive(data)
+                subscriber.receive(completion: .finished)
+            }
+            .resume()
+        }
+    }
+    
     // MARK: - Parsing data
     private func parse<T: Decodable>(with type: T.Type, from data: Data) -> T? {
         return try? self.jsonDecoder.decode(type, from: data)
     }
 }
+
+extension JSONDecoder: TopLevelDecoder {}
