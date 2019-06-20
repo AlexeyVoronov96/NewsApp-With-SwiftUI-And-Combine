@@ -16,7 +16,7 @@ final class ArticlesFromSourceViewModel: BindableObject {
     
     private(set) var articles: [Article] = [] {
         didSet {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [unowned self] in
                 self.didChange.send(self)
             }
         }

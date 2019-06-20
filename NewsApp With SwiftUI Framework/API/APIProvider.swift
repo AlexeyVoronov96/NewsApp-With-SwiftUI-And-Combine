@@ -37,8 +37,6 @@ class APIProvider {
     
     private let baseUrl: String = "https://newsapi.org/v2/"
     
-    private let jsonDecoder = JSONDecoder()
-    
     // MARK: - Requests
     func performSourcesRequest() -> URLRequest? {
         let params: [String: String] = [

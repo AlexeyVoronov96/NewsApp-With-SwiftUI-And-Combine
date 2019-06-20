@@ -16,7 +16,7 @@ final class SourcesListViewModel: BindableObject {
     
     private(set) var sources: [Source] = [] {
         didSet {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [unowned self] in
                 self.didChange.send(self)
             }
         }
