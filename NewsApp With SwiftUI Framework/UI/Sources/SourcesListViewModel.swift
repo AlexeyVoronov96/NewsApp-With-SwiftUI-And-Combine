@@ -16,9 +16,7 @@ final class SourcesListViewModel: BindableObject {
     
     private(set) var sources: [Source] = [] {
         didSet {
-            DispatchQueue.main.async { [unowned self] in
-                self.didChange.send(self)
-            }
+            didChange.send(self)
         }
     }
     
@@ -27,12 +25,15 @@ final class SourcesListViewModel: BindableObject {
             return sources = []
         }
         
-        _ = apiProvider.getData(with: request)
+        apiProvider.getData(with: request)
+            .map { $0.data }
             .decode(type: Sources.self, decoder: JSONDecoder())
             .map { $0.sources }
+            .receive(on: RunLoop.main)
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (sources) in
                 self?.sources = sources
             })
+            .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }

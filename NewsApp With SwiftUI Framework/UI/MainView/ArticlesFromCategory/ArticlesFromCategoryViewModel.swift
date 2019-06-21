@@ -16,9 +16,7 @@ final class ArticlesFromCategoryViewModel: BindableObject {
     
     private(set) var articles: [Article] = [] {
         didSet {
-            DispatchQueue.main.async { [unowned self] in
-                self.didChange.send(self)
-            }
+            didChange.send(self)
         }
     }
     
@@ -27,13 +25,16 @@ final class ArticlesFromCategoryViewModel: BindableObject {
             return articles = []
         }
         
-        _ = apiProvider.getData(with: request)
+        apiProvider.getData(with: request)
+            .map { $0.data }
             .decode(type: Articles.self, decoder: JSONDecoder())
             .map { $0.articles }
+            .receive(on: RunLoop.main)
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (articles) in
                 self?.articles = articles
             })
+            .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }
 
