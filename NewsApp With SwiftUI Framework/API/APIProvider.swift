@@ -130,28 +130,7 @@ class APIProvider {
         return request
     }
     
-    func getData(with request: URLRequest) -> AnyPublisher<Data, Error> {
-        AnyPublisher { subscriber in
-            let session = URLSession.shared
-            
-            session.dataTask(with: request) { (data, response, error) in
-                if error != nil {
-                    guard let httpResponse = response as? HTTPURLResponse,
-                        let apiError = APIErrors(rawValue: httpResponse.statusCode) else {
-                            return subscriber.receive(completion: .failure(APIProviderErrors.unknownError))
-                    }
-                    
-                    subscriber.receive(completion: .failure(apiError))
-                }
-                
-                guard let data = data else {
-                    return subscriber.receive(completion: .failure(APIProviderErrors.dataNil))
-                }
-                
-                _ = subscriber.receive(data)
-                subscriber.receive(completion: .finished)
-            }
-            .resume()
-        }
+    func getData(with request: URLRequest) -> URLSession.DataTaskPublisher {
+        return URLSession.shared.dataTaskPublisher(for: request)
     }
 }
