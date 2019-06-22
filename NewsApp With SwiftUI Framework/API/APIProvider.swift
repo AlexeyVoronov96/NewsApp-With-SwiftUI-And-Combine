@@ -7,12 +7,9 @@
 //
 
 import Foundation
-import SwiftUI
 import Combine
 
-class APIProvider {
-    static let shared = APIProvider()
-    
+class APIProvider: APIProviderProtocol {
     enum Paths: String {
         case sources = "sources"
         case articles = "everything"
@@ -38,21 +35,19 @@ class APIProvider {
     private let baseUrl: String = "https://newsapi.org/v2/"
     
     // MARK: - Requests
-    func performSourcesRequest() -> URLRequest? {
+    func getSources() -> URLSession.DataTaskPublisher {
         let params: [String: String] = [
             "language": locale
         ]
         
         let query = createQuery(with: params)
         
-        guard let url = URL(string: baseUrl + Paths.sources.rawValue + query) else {
-            return nil
-        }
+        let url = URL(string: baseUrl + Paths.sources.rawValue + query)!
         
         return performRequest(with: url)
     }
     
-    func performArticlesFromSourceRequest(with source: String) -> URLRequest? {
+    func getArticlesFromSource(with source: String) -> URLSession.DataTaskPublisher {
         let params: [String: String] = [
             "sources": source,
             "language": locale
@@ -60,14 +55,12 @@ class APIProvider {
         
         let query = createQuery(with: params)
         
-        guard let url = URL(string: baseUrl + Paths.articles.rawValue + query) else {
-            return nil
-        }
+        let url = URL(string: baseUrl + Paths.articles.rawValue + query)!
         
         return performRequest(with: url)
     }
     
-    func performSearchForArticlesRequest(search value: String, page: Int = 1) -> URLRequest? {
+    func searchForArticles(search value: String) -> URLSession.DataTaskPublisher {
         let params: [String: String] = [
             "q": value,
             "language": self.locale
@@ -75,28 +68,24 @@ class APIProvider {
         
         let query = self.createQuery(with: params)
         
-        guard let url = URL(string: self.baseUrl + Paths.articles.rawValue + query) else {
-            return nil
-        }
+        let url = URL(string: self.baseUrl + Paths.articles.rawValue + query)!
         
         return performRequest(with: url)
     }
     
-    func performTopHeadlinesRequest() -> URLRequest? {
+    func getTopHeadlines() -> URLSession.DataTaskPublisher {
         let params: [String: String] = [
             "country": self.region
         ]
         
         let query = self.createQuery(with: params)
         
-        guard let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query) else {
-            return nil
-        }
+        let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query)!
         
         return performRequest(with: url)
     }
     
-    func performArticlesFromCategoryRequest(_ category: String) -> URLRequest? {
+    func getArticlesFromCategory(_ category: String) -> URLSession.DataTaskPublisher {
         let params: [String: String] = [
             "country": self.region,
             "category": category
@@ -104,9 +93,7 @@ class APIProvider {
         
         let query = self.createQuery(with: params)
         
-        guard let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query) else {
-            return nil
-        }
+        let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query)!
         
         return performRequest(with: url)
     }
@@ -120,17 +107,18 @@ class APIProvider {
         return "?\(queryParameters)"
     }
     
-    func performRequest(with url: URL) -> URLRequest {
-        var request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
+    private func performRequest(with url: URL) -> URLSession.DataTaskPublisher {
+        var request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
         
         for header in self.headers {
             request.setValue(header.value, forHTTPHeaderField: header.key)
         }
         
-        return request
+        return getData(with: request)
     }
     
-    func getData(with request: URLRequest) -> URLSession.DataTaskPublisher {
+    // MARK: - Getting data
+    private func getData(with request: URLRequest) -> URLSession.DataTaskPublisher {
         return URLSession.shared.dataTaskPublisher(for: request)
     }
 }

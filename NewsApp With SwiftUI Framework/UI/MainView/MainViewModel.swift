@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class MainViewModel: BindableObject {
-    private let apiProvider = APIProvider()
+    private let apiProvider: APIProviderProtocol = APIProvider()
     
     var didChange = PassthroughSubject<MainViewModel, Never>()
     
@@ -21,11 +21,7 @@ final class MainViewModel: BindableObject {
     }
     
     func getTopHeadlines() {
-        guard let request = apiProvider.performTopHeadlinesRequest() else {
-            return topHeadlines = []
-        }
-        
-        apiProvider.getData(with: request)
+        apiProvider.getTopHeadlines()
             .map { $0.data }
             .decode(type: Articles.self, decoder: JSONDecoder())
             .map { $0.articles }
