@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class ArticlesFromCategoryViewModel: BindableObject {
-    private let apiProvider = APIProvider()
+    private let apiProvider: APIProviderProtocol = APIProvider()
     
     var didChange = PassthroughSubject<ArticlesFromCategoryViewModel, Never>()
     
@@ -21,11 +21,7 @@ final class ArticlesFromCategoryViewModel: BindableObject {
     }
     
     func getArticles(from category: String) {
-        guard let request = apiProvider.performArticlesFromCategoryRequest(category) else {
-            return articles = []
-        }
-        
-        apiProvider.getData(with: request)
+        apiProvider.getArticlesFromCategory(category)
             .map { $0.data }
             .decode(type: Articles.self, decoder: JSONDecoder())
             .map { $0.articles }

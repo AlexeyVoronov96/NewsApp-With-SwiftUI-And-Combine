@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class SearchForArticlesViewModel: BindableObject {
-    private let apiProvider = APIProvider()
+    private let apiProvider: APIProviderProtocol = APIProvider()
     
     var didChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
     
@@ -21,12 +21,7 @@ final class SearchForArticlesViewModel: BindableObject {
     }
     
     func searchForArticles(searchFilter: String) {
-        guard let request = apiProvider.performSearchForArticlesRequest(search: searchFilter),
-            !searchFilter.isEmpty else {
-            return articles = []
-        }
-        
-        _ = apiProvider.getData(with: request)
+        apiProvider.searchForArticles(search: searchFilter)
             .map { $0.data }
             .decode(type: Articles.self, decoder: JSONDecoder())
             .map { $0.articles }

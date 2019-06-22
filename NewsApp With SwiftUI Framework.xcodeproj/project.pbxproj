@@ -34,6 +34,7 @@
 		ABD5AEAB22BC0A0300203B6A /* TopHeadlinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD5AEAA22BC0A0300203B6A /* TopHeadlinesView.swift */; };
 		ABE13DA922B628D3005CA99D /* APIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBECF8522B6269100EF13F3 /* APIProvider.swift */; };
 		ABE13DAA22B628D5005CA99D /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBECF8622B6269300EF13F3 /* DTO.swift */; };
+		ABEC946822BDFC2C008259D0 /* APIProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946722BDFC2C008259D0 /* APIProviderProtocol.swift */; };
 		ABF65BBC22B4F23F00B032A0 /* ArticleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF65BBB22B4F23F00B032A0 /* ArticleRow.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		ABD5AEA622BC078B00203B6A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		ABD5AEA822BC094200203B6A /* ArticlesFromCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesFromCategoryViewModel.swift; sourceTree = "<group>"; };
 		ABD5AEAA22BC0A0300203B6A /* TopHeadlinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHeadlinesView.swift; sourceTree = "<group>"; };
+		ABEC946722BDFC2C008259D0 /* APIProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProviderProtocol.swift; sourceTree = "<group>"; };
 		ABF65BBB22B4F23F00B032A0 /* ArticleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 		ABBECF8422B6268C00EF13F3 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				ABEC946722BDFC2C008259D0 /* APIProviderProtocol.swift */,
 				ABBECF8522B6269100EF13F3 /* APIProvider.swift */,
 				ABBECF8622B6269300EF13F3 /* DTO.swift */,
 				AB42C98922B7E04700DE29C0 /* APIErrors.swift */,
@@ -292,6 +295,7 @@
 				ABC9DF6E22B4ECB200734270 /* ArticlesFromSourceView.swift in Sources */,
 				ABE13DAA22B628D5005CA99D /* DTO.swift in Sources */,
 				ABD5AEAB22BC0A0300203B6A /* TopHeadlinesView.swift in Sources */,
+				ABEC946822BDFC2C008259D0 /* APIProviderProtocol.swift in Sources */,
 				ABBECF8A22B626C500EF13F3 /* SourceRow.swift in Sources */,
 				AB42C98A22B7E04700DE29C0 /* APIErrors.swift in Sources */,
 				ABE13DA922B628D3005CA99D /* APIProvider.swift in Sources */,
