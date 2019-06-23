@@ -10,13 +10,13 @@ import Foundation
 import Combine
 
 protocol APIProviderProtocol {
-    func getSources() -> AnyPublisher<Sources, Error>
+    func getSources() -> AnyPublisher<SourcesResponse, Error>
     
-    func getArticlesFromSource(with source: String) -> AnyPublisher<Articles, Error>
+    func getArticlesFromSource(with source: String) -> AnyPublisher<ArticlesResponse, Error>
     
-    func searchForArticles(search value: String) -> AnyPublisher<Articles, Error>
+    func searchForArticles(search value: String) -> AnyPublisher<ArticlesResponse, Error>
     
-    func getTopHeadlines() -> AnyPublisher<Articles, Error>
+    func getTopHeadlines() -> AnyPublisher<ArticlesResponse, Error>
     
-    func getArticlesFromCategory(_ category: String) -> AnyPublisher<Articles, Error>
+    func getArticlesFromCategory(_ category: String) -> AnyPublisher<ArticlesResponse, Error>
 }

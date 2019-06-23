@@ -12,7 +12,7 @@ import Combine
 final class MainViewModel: BindableObject {
     private let apiProvider: APIProviderProtocol
     
-    private(set) var topHeadlines: [Article] = [] {
+    private(set) var topHeadlines: Articles = [] {
         didSet {
             self.didChange.send(self)
         }

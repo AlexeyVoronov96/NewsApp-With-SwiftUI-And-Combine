@@ -10,13 +10,10 @@ import Foundation
 import Combine
 
 class APIProvider: APIProviderProtocol {
-    private var locale: String {
-        return Locale.current.languageCode ?? "en"
-    }
-    
-    private var region: String {
-        return Locale.current.regionCode ?? "us"
-    }
+    private let locale: String
+    private let region: String
+    private let baseUrl: String
+    private let jsonDecoder: JSONDecoder
     
     private var headers: [String: String] {
         return [
@@ -26,22 +23,25 @@ class APIProvider: APIProviderProtocol {
         ]
     }
     
-    private let baseUrl: String = "https://newsapi.org/v2"
-    
-    private let jsonDecoder: JSONDecoder = JSONDecoder()
+    init() {
+        self.locale = Locale.current.languageCode ?? "en"
+        self.region = Locale.current.regionCode ?? "us"
+        self.baseUrl = "https://newsapi.org/v2"
+        self.jsonDecoder = JSONDecoder()
+    }
     
     // MARK: - Requests
-    func getSources() -> AnyPublisher<Sources, Error> {
+    func getSources() -> AnyPublisher<SourcesResponse, Error> {
         let params: [String: String] = [
             "language": locale
         ]
         
         let request = performRequest(with: .sources, params: params)
         
-        return getData(with: request, dataType: Sources.self)
+        return getData(with: request, dataType: SourcesResponse.self)
     }
     
-    func getArticlesFromSource(with source: String) -> AnyPublisher<Articles, Error> {
+    func getArticlesFromSource(with source: String) -> AnyPublisher<ArticlesResponse, Error> {
         let params: [String: String] = [
             "sources": source,
             "language": locale
@@ -49,10 +49,10 @@ class APIProvider: APIProviderProtocol {
         
         let request = performRequest(with: .articles, params: params)
         
-        return getData(with: request, dataType: Articles.self)
+        return getData(with: request, dataType: ArticlesResponse.self)
     }
     
-    func searchForArticles(search value: String) -> AnyPublisher<Articles, Error> {
+    func searchForArticles(search value: String) -> AnyPublisher<ArticlesResponse, Error> {
         let params: [String: String] = [
             "q": value,
             "language": self.locale
@@ -60,20 +60,20 @@ class APIProvider: APIProviderProtocol {
         
         let request = performRequest(with: .articles, params: params)
         
-        return getData(with: request, dataType: Articles.self)
+        return getData(with: request, dataType: ArticlesResponse.self)
     }
     
-    func getTopHeadlines() -> AnyPublisher<Articles, Error> {
+    func getTopHeadlines() -> AnyPublisher<ArticlesResponse, Error> {
         let params: [String: String] = [
             "country": self.region
         ]
         
         let request = performRequest(with: .topHeadlines, params: params)
         
-        return getData(with: request, dataType: Articles.self)
+        return getData(with: request, dataType: ArticlesResponse.self)
     }
     
-    func getArticlesFromCategory(_ category: String) -> AnyPublisher<Articles, Error> {
+    func getArticlesFromCategory(_ category: String) -> AnyPublisher<ArticlesResponse, Error> {
         let params: [String: String] = [
             "country": self.region,
             "category": category
@@ -81,7 +81,7 @@ class APIProvider: APIProviderProtocol {
         
         let request = performRequest(with: .topHeadlines, params: params)
         
-        return getData(with: request, dataType: Articles.self)
+        return getData(with: request, dataType: ArticlesResponse.self)
     }
     
     // MARK: - Request building
