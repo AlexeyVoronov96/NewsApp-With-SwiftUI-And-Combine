@@ -12,7 +12,7 @@ import Combine
 final class SourcesListViewModel: BindableObject {
     private let apiProvider: APIProviderProtocol
     
-    private(set) var sources: [Source] = [] {
+    private(set) var sources: Sources = [] {
         didSet {
             didChange.send(self)
         }
