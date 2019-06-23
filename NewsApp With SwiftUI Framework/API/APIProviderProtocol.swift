@@ -7,15 +7,16 @@
 //
 
 import Foundation
+import Combine
 
 protocol APIProviderProtocol {
-    func getSources() -> URLSession.DataTaskPublisher
+    func getSources() -> AnyPublisher<Sources, Error>
     
-    func getArticlesFromSource(with source: String) -> URLSession.DataTaskPublisher
+    func getArticlesFromSource(with source: String) -> AnyPublisher<Articles, Error>
     
-    func searchForArticles(search value: String) -> URLSession.DataTaskPublisher
+    func searchForArticles(search value: String) -> AnyPublisher<Articles, Error>
     
-    func getTopHeadlines() -> URLSession.DataTaskPublisher
+    func getTopHeadlines() -> AnyPublisher<Articles, Error>
     
-    func getArticlesFromCategory(_ category: String) -> URLSession.DataTaskPublisher
+    func getArticlesFromCategory(_ category: String) -> AnyPublisher<Articles, Error>
 }
