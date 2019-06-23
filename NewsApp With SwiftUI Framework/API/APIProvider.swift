@@ -10,12 +10,6 @@ import Foundation
 import Combine
 
 class APIProvider: APIProviderProtocol {
-    enum Paths: String {
-        case sources = "sources"
-        case articles = "everything"
-        case topHeadlines = "top-headlines"
-    }
-    
     private var locale: String {
         return Locale.current.languageCode ?? "en"
     }
@@ -32,10 +26,12 @@ class APIProvider: APIProviderProtocol {
         ]
     }
     
-    private let baseUrl: String = "https://newsapi.org/v2/"
+    private let baseUrl: String = "https://newsapi.org/v2"
+    
+    private let jsonDecoder: JSONDecoder = JSONDecoder()
     
     // MARK: - Requests
-    func getSources() -> URLSession.DataTaskPublisher {
+    func getSources() -> AnyPublisher<Sources, Error> {
         let params: [String: String] = [
             "language": locale
         ]
@@ -44,10 +40,12 @@ class APIProvider: APIProviderProtocol {
         
         let url = URL(string: baseUrl + Paths.sources.rawValue + query)!
         
-        return performRequest(with: url)
+        let request = performRequest(with: url)
+        
+        return getData(with: request, dataType: Sources.self)
     }
     
-    func getArticlesFromSource(with source: String) -> URLSession.DataTaskPublisher {
+    func getArticlesFromSource(with source: String) -> AnyPublisher<Articles, Error> {
         let params: [String: String] = [
             "sources": source,
             "language": locale
@@ -57,10 +55,12 @@ class APIProvider: APIProviderProtocol {
         
         let url = URL(string: baseUrl + Paths.articles.rawValue + query)!
         
-        return performRequest(with: url)
+        let request = performRequest(with: url)
+        
+        return getData(with: request, dataType: Articles.self)
     }
     
-    func searchForArticles(search value: String) -> URLSession.DataTaskPublisher {
+    func searchForArticles(search value: String) -> AnyPublisher<Articles, Error> {
         let params: [String: String] = [
             "q": value,
             "language": self.locale
@@ -70,10 +70,12 @@ class APIProvider: APIProviderProtocol {
         
         let url = URL(string: self.baseUrl + Paths.articles.rawValue + query)!
         
-        return performRequest(with: url)
+        let request = performRequest(with: url)
+        
+        return getData(with: request, dataType: Articles.self)
     }
     
-    func getTopHeadlines() -> URLSession.DataTaskPublisher {
+    func getTopHeadlines() -> AnyPublisher<Articles, Error> {
         let params: [String: String] = [
             "country": self.region
         ]
@@ -82,10 +84,12 @@ class APIProvider: APIProviderProtocol {
         
         let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query)!
         
-        return performRequest(with: url)
+        let request = performRequest(with: url)
+        
+        return getData(with: request, dataType: Articles.self)
     }
     
-    func getArticlesFromCategory(_ category: String) -> URLSession.DataTaskPublisher {
+    func getArticlesFromCategory(_ category: String) -> AnyPublisher<Articles, Error> {
         let params: [String: String] = [
             "country": self.region,
             "category": category
@@ -95,7 +99,9 @@ class APIProvider: APIProviderProtocol {
         
         let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query)!
         
-        return performRequest(with: url)
+        let request = performRequest(with: url)
+        
+        return getData(with: request, dataType: Articles.self)
     }
     
     // MARK: - Request building
@@ -107,18 +113,26 @@ class APIProvider: APIProviderProtocol {
         return "?\(queryParameters)"
     }
     
-    private func performRequest(with url: URL) -> URLSession.DataTaskPublisher {
+    private func performRequest(with url: URL) -> URLRequest {
         var request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
         
         for header in self.headers {
             request.setValue(header.value, forHTTPHeaderField: header.key)
         }
         
-        return getData(with: request)
+        return request
     }
     
     // MARK: - Getting data
-    private func getData(with request: URLRequest) -> URLSession.DataTaskPublisher {
+    private func getData<T: Decodable>(with request: URLRequest, dataType: T.Type) -> AnyPublisher<T, Error> {
         return URLSession.shared.dataTaskPublisher(for: request)
+            .mapError({ (error) -> Error in
+                APIErrors(rawValue: error.code.rawValue) ?? APIProviderErrors.unknownError
+            })
+            .map { $0.data }
+            .decode(type: dataType, decoder: jsonDecoder)
+            .mapError { _ in APIProviderErrors.decodingError }
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
     }
 }

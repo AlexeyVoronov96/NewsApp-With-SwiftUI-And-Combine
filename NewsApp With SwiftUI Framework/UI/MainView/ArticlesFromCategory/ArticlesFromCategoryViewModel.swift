@@ -10,9 +10,7 @@ import SwiftUI
 import Combine
 
 final class ArticlesFromCategoryViewModel: BindableObject {
-    private let apiProvider: APIProviderProtocol = APIProvider()
-    
-    var didChange = PassthroughSubject<ArticlesFromCategoryViewModel, Never>()
+    private let apiProvider: APIProviderProtocol
     
     private(set) var articles: [Article] = [] {
         didSet {
@@ -20,12 +18,15 @@ final class ArticlesFromCategoryViewModel: BindableObject {
         }
     }
     
+    var didChange = PassthroughSubject<ArticlesFromCategoryViewModel, Never>()
+    
+    init(apiProvider: APIProviderProtocol = APIProvider()) {
+        self.apiProvider = apiProvider
+    }
+    
     func getArticles(from category: String) {
         apiProvider.getArticlesFromCategory(category)
-            .map { $0.data }
-            .decode(type: Articles.self, decoder: JSONDecoder())
             .map { $0.articles }
-            .receive(on: RunLoop.main)
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (articles) in
                 self?.articles = articles
