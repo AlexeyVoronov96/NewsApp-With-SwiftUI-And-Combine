@@ -36,11 +36,7 @@ class APIProvider: APIProviderProtocol {
             "language": locale
         ]
         
-        let query = createQuery(with: params)
-        
-        let url = URL(string: baseUrl + Paths.sources.rawValue + query)!
-        
-        let request = performRequest(with: url)
+        let request = performRequest(with: .sources, params: params)
         
         return getData(with: request, dataType: Sources.self)
     }
@@ -51,11 +47,7 @@ class APIProvider: APIProviderProtocol {
             "language": locale
         ]
         
-        let query = createQuery(with: params)
-        
-        let url = URL(string: baseUrl + Paths.articles.rawValue + query)!
-        
-        let request = performRequest(with: url)
+        let request = performRequest(with: .articles, params: params)
         
         return getData(with: request, dataType: Articles.self)
     }
@@ -66,11 +58,7 @@ class APIProvider: APIProviderProtocol {
             "language": self.locale
         ]
         
-        let query = self.createQuery(with: params)
-        
-        let url = URL(string: self.baseUrl + Paths.articles.rawValue + query)!
-        
-        let request = performRequest(with: url)
+        let request = performRequest(with: .articles, params: params)
         
         return getData(with: request, dataType: Articles.self)
     }
@@ -80,11 +68,7 @@ class APIProvider: APIProviderProtocol {
             "country": self.region
         ]
         
-        let query = self.createQuery(with: params)
-        
-        let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query)!
-        
-        let request = performRequest(with: url)
+        let request = performRequest(with: .topHeadlines, params: params)
         
         return getData(with: request, dataType: Articles.self)
     }
@@ -95,11 +79,7 @@ class APIProvider: APIProviderProtocol {
             "category": category
         ]
         
-        let query = self.createQuery(with: params)
-        
-        let url = URL(string: self.baseUrl + Paths.topHeadlines.rawValue + query)!
-        
-        let request = performRequest(with: url)
+        let request = performRequest(with: .topHeadlines, params: params)
         
         return getData(with: request, dataType: Articles.self)
     }
@@ -113,7 +93,11 @@ class APIProvider: APIProviderProtocol {
         return "?\(queryParameters)"
     }
     
-    private func performRequest(with url: URL) -> URLRequest {
+    private func performRequest(with path: Paths, params: [String: String]) -> URLRequest {
+        let query = createQuery(with: params)
+        
+        let url = URL(string: baseUrl + path.rawValue + query)!
+        
         var request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
         
         for header in self.headers {
