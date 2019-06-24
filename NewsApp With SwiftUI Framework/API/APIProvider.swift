@@ -38,7 +38,7 @@ class APIProvider: APIProviderProtocol {
         
         let request = performRequest(with: .sources, params: params)
         
-        return getData(with: request, dataType: SourcesResponse.self)
+        return getData(with: request, type: SourcesResponse.self)
     }
     
     func getArticlesFromSource(with source: String) -> AnyPublisher<ArticlesResponse, Error> {
@@ -49,7 +49,7 @@ class APIProvider: APIProviderProtocol {
         
         let request = performRequest(with: .articles, params: params)
         
-        return getData(with: request, dataType: ArticlesResponse.self)
+        return getData(with: request, type: ArticlesResponse.self)
     }
     
     func searchForArticles(search value: String) -> AnyPublisher<ArticlesResponse, Error> {
@@ -60,7 +60,7 @@ class APIProvider: APIProviderProtocol {
         
         let request = performRequest(with: .articles, params: params)
         
-        return getData(with: request, dataType: ArticlesResponse.self)
+        return getData(with: request, type: ArticlesResponse.self)
     }
     
     func getTopHeadlines() -> AnyPublisher<ArticlesResponse, Error> {
@@ -70,7 +70,7 @@ class APIProvider: APIProviderProtocol {
         
         let request = performRequest(with: .topHeadlines, params: params)
         
-        return getData(with: request, dataType: ArticlesResponse.self)
+        return getData(with: request, type: ArticlesResponse.self)
     }
     
     func getArticlesFromCategory(_ category: String) -> AnyPublisher<ArticlesResponse, Error> {
@@ -81,7 +81,7 @@ class APIProvider: APIProviderProtocol {
         
         let request = performRequest(with: .topHeadlines, params: params)
         
-        return getData(with: request, dataType: ArticlesResponse.self)
+        return getData(with: request, type: ArticlesResponse.self)
     }
     
     // MARK: - Request building
@@ -108,13 +108,13 @@ class APIProvider: APIProviderProtocol {
     }
     
     // MARK: - Getting data
-    private func getData<T: Decodable>(with request: URLRequest, dataType: T.Type) -> AnyPublisher<T, Error> {
+    private func getData<T: Decodable>(with request: URLRequest, type: T.Type) -> AnyPublisher<T, Error> {
         return URLSession.shared.dataTaskPublisher(for: request)
             .mapError({ (error) -> Error in
                 APIErrors(rawValue: error.code.rawValue) ?? APIProviderErrors.unknownError
             })
             .map { $0.data }
-            .decode(type: dataType, decoder: jsonDecoder)
+            .decode(type: type, decoder: jsonDecoder)
             .mapError { _ in APIProviderErrors.decodingError }
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
