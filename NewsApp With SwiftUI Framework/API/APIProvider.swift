@@ -36,9 +36,7 @@ class APIProvider: APIProviderProtocol {
             "language": locale
         ]
         
-        let request = performRequest(with: .sources, params: params)
-        
-        return getData(with: request, dataType: SourcesResponse.self)
+        return performRequest(with: .sources, params: params, type: SourcesResponse.self)
     }
     
     func getArticlesFromSource(with source: String) -> AnyPublisher<ArticlesResponse, Error> {
@@ -47,74 +45,69 @@ class APIProvider: APIProviderProtocol {
             "language": locale
         ]
         
-        let request = performRequest(with: .articles, params: params)
-        
-        return getData(with: request, dataType: ArticlesResponse.self)
+        return performRequest(with: .articles, params: params, type: ArticlesResponse.self)
     }
     
     func searchForArticles(search value: String) -> AnyPublisher<ArticlesResponse, Error> {
         let params: [String: String] = [
             "q": value,
-            "language": self.locale
+            "language": locale
         ]
         
-        let request = performRequest(with: .articles, params: params)
-        
-        return getData(with: request, dataType: ArticlesResponse.self)
+        return performRequest(with: .articles, params: params, type: ArticlesResponse.self)
     }
     
     func getTopHeadlines() -> AnyPublisher<ArticlesResponse, Error> {
         let params: [String: String] = [
-            "country": self.region
+            "country": region
         ]
         
-        let request = performRequest(with: .topHeadlines, params: params)
-        
-        return getData(with: request, dataType: ArticlesResponse.self)
+        return performRequest(with: .topHeadlines, params: params, type: ArticlesResponse.self)
     }
     
     func getArticlesFromCategory(_ category: String) -> AnyPublisher<ArticlesResponse, Error> {
         let params: [String: String] = [
-            "country": self.region,
+            "country": region,
             "category": category
         ]
         
-        let request = performRequest(with: .topHeadlines, params: params)
-        
-        return getData(with: request, dataType: ArticlesResponse.self)
+        return performRequest(with: .topHeadlines, params: params, type: ArticlesResponse.self)
     }
     
     // MARK: - Request building
-    private func createQuery(with params: [String: String]) -> String {
-        let queryParameters = params.compactMap({ (parameter) -> String in
-            return "\(parameter.key)=\(parameter.value)"
-        }).joined(separator: "&")
+    private func performRequest<T: Decodable>(with path: Paths, params: [String: String], type: T.Type) -> AnyPublisher<T, Error> {
         
-        return "?\(queryParameters)"
-    }
-    
-    private func performRequest(with path: Paths, params: [String: String]) -> URLRequest {
-        let query = createQuery(with: params)
+        guard var urlComponents = URLComponents(string: baseUrl + path.rawValue) else {
+            return Publishers.Fail(error: APIProviderErrors.invalidURL)
+                .eraseToAnyPublisher()
+        }
         
-        let url = URL(string: baseUrl + path.rawValue + query)!
+        urlComponents.queryItems = params.compactMap({ (param) -> URLQueryItem in
+            return URLQueryItem(name: param.key, value: param.value)
+        })
         
-        var request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
+        guard let url = urlComponents.url else {
+            return Publishers.Fail(error: APIProviderErrors.invalidURL)
+                .eraseToAnyPublisher()
+        }
+        
+        var request = URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 30)
         
         for header in self.headers {
             request.setValue(header.value, forHTTPHeaderField: header.key)
         }
         
-        return request
+        return getData(with: request, type: type)
     }
     
     // MARK: - Getting data
-    private func getData<T: Decodable>(with request: URLRequest, dataType: T.Type) -> AnyPublisher<T, Error> {
+    private func getData<T: Decodable>(with request: URLRequest, type: T.Type) -> AnyPublisher<T, Error> {
         return URLSession.shared.dataTaskPublisher(for: request)
             .mapError({ (error) -> Error in
                 APIErrors(rawValue: error.code.rawValue) ?? APIProviderErrors.unknownError
             })
             .map { $0.data }
-            .decode(type: dataType, decoder: jsonDecoder)
+            .decode(type: type, decoder: jsonDecoder)
             .mapError { _ in APIProviderErrors.decodingError }
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
