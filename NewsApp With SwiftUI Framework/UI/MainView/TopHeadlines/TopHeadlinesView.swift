@@ -18,9 +18,9 @@ struct TopHeadlinesView : View {
                     TopHeadlineRow(imageURL: article.urlToImage ?? "")
                 }
             }
-            }
-            .onAppear {
-                self.viewModel.getTopHeadlines()
+        }
+        .onAppear {
+            self.viewModel.getTopHeadlines()
         }
     }
 }
