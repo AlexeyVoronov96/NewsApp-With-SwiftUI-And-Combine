@@ -76,7 +76,6 @@ class APIProvider: APIProviderProtocol {
     
     // MARK: - Request building
     private func performRequest<T: Decodable>(with path: Paths, params: [String: String], type: T.Type) -> AnyPublisher<T, Error> {
-        
         guard var urlComponents = URLComponents(string: baseUrl + path.rawValue) else {
             return Publishers.Fail(error: APIProviderErrors.invalidURL)
                 .eraseToAnyPublisher()
