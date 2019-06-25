@@ -16,19 +16,23 @@ struct SearchForArticlesView : View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField($searchFilter,
-                    placeholder: Text("Search articles...".localized()),
+                TextField(
+                    $searchFilter,
+                    placeholder: Text("Search articles...".localized())
+                        .color(Color.gray),
                     onEditingChanged: { (opened) in
                         if !opened {
                             self.viewModel.searchForArticles(searchFilter: self.searchFilter)
                         }
-                })
-                .frame(height: 40)
-                .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
-                .border(Color.gray.opacity(0.2), cornerRadius: 8)
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                
-                ArticlesList(articles: self.viewModel.articles)
+                    }
+                )
+                .padding([.leading, .trailing], 8)
+                .frame(height: 32)
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(8)
+                .padding([.leading, .trailing], 16)
+            
+                ArticlesList(articles: viewModel.articles)
             }
             .navigationBarTitle(Text("Search".localized()), displayMode: .large)
         }
