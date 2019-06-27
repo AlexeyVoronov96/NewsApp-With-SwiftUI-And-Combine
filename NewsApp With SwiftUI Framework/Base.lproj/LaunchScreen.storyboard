@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14810.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.15"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,15 +12,48 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdq-03-m4N">
+                                <rect key="frame" x="122" y="339.66666666666669" width="170" height="226.66666666666669"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkG-tN-bOj">
+                                        <rect key="frame" x="40.666666666666657" y="185.99999999999994" width="89" height="40.666666666666657"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="rjh-fu-ovC">
+                                        <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="rjh-fu-ovC" secondAttribute="trailing" id="Lw5-Rc-9gX"/>
+                                    <constraint firstItem="rjh-fu-ovC" firstAttribute="leading" secondItem="bdq-03-m4N" secondAttribute="leading" id="Mg0-uc-KUb"/>
+                                    <constraint firstItem="KkG-tN-bOj" firstAttribute="centerX" secondItem="rjh-fu-ovC" secondAttribute="centerX" id="Mth-LL-T8B"/>
+                                    <constraint firstItem="rjh-fu-ovC" firstAttribute="top" secondItem="bdq-03-m4N" secondAttribute="top" id="cmR-Vf-BXD"/>
+                                    <constraint firstItem="KkG-tN-bOj" firstAttribute="top" secondItem="rjh-fu-ovC" secondAttribute="bottom" constant="16" id="dvx-U3-5Sf"/>
+                                    <constraint firstAttribute="bottom" secondItem="KkG-tN-bOj" secondAttribute="bottom" id="mAi-2Y-wcY"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="bdq-03-m4N" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="84R-59-qt5"/>
+                            <constraint firstItem="rjh-fu-ovC" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="170/414" id="VIk-1E-0Ad"/>
+                            <constraint firstItem="bdq-03-m4N" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="lDc-eU-Few"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo" width="170.66667175292969" height="170.66667175292969"/>
+    </resources>
 </document>
