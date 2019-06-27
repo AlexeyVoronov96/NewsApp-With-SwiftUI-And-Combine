@@ -36,16 +36,16 @@ class APIProvider: APIProviderProtocol {
             "language": locale
         ]
         
-        return performRequest(with: .sources, params: params, type: SourcesResponse.self)
+        return performRequest(.sources, params: params, type: SourcesResponse.self)
     }
     
-    func getArticlesFromSource(with source: String) -> AnyPublisher<ArticlesResponse, Error> {
+    func getArticlesFromSource(_ source: String) -> AnyPublisher<ArticlesResponse, Error> {
         let params: [String: String] = [
             "sources": source,
             "language": locale
         ]
         
-        return performRequest(with: .articles, params: params, type: ArticlesResponse.self)
+        return performRequest(.articles, params: params, type: ArticlesResponse.self)
     }
     
     func searchForArticles(search value: String) -> AnyPublisher<ArticlesResponse, Error> {
@@ -54,7 +54,7 @@ class APIProvider: APIProviderProtocol {
             "language": locale
         ]
         
-        return performRequest(with: .articles, params: params, type: ArticlesResponse.self)
+        return performRequest(.articles, params: params, type: ArticlesResponse.self)
     }
     
     func getTopHeadlines() -> AnyPublisher<ArticlesResponse, Error> {
@@ -62,7 +62,7 @@ class APIProvider: APIProviderProtocol {
             "country": region
         ]
         
-        return performRequest(with: .topHeadlines, params: params, type: ArticlesResponse.self)
+        return performRequest(.topHeadlines, params: params, type: ArticlesResponse.self)
     }
     
     func getArticlesFromCategory(_ category: String) -> AnyPublisher<ArticlesResponse, Error> {
@@ -71,11 +71,11 @@ class APIProvider: APIProviderProtocol {
             "category": category
         ]
         
-        return performRequest(with: .topHeadlines, params: params, type: ArticlesResponse.self)
+        return performRequest(.topHeadlines, params: params, type: ArticlesResponse.self)
     }
     
     // MARK: - Request building
-    private func performRequest<T: Decodable>(with path: Paths, params: [String: String], type: T.Type) -> AnyPublisher<T, Error> {
+    private func performRequest<T: Decodable>(_ path: Paths, params: [String: String], type: T.Type) -> AnyPublisher<T, Error> {
         guard var urlComponents = URLComponents(string: baseUrl + path.rawValue) else {
             return Publishers.Fail(error: APIProviderErrors.invalidURL)
                 .eraseToAnyPublisher()

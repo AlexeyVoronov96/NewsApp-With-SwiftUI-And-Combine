@@ -20,8 +20,8 @@ final class SearchForArticlesViewModel: BindableObject {
     
     var didChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
     
-    init(apiProvider: APIProviderProtocol = APIProvider()) {
-        self.apiProvider = apiProvider
+    init() {
+        self.apiProvider = APIProvider()
     }
     
     func searchForArticles(searchFilter: String) {

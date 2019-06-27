@@ -20,8 +20,8 @@ final class ArticlesFromCategoryViewModel: BindableObject {
     
     var didChange = PassthroughSubject<ArticlesFromCategoryViewModel, Never>()
     
-    init(apiProvider: APIProviderProtocol = APIProvider()) {
-        self.apiProvider = apiProvider
+    init() {
+        self.apiProvider = APIProvider()
     }
     
     func getArticles(from category: String) {
