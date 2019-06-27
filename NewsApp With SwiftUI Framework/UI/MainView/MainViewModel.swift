@@ -20,8 +20,8 @@ final class MainViewModel: BindableObject {
     
     var didChange = PassthroughSubject<MainViewModel, Never>()
     
-    init(apiProvider: APIProviderProtocol = APIProvider()) {
-        self.apiProvider = apiProvider
+    init() {
+        self.apiProvider = APIProvider()
     }
     
     func getTopHeadlines() {

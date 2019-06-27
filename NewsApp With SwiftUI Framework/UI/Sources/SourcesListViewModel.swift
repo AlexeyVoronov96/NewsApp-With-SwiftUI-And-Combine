@@ -20,8 +20,8 @@ final class SourcesListViewModel: BindableObject {
     
     var didChange = PassthroughSubject<SourcesListViewModel, Never>()
     
-    init(apiProvider: APIProviderProtocol = APIProvider()) {
-        self.apiProvider = apiProvider
+    init() {
+        self.apiProvider = APIProvider()
     }
     
     func getSources() {

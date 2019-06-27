@@ -12,7 +12,7 @@ import Combine
 protocol APIProviderProtocol {
     func getSources() -> AnyPublisher<SourcesResponse, Error>
     
-    func getArticlesFromSource(with source: String) -> AnyPublisher<ArticlesResponse, Error>
+    func getArticlesFromSource(_ source: String) -> AnyPublisher<ArticlesResponse, Error>
     
     func searchForArticles(search value: String) -> AnyPublisher<ArticlesResponse, Error>
     

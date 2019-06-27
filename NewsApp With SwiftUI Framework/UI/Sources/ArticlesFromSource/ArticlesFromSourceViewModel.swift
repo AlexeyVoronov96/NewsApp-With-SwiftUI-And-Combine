@@ -20,12 +20,12 @@ final class ArticlesFromSourceViewModel: BindableObject {
     
     var didChange = PassthroughSubject<ArticlesFromSourceViewModel, Never>()
     
-    init(apiProvider: APIProviderProtocol = APIProvider()) {
-        self.apiProvider = apiProvider
+    init() {
+        self.apiProvider = APIProvider()
     }
     
     func getArticles(from source: String) {
-        apiProvider.getArticlesFromSource(with: source)
+        apiProvider.getArticlesFromSource(source)
             .map { $0.articles }
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (articles) in
