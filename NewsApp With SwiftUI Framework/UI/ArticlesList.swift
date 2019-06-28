@@ -14,7 +14,7 @@ struct ArticlesList : View {
     var body: some View {
         List {
             ForEach(self.articles.identified(by: \.self)) { article in
-                PresentationButton(destination: ArticleView(article: article)) {
+                PresentationButton(destination: SafariView(url: article.url)) {
                     ArticleRow(article: article)
                 }
             }
