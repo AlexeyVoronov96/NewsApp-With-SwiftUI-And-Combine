@@ -20,7 +20,7 @@ struct SourcesListView : View {
                             .navigationBarTitle(Text(source.name))
                     ) {
                         Text(source.name)
-                        }
+                    }
                 }
             }
             .onAppear {

@@ -18,6 +18,7 @@ struct TopHeadlineRow : View {
     var body: some View {
         Image(uiImage: self.headlineImage ?? self.placeholder)
             .resizable()
+            .scaledToFill()
             .onAppear(perform: downloadWebImage)
             .frame(width: Length(150),
                    height: Length(150),

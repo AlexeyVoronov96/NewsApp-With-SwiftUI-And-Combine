@@ -15,8 +15,8 @@ struct ArticlesFromCategoryView : View {
     
     var body: some View {
         ArticlesList(articles: viewModel.articles)
-        .onAppear {
-            self.viewModel.getArticles(from: self.category)
-        }
+            .onAppear {
+                self.viewModel.getArticles(from: self.category)
+            }
     }
 }
