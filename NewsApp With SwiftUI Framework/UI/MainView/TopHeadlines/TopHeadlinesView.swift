@@ -12,10 +12,13 @@ struct TopHeadlinesView : View {
     @ObjectBinding var viewModel: MainViewModel
     
     var body: some View {
-        ScrollView(showsHorizontalIndicator: false) {
+        ScrollView(showsHorizontalIndicator: false, showsVerticalIndicator: false) {
             HStack(alignment: .center, spacing: 8) {
                 ForEach(self.viewModel.topHeadlines.identified(by: \.self)) { article in
-                    TopHeadlineRow(imageURL: article.urlToImage ?? "")
+                    PresentationButton(destination: SafariView(url: article.url)) {
+                        TopHeadlineRow(article: article)
+                    }
+                    .accentColor(.black)
                 }
             }
         }

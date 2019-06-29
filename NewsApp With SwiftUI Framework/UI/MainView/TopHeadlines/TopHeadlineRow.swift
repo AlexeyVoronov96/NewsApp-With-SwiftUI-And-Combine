@@ -13,21 +13,29 @@ struct TopHeadlineRow : View {
     
     private let placeholder = UIImage(named: "article_placeholder")!
     
-    var imageURL: String
+    var article: Article
     
     var body: some View {
-        Image(uiImage: self.headlineImage ?? self.placeholder)
-            .resizable()
-            .scaledToFill()
-            .onAppear(perform: downloadWebImage)
-            .frame(width: Length(150),
-                   height: Length(150),
-                   alignment: .center)
-            .cornerRadius(8)
+        VStack(alignment: .center) {
+            Image(uiImage: self.headlineImage ?? self.placeholder)
+                .renderingMode(.original)
+                .resizable()
+                .scaledToFill()
+                .onAppear(perform: downloadWebImage)
+                .frame(width: Length(250),
+                       height: Length(250),
+                       alignment: .center)
+                .cornerRadius(8)
+            
+            Text(verbatim: article.title ?? "")
+                .frame(width: 250, height: 50)
+                .font(.subheadline)
+                .lineLimit(2)
+        }
     }
     
     private func downloadWebImage() {
-        guard let url = URL(string: self.imageURL) else { return }
+        guard let url = URL(string: article.urlToImage ?? "") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let data = data, let image = UIImage(data: data) {

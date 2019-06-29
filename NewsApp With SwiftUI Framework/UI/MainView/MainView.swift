@@ -19,7 +19,7 @@ struct MainView : View {
                 Section(header: Text("Top headlines".localized())
                     .font(.headline)) {
                         TopHeadlinesView(viewModel: viewModel)
-                            .frame(height: 150)
+                            .frame(height: 310)
                 }
                 
                 Section(header: Text("Categories".localized())
