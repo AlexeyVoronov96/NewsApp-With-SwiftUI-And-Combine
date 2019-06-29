@@ -26,13 +26,14 @@ struct SearchForArticlesView : View {
                         }
                     }
                 )
-                .padding([.leading, .trailing], 8)
-                .frame(height: 32)
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(8)
-                .padding([.leading, .trailing], 16)
+                    .padding([.leading, .trailing], 8)
+                    .frame(height: 32)
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(8)
+                    .padding([.leading, .trailing], 16)
             
                 ArticlesList(articles: viewModel.articles)
+                    .animation(.spring())
             }
             .navigationBarTitle(Text("Search".localized()), displayMode: .large)
         }
