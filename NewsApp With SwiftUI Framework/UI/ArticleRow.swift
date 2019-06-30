@@ -22,7 +22,7 @@ struct ArticleRow : View {
                 .resizable()
                 .scaledToFill()
                 .onAppear(perform: downloadWebImage)
-                .frame(width: Length(UIScreen.main.bounds.width - 16),
+                .frame(width: Length(UIScreen.main.bounds.width - 32),
                        height: Length(250),
                        alignment: .center)
             
@@ -39,7 +39,9 @@ struct ArticleRow : View {
                 .padding()
         }
         .cornerRadius(8)
-        .padding([.leading, .trailing], 8)
+        .padding([.leading, .trailing], 16)
+        .padding([.top, .bottom], 8)
+        .shadow(color: .black, radius: 3, x: 0, y: 0)
     }
     
     private func downloadWebImage() {
