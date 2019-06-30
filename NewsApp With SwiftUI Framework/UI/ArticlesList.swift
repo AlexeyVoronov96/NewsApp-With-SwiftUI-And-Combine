@@ -12,11 +12,13 @@ struct ArticlesList : View {
     var articles: [Article]
     
     var body: some View {
-        List {
-            ForEach(self.articles.identified(by: \.self)) { article in
-                PresentationButton(destination: SafariView(url: article.url)) {
-                    ArticleRow(article: article)
-                        .animation(.spring())
+        ScrollView(showsHorizontalIndicator: false, showsVerticalIndicator: true) {
+            VStack(alignment: .center) {
+                ForEach(self.articles.identified(by: \.self)) { article in
+                    PresentationButton(destination: SafariView(url: article.url)) {
+                        ArticleRow(article: article)
+                            .animation(.spring())
+                    }
                 }
             }
         }
