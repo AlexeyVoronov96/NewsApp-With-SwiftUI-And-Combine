@@ -33,9 +33,9 @@ struct ArticleRow : View {
             Text(verbatim: article.title ?? "")
                 .color(.white)
                 .frame(width: Length(UIScreen.main.bounds.width - 64),
-                       height: 50, alignment: .bottomLeading)
+                       alignment: .bottomLeading)
                 .font(.headline)
-                .lineLimit(2)
+                .lineLimit(nil)
                 .padding()
         }
         .cornerRadius(8)
