@@ -16,7 +16,7 @@ struct TopHeadlineRow : View {
     var article: Article
     
     var body: some View {
-        VStack(alignment: .center) {
+        ZStack(alignment: .bottom) {
             Image(uiImage: headlineImage ?? placeholder)
                 .renderingMode(.original)
                 .resizable()
@@ -25,13 +25,23 @@ struct TopHeadlineRow : View {
                 .frame(width: Length(250),
                        height: Length(250),
                        alignment: .center)
-                .cornerRadius(8)
+            
+            Rectangle()
+                .foregroundColor(.black)
+                .opacity(0.6)
             
             Text(verbatim: article.title ?? "")
-                .frame(width: 250, height: 50)
-                .font(.subheadline)
-                .lineLimit(2)
-        }
+                .color(.white)
+                .frame(width: Length(250),
+                       alignment: .bottomLeading)
+                .font(.headline)
+                .lineLimit(nil)
+                .padding()
+            }
+            .cornerRadius(8)
+            .padding([.trailing], 8)
+            .padding([.top], 5)
+            .shadow(color: .black, radius: 2, x: 0, y: 0)
     }
     
     private func downloadWebImage() {
