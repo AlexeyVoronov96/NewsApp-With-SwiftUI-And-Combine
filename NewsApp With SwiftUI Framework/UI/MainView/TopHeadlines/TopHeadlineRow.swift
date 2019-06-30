@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct TopHeadlineRow : View {
-    @State private var headlineImage = UIImage(named: "article_placeholder")
+    @State private var headlineImage = UIImage(named: "logo")
     
-    private let placeholder = UIImage(named: "article_placeholder")!
+    private let placeholder = UIImage(named: "logo")!
     
     var article: Article
     
     var body: some View {
         VStack(alignment: .center) {
-            Image(uiImage: self.headlineImage ?? self.placeholder)
+            Image(uiImage: headlineImage ?? placeholder)
                 .renderingMode(.original)
                 .resizable()
                 .scaledToFill()

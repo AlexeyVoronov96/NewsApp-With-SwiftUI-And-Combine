@@ -24,6 +24,10 @@ final class MainViewModel: BindableObject {
         self.apiProvider = APIProvider()
     }
     
+    func clearTopHeadlines() {
+        self.topHeadlines = []
+    }
+    
     func getTopHeadlines() {
         apiProvider.getTopHeadlines()
             .map { $0.articles }

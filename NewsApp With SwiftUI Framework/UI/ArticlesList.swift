@@ -16,6 +16,7 @@ struct ArticlesList : View {
             ForEach(self.articles.identified(by: \.self)) { article in
                 PresentationButton(destination: SafariView(url: article.url)) {
                     ArticleRow(article: article)
+                        .animation(.spring())
                 }
             }
         }

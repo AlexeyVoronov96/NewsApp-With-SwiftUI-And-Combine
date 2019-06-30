@@ -33,7 +33,6 @@ struct SearchForArticlesView : View {
                     .padding([.leading, .trailing], 16)
             
                 ArticlesList(articles: viewModel.articles)
-                    .animation(.spring())
             }
             .navigationBarTitle(Text("Search".localized()), displayMode: .large)
         }
