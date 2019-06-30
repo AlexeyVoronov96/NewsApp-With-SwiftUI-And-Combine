@@ -23,5 +23,6 @@ struct TabView : View {
                 .tabItemLabel(Image("search"))
                 .tag(2)
         }
+        .accentColor(.black)
     }
 }

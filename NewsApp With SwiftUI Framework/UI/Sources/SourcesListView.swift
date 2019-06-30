@@ -23,6 +23,7 @@ struct SourcesListView : View {
                     }
                 }
             }
+            .animation(.spring())
             .onAppear {
                 self.viewModel.getSources()
             }

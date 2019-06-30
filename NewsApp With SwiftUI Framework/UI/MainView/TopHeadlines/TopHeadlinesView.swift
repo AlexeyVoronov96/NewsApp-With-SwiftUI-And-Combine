@@ -17,6 +17,7 @@ struct TopHeadlinesView : View {
                 ForEach(self.viewModel.topHeadlines.identified(by: \.self)) { article in
                     PresentationButton(destination: SafariView(url: article.url)) {
                         TopHeadlineRow(article: article)
+                        .animation(.spring())
                     }
                     .accentColor(.black)
                 }
