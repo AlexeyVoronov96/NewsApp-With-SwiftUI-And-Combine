@@ -33,7 +33,8 @@ class APIProvider: APIProviderProtocol {
     // MARK: - Requests
     func getSources() -> AnyPublisher<SourcesResponse, Error> {
         let params: [String: String] = [
-            "language": locale
+            "language": locale,
+            "country": region
         ]
         
         return performRequest(.sources, params: params, type: SourcesResponse.self)
@@ -92,7 +93,7 @@ class APIProvider: APIProviderProtocol {
         
         var request = URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 30)
         
-        for header in self.headers {
+        for header in headers {
             request.setValue(header.value, forHTTPHeaderField: header.key)
         }
         

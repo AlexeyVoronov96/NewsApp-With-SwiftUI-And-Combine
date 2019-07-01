@@ -13,14 +13,12 @@ struct SourcesListView : View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(self.viewModel.sources.identified(by: \.self)) { source in
-                    NavigationButton(
-                        destination: ArticlesFromSourceView(source: source.id)
-                            .navigationBarTitle(Text(source.name))
-                    ) {
-                        Text(source.name)
-                    }
+            List(viewModel.sources.identified(by: \.self)) { source in
+                NavigationButton(
+                    destination: ArticlesFromSourceView(source: source.id)
+                        .navigationBarTitle(Text(source.name))
+                ) {
+                    Text(source.name)
                 }
             }
             .animation(.spring())
