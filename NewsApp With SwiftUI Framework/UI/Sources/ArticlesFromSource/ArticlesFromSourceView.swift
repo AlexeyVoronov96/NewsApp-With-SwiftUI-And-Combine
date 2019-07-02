@@ -37,12 +37,22 @@ struct ArticlesFromSourceView: View {
             self.viewModel.getArticles(from: self.source.id)
         })
         .navigationBarItems(trailing:
-            Button(action: {
-                self.isInfo.toggle()
-            }) {
-                Image(systemName: isInfo ? "info.circle.fill" : "info.circle")
-                    .accentColor(.black)
-                    .imageScale(.large)
+            HStack {
+                if self.source.description != nil {
+                    Button(action: {
+                        self.isInfo.toggle()
+                    }) {
+                        Image(systemName: isInfo ? "info.circle.fill" : "info.circle")
+                            .imageScale(.large)
+                    }
+                }
+                Spacer()
+                Button(action: {
+                    UIApplication.shared.open(self.source.url)
+                }) {
+                    Image(systemName: "safari")
+                        .imageScale(.large)
+                }
             }
         )
     }
