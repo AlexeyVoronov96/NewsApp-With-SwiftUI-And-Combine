@@ -41,6 +41,7 @@ struct MainView : View {
             }, label: {
                 Image(systemName: "arrow.2.circlepath")
                     .accentColor(.black)
+                    .imageScale(.large)
             }))
         }
     }
