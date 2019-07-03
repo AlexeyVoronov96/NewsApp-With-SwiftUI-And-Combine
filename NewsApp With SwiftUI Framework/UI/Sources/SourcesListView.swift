@@ -14,7 +14,7 @@ struct SourcesListView : View {
     var body: some View {
         NavigationView {
             List(viewModel.sources.identified(by: \.self)) { source in
-                NavigationButton(
+                NavigationLink(
                     destination: ArticlesFromSourceView(source: source)
                         .navigationBarTitle(Text(source.name))
                 ) {

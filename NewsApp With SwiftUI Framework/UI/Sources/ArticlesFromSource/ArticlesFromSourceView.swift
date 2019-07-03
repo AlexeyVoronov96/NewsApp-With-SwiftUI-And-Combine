@@ -15,7 +15,7 @@ struct ArticlesFromSourceView: View {
     var source: Source
     
     var body: some View {
-        ScrollView(showsHorizontalIndicator: false) {
+        ScrollView(showsIndicators: false) {
             VStack(alignment: .center) {
                 if isInfo {
                     Text(verbatim: "About source:\n".localized() + (source.description ?? ""))
@@ -25,7 +25,7 @@ struct ArticlesFromSourceView: View {
                                alignment: .center)
                 }
                 ForEach(viewModel.articles.identified(by: \.self)) { article in
-                    PresentationButton(destination: SafariView(url: article.url)) {
+                    PresentationLink(destination: SafariView(url: article.url)) {
                         ArticleRow(article: article)
                             .animation(.spring())
                     }
@@ -46,7 +46,6 @@ struct ArticlesFromSourceView: View {
                             .imageScale(.large)
                     }
                 }
-                Spacer()
                 Button(action: {
                     UIApplication.shared.open(self.source.url)
                 }) {

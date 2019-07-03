@@ -51,7 +51,7 @@ struct ArticleRow : View {
             if let data = data, let image = UIImage(data: data) {
                 self.headlineImage = image
             }
-            }
-            .resume()
+        }
+        .resume()
     }
 }

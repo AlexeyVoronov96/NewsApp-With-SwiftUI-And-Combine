@@ -25,7 +25,7 @@ struct MainView : View {
                 Section(header: Text("Categories".localized())
                     .font(.headline)) {
                         ForEach(self.categories.identified(by: \.self)) { category in
-                            NavigationButton(
+                            NavigationLink(
                                 destination: ArticlesFromCategoryView(category: category)
                                 .navigationBarTitle(Text(category.localized().capitalizeFirstLetter()), displayMode: .large)
                             ) {
