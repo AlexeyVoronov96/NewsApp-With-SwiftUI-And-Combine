@@ -22,8 +22,8 @@ struct TopHeadlineRow : View {
                 .resizable()
                 .scaledToFill()
                 .onAppear(perform: downloadWebImage)
-                .frame(width: Length(250),
-                       height: Length(250),
+                .frame(width: 250,
+                       height: 250,
                        alignment: .center)
             
             Rectangle()
@@ -32,7 +32,7 @@ struct TopHeadlineRow : View {
             
             Text(verbatim: article.title ?? "")
                 .color(.white)
-                .frame(width: Length(250),
+                .frame(width: 250,
                        alignment: .bottomLeading)
                 .font(.headline)
                 .lineLimit(nil)

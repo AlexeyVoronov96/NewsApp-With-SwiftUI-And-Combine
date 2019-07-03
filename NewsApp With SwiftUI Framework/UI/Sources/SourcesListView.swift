@@ -12,7 +12,7 @@ struct SourcesListView : View {
     @ObjectBinding var viewModel = SourcesListViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationView(content: {
             List(viewModel.sources.identified(by: \.self)) { source in
                 NavigationLink(
                     destination: ArticlesFromSourceView(source: source)
@@ -26,6 +26,6 @@ struct SourcesListView : View {
                 self.viewModel.getSources()
             }
             .navigationBarTitle(Text("Sources".localized()), displayMode: .large)
-        }
+        })
     }
 }

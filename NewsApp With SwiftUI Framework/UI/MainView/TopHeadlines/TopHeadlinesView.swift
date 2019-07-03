@@ -14,7 +14,7 @@ struct TopHeadlinesView : View {
     var body: some View {
         ScrollView(Axis.Set.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: 8) {
-                ForEach(self.viewModel.topHeadlines.identified(by: \.self)) { article in
+                ForEach(viewModel.topHeadlines.identified(by: \.self)) { article in
                     PresentationLink(destination: SafariView(url: article.url)) {
                         TopHeadlineRow(article: article)
                             .animation(.spring())

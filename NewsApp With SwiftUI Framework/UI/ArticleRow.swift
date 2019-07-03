@@ -22,8 +22,8 @@ struct ArticleRow : View {
                 .resizable()
                 .scaledToFill()
                 .onAppear(perform: downloadWebImage)
-                .frame(width: Length(UIScreen.main.bounds.width - 32),
-                       height: Length(250),
+                .frame(width: UIScreen.main.bounds.width - 32,
+                       height: 250,
                        alignment: .center)
             
             Rectangle()
@@ -32,7 +32,7 @@ struct ArticleRow : View {
             
             Text(verbatim: article.title ?? "")
                 .color(.white)
-                .frame(width: Length(UIScreen.main.bounds.width - 64),
+                .frame(width: UIScreen.main.bounds.width - 64,
                        alignment: .bottomLeading)
                 .font(.headline)
                 .lineLimit(nil)

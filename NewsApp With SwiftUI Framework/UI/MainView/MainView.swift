@@ -14,7 +14,7 @@ struct MainView : View {
     private var categories: [String] = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
     
     var body: some View {
-        NavigationView {
+        NavigationView(content: {
             List {
                 Section(header: Text("Top headlines".localized())
                     .font(.headline)) {
@@ -27,7 +27,7 @@ struct MainView : View {
                         ForEach(self.categories.identified(by: \.self)) { category in
                             NavigationLink(
                                 destination: ArticlesFromCategoryView(category: category)
-                                .navigationBarTitle(Text(category.localized().capitalizeFirstLetter()), displayMode: .large)
+                                    .navigationBarTitle(Text(category.localized().capitalizeFirstLetter()), displayMode: .large)
                             ) {
                                 Text(category.localized().capitalizeFirstLetter())
                             }
@@ -35,14 +35,14 @@ struct MainView : View {
                 }
             }
             .navigationBarTitle(Text("Overview".localized()), displayMode: .large)
-            .navigationBarItems(trailing: Button(action: {
-                self.viewModel.clearTopHeadlines()
-                self.viewModel.getTopHeadlines()
-            }, label: {
-                Image(systemName: "arrow.2.circlepath")
-                    .accentColor(.black)
-                    .imageScale(.large)
-            }))
-        }
+                .navigationBarItems(trailing: Button(action: {
+                    self.viewModel.clearTopHeadlines()
+                    self.viewModel.getTopHeadlines()
+                }, label: {
+                    Image(systemName: "arrow.2.circlepath")
+                        .accentColor(.black)
+                        .imageScale(.large)
+                }))
+        })
     }
 }
