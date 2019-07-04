@@ -16,24 +16,28 @@ struct MainView : View {
     var body: some View {
         NavigationView(content: {
             List {
-                Section(header: Text("Top headlines".localized())
-                    .font(.headline)) {
-                        TopHeadlinesView(viewModel: viewModel)
-                            .frame(height: 260)
+                if !viewModel.topHeadlines.isEmpty {
+                    TopHeadlinesView(topHeadlines: viewModel.topHeadlines)
+                        .clipped()
+                        .listRowInsets(EdgeInsets())
+                        .frame(height: 250, alignment: .center)
                 }
                 
-                Section(header: Text("Categories".localized())
-                    .font(.headline)) {
-                        ForEach(self.categories.identified(by: \.self)) { category in
-                            NavigationLink(
-                                destination: ArticlesFromCategoryView(category: category)
-                                    .navigationBarTitle(Text(category.localized().capitalizeFirstLetter()), displayMode: .large)
-                            ) {
-                                Text(category.localized().capitalizeFirstLetter())
-                            }
+                Section(header: Text(verbatim: "Categories".localized())) {
+                    ForEach(self.categories.identified(by: \.self)) { category in
+                        NavigationLink(
+                            destination: ArticlesFromCategoryView(category: category)
+                                .navigationBarTitle(Text(category.localized().capitalizeFirstLetter()), displayMode: .large)
+                        ) {
+                            Text(category.localized().capitalizeFirstLetter())
                         }
+                    }
                 }
             }
+            .animation(.spring())
+            .onAppear(perform: {
+                self.viewModel.getTopHeadlines()
+            })
             .navigationBarTitle(Text("Overview".localized()), displayMode: .large)
                 .navigationBarItems(trailing: Button(action: {
                     self.viewModel.clearTopHeadlines()

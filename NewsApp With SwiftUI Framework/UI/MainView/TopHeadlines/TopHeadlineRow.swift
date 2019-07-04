@@ -23,26 +23,25 @@ struct TopHeadlineRow : View {
                 .resizable()
                 .scaledToFill()
                 .onAppear(perform: downloadWebImage)
-                .frame(width: 250,
+                .frame(width: UIScreen.main.bounds.width,
                        height: 250,
                        alignment: .center)
             
             Rectangle()
                 .foregroundColor(.black)
                 .opacity(0.6)
+                .frame(width: UIScreen.main.bounds.width,
+                       height: 250,
+                       alignment: .center)
             
             Text(verbatim: article.title ?? "")
                 .color(.white)
-                .frame(width: 250,
-                       alignment: .bottomLeading)
+                .frame(width: UIScreen.main.bounds.width,
+                       alignment: .center)
                 .font(.headline)
                 .lineLimit(nil)
                 .padding()
             }
-            .cornerRadius(8)
-            .padding([.trailing], 8)
-            .padding([.top], 5)
-            .shadow(color: .black, radius: 2, x: 0, y: 0)
     }
     
     private func downloadWebImage() {

@@ -9,21 +9,9 @@
 import SwiftUI
 
 struct TopHeadlinesView : View {
-    @ObjectBinding var viewModel: MainViewModel
+    var topHeadlines: Articles
     
     var body: some View {
-        ScrollView(Axis.Set.horizontal, showsIndicators: false) {
-            HStack(alignment: .center, spacing: 8) {
-                ForEach(viewModel.topHeadlines.identified(by: \.self)) { article in
-                    PresentationLink(destination: SafariView(url: article.url)) {
-                        TopHeadlineRow(article: article)
-                            .animation(.spring())
-                    }
-                }
-            }
-        }
-        .onAppear {
-            self.viewModel.getTopHeadlines()
-        }
+        PageView(topHeadlines.map { TopHeadlineRow(article: $0) })
     }
 }
