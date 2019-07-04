@@ -20,7 +20,8 @@ struct MainView : View {
                     TopHeadlinesView(topHeadlines: viewModel.topHeadlines)
                         .clipped()
                         .listRowInsets(EdgeInsets())
-                        .frame(height: 250, alignment: .center)
+                        .frame(height: UIScreen.main.bounds.width / 4 * 3,
+                               alignment: .center)
                 }
                 
                 Section(header: Text(verbatim: "Categories".localized())) {

@@ -24,14 +24,14 @@ struct TopHeadlineRow : View {
                 .scaledToFill()
                 .onAppear(perform: downloadWebImage)
                 .frame(width: UIScreen.main.bounds.width,
-                       height: 250,
+                       height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
             
             Rectangle()
                 .foregroundColor(.black)
                 .opacity(0.6)
                 .frame(width: UIScreen.main.bounds.width,
-                       height: 250,
+                       height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
             
             Text(verbatim: article.title ?? "")
