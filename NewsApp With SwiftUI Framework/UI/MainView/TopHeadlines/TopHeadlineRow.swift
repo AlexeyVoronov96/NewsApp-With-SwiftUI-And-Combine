@@ -6,12 +6,13 @@
 //  Copyright © 2019 Алексей Воронов. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
 struct TopHeadlineRow : View {
     @State private var headlineImage = UIImage(named: "logo")
     
-    private let placeholder = UIImage(named: "logo")!
+    private let placeholder = #imageLiteral(resourceName: "logo")
     
     var article: Article
     
@@ -47,11 +48,16 @@ struct TopHeadlineRow : View {
     private func downloadWebImage() {
         guard let url = URL(string: article.urlToImage ?? "") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-            if let data = data, let image = UIImage(data: data) {
+        URLSession.shared.dataTaskPublisher(for: url)
+            .map { $0.data }
+            .replaceError(with: Data())
+            .map({ (data) -> UIImage? in
+                return UIImage(data: data)
+            })
+            .receive(on: RunLoop.main)
+            .sink { (image) in
                 self.headlineImage = image
-            }
         }
-        .resume()
+        .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }
