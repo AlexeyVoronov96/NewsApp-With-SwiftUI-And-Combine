@@ -3,7 +3,7 @@
 [![GitHub license](https://img.shields.io/github/license/AlexeyVoronov96/NewsApp-With-SwiftUI-And-Combine.svg)](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI-And-Combine/blob/master/LICENSE)
 #### Used: New Apple frameworks [SwiftUI](https://developer.apple.com/documentation/swiftui) and [Combine](https://developer.apple.com/documentation/combine)
 #### Installation:
-##### 1) Get your API key from https://newsapi.org
+##### 1) Get your [API key](https://newsapi.org)
 ##### 2) Insert your key into APIProvider header value
 ##### 3) Run app
 ## Overview tab
