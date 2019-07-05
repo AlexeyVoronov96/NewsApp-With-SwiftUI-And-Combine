@@ -21,7 +21,7 @@ struct TopHeadlineRow : View {
             Image(uiImage: headlineImage ?? placeholder)
                 .renderingMode(.original)
                 .resizable()
-                .scaledToFill()
+                .aspectRatio(4 / 3, contentMode: .fit)
                 .onAppear(perform: downloadWebImage)
                 .frame(width: UIScreen.main.bounds.width,
                        height: UIScreen.main.bounds.width / 4 * 3,
@@ -42,7 +42,7 @@ struct TopHeadlineRow : View {
                 .frame(width: UIScreen.main.bounds.width,
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .bottom)
-            }
+        }
     }
     
     private func downloadWebImage() {
