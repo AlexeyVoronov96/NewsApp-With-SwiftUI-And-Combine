@@ -17,7 +17,7 @@ class APIProvider: APIProviderProtocol {
     
     private var headers: [String: String] {
         return [
-            "X-Api-Key": "a3a49655ace345938444cdd2731a9469",
+            "X-Api-Key": "YOUR_API_KEY", // https://newsapi.org
             "Content-type": "application/json",
             "Accept": "application/json"
         ]
