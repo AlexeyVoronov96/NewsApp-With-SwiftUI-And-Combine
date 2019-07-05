@@ -22,6 +22,10 @@ struct MainView : View {
                                alignment: .center)
                         .clipped()
                         .listRowInsets(EdgeInsets())
+                } else {
+                    ActivityIndicator().frame(width: UIScreen.main.bounds.width,
+                                              height: 50,
+                                              alignment: .center)
                 }
                 
                 Section(header: Text(verbatim: "Categories".localized())) {
