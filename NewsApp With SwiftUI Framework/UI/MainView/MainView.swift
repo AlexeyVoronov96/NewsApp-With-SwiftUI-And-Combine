@@ -14,34 +14,44 @@ struct MainView : View {
     private var categories: [String] = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
     
     var body: some View {
-        NavigationView {
+        NavigationView(content: {
             List {
-                Section(header: Text("Top headlines".localized())
-                    .font(.headline)) {
-                        TopHeadlinesView(viewModel: viewModel)
-                            .frame(height: 260)
+                if !viewModel.topHeadlines.isEmpty {
+                    TopHeadlinesView(topHeadlines: viewModel.topHeadlines)
+                        .frame(height: UIScreen.main.bounds.width / 4 * 3,
+                               alignment: .center)
+                        .clipped()
+                        .listRowInsets(EdgeInsets())
+                } else {
+                    ActivityIndicator().frame(width: UIScreen.main.bounds.width,
+                                              height: 50,
+                                              alignment: .center)
                 }
                 
-                Section(header: Text("Categories".localized())
-                    .font(.headline)) {
-                        ForEach(self.categories.identified(by: \.self)) { category in
-                            NavigationButton(
-                                destination: ArticlesFromCategoryView(category: category)
+                Section(header: Text(verbatim: "Categories".localized())) {
+                    ForEach(self.categories.identified(by: \.self)) { category in
+                        NavigationLink(
+                            destination: ArticlesFromCategoryView(category: category)
                                 .navigationBarTitle(Text(category.localized().capitalizeFirstLetter()), displayMode: .large)
-                            ) {
-                                Text(category.localized().capitalizeFirstLetter())
-                            }
+                        ) {
+                            Text(category.localized().capitalizeFirstLetter())
                         }
+                    }
                 }
             }
-            .navigationBarTitle(Text("Overview".localized()), displayMode: .large)
-            .navigationBarItems(trailing: Button(action: {
-                self.viewModel.clearTopHeadlines()
+            .animation(.spring())
+            .onAppear(perform: {
                 self.viewModel.getTopHeadlines()
-            }, label: {
-                Image(systemName: "arrow.2.circlepath")
-                    .accentColor(.black)
-            }))
-        }
+            })
+            .navigationBarTitle(Text("Overview".localized()), displayMode: .large)
+                .navigationBarItems(trailing: Button(action: {
+                    self.viewModel.clearTopHeadlines()
+                    self.viewModel.getTopHeadlines()
+                }, label: {
+                    Image(systemName: "arrow.2.circlepath")
+                        .accentColor(.black)
+                        .imageScale(.large)
+                }))
+        })
     }
 }

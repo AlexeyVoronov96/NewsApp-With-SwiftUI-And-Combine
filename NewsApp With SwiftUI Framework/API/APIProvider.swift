@@ -17,7 +17,7 @@ class APIProvider: APIProviderProtocol {
     
     private var headers: [String: String] {
         return [
-            "X-Api-Key": "6a4297c36e284e0bb57d89b044645c2e",
+            "X-Api-Key": "YOUR_API_KEY", // https://newsapi.org
             "Content-type": "application/json",
             "Accept": "application/json"
         ]
@@ -33,7 +33,8 @@ class APIProvider: APIProviderProtocol {
     // MARK: - Requests
     func getSources() -> AnyPublisher<SourcesResponse, Error> {
         let params: [String: String] = [
-            "language": locale
+            "language": locale,
+            "country": region
         ]
         
         return performRequest(.sources, params: params, type: SourcesResponse.self)
@@ -92,7 +93,7 @@ class APIProvider: APIProviderProtocol {
         
         var request = URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 30)
         
-        for header in self.headers {
+        for header in headers {
             request.setValue(header.value, forHTTPHeaderField: header.key)
         }
         

@@ -6,12 +6,13 @@
 //  Copyright © 2019 Алексей Воронов. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
 struct TopHeadlineRow : View {
     @State private var headlineImage = UIImage(named: "logo")
     
-    private let placeholder = UIImage(named: "logo")!
+    private let placeholder = #imageLiteral(resourceName: "logo")
     
     var article: Article
     
@@ -22,36 +23,41 @@ struct TopHeadlineRow : View {
                 .resizable()
                 .scaledToFill()
                 .onAppear(perform: downloadWebImage)
-                .frame(width: Length(250),
-                       height: Length(250),
+                .frame(width: UIScreen.main.bounds.width,
+                       height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
             
             Rectangle()
                 .foregroundColor(.black)
                 .opacity(0.6)
+                .frame(width: UIScreen.main.bounds.width,
+                       height: UIScreen.main.bounds.width / 4 * 3,
+                       alignment: .center)
             
             Text(verbatim: article.title ?? "")
                 .color(.white)
-                .frame(width: Length(250),
-                       alignment: .bottomLeading)
                 .font(.headline)
                 .lineLimit(nil)
                 .padding()
+                .frame(width: UIScreen.main.bounds.width,
+                       height: UIScreen.main.bounds.width / 4 * 3,
+                       alignment: .bottom)
             }
-            .cornerRadius(8)
-            .padding([.trailing], 8)
-            .padding([.top], 5)
-            .shadow(color: .black, radius: 2, x: 0, y: 0)
     }
     
     private func downloadWebImage() {
         guard let url = URL(string: article.urlToImage ?? "") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-            if let data = data, let image = UIImage(data: data) {
+        URLSession.shared.dataTaskPublisher(for: url)
+            .map { $0.data }
+            .replaceError(with: Data())
+            .map({ (data) -> UIImage? in
+                return UIImage(data: data)
+            })
+            .receive(on: RunLoop.main)
+            .sink { (image) in
                 self.headlineImage = image
-            }
         }
-        .resume()
+        .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }

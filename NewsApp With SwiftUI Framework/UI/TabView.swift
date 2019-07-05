@@ -10,19 +10,19 @@ import SwiftUI
 
 struct TabView : View {
     var body: some View {
-        TabbedView {
+        TabbedView(content: {
             MainView()
-                .tabItemLabel(Image("top_headlines"))
+                .tabItem({ Image("top_headlines") })
                 .tag(0)
             
             SourcesListView()
-                .tabItemLabel(Image("sources"))
+                .tabItem({ Image("sources") })
                 .tag(1)
             
             SearchForArticlesView()
-                .tabItemLabel(Image("search"))
+                .tabItem({ Image("search") })
                 .tag(2)
-        }
+        })
         .accentColor(.black)
     }
 }

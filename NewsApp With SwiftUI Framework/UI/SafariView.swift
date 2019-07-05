@@ -13,7 +13,9 @@ struct SafariView : UIViewControllerRepresentable {
     var url: URL
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<SafariView>) -> SFSafariViewController {
-        SFSafariViewController(url: url)
+        let safariView = SFSafariViewController(url: url)
+        safariView.preferredControlTintColor = UIColor.black
+        return safariView
     }
     
     func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafariView>) {}

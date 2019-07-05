@@ -14,17 +14,15 @@ struct SearchForArticlesView : View {
     @State private var searchFilter: String = ""
     
     var body: some View {
-        NavigationView {
+        NavigationView(content: {
             VStack {
-                TextField(
-                    $searchFilter,
-                    placeholder: Text("Search articles...".localized())
-                        .color(Color.gray),
-                    onEditingChanged: { (opened) in
-                        if !opened {
-                            self.viewModel.searchForArticles(searchFilter: self.searchFilter)
+                TextField("Search articles...".localized(),
+                          text: $searchFilter,
+                          onEditingChanged: { (isOpened) in
+                            if !isOpened {
+                                self.viewModel.searchForArticles(searchFilter: self.searchFilter)
+                            }
                         }
-                    }
                 )
                     .padding([.leading, .trailing], 8)
                     .frame(height: 32)
@@ -35,6 +33,6 @@ struct SearchForArticlesView : View {
                 ArticlesList(articles: viewModel.articles)
             }
             .navigationBarTitle(Text("Search".localized()), displayMode: .large)
-        }
+        })
     }
 }

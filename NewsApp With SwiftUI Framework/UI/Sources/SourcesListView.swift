@@ -12,15 +12,13 @@ struct SourcesListView : View {
     @ObjectBinding var viewModel = SourcesListViewModel()
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(self.viewModel.sources.identified(by: \.self)) { source in
-                    NavigationButton(
-                        destination: ArticlesFromSourceView(source: source.id)
-                            .navigationBarTitle(Text(source.name))
-                    ) {
-                        Text(source.name)
-                    }
+        NavigationView(content: {
+            List(viewModel.sources.identified(by: \.self)) { source in
+                NavigationLink(
+                    destination: ArticlesFromSourceView(source: source)
+                        .navigationBarTitle(Text(source.name))
+                ) {
+                    Text(source.name)
                 }
             }
             .animation(.spring())
@@ -28,6 +26,6 @@ struct SourcesListView : View {
                 self.viewModel.getSources()
             }
             .navigationBarTitle(Text("Sources".localized()), displayMode: .large)
-        }
+        })
     }
 }

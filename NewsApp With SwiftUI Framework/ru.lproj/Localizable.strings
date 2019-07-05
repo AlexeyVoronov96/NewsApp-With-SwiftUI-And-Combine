@@ -11,6 +11,7 @@
 "Sources" = "Ресурсы";
 "Search" = "Поиск";
 "Search articles..." = "Поиск статей...";
+"About source:\n" = "О ресурсе:\n";
 
 // MARK: - Categories
 "Categories" = "Категории";
