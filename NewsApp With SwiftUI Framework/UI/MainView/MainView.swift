@@ -18,10 +18,10 @@ struct MainView : View {
             List {
                 if !viewModel.topHeadlines.isEmpty {
                     TopHeadlinesView(topHeadlines: viewModel.topHeadlines)
-                        .clipped()
-                        .listRowInsets(EdgeInsets())
                         .frame(height: UIScreen.main.bounds.width / 4 * 3,
                                alignment: .center)
+                        .clipped()
+                        .listRowInsets(EdgeInsets())
                 }
                 
                 Section(header: Text(verbatim: "Categories".localized())) {

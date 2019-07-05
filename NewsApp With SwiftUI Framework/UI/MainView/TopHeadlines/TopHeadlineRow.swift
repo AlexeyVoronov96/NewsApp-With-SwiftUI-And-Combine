@@ -36,11 +36,12 @@ struct TopHeadlineRow : View {
             
             Text(verbatim: article.title ?? "")
                 .color(.white)
-                .frame(width: UIScreen.main.bounds.width,
-                       alignment: .center)
                 .font(.headline)
                 .lineLimit(nil)
                 .padding()
+                .frame(width: UIScreen.main.bounds.width,
+                       height: UIScreen.main.bounds.width / 4 * 3,
+                       alignment: .bottom)
             }
     }
     
