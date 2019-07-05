@@ -1,4 +1,5 @@
 # NewsApp
+[![CodeFactor](https://www.codefactor.io/repository/github/alexeyvoronov96/newsapp-with-swiftui-and-combine/badge)](https://www.codefactor.io/repository/github/alexeyvoronov96/newsapp-with-swiftui-and-combine)
 [![codebeat badge](https://codebeat.co/badges/4c920b0e-1b07-4786-8a5e-efe56e123038)](https://codebeat.co/projects/github-com-alexeyvoronov96-newsapp-with-swiftui-and-combine-master)
 [![GitHub license](https://img.shields.io/github/license/AlexeyVoronov96/NewsApp-With-SwiftUI-And-Combine.svg)](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI-And-Combine/blob/master/LICENSE)
 #### Used: New Apple frameworks [SwiftUI](https://developer.apple.com/documentation/swiftui) and [Combine](https://developer.apple.com/documentation/combine)
