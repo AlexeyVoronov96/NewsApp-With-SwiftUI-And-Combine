@@ -8,10 +8,10 @@
 ##### 2. Insert your key into APIProvider header value
 ##### 3. Run app
 ## Overview tab
-![OverviewTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/Overview.png)
+![OverviewTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/OverviewTab.png)
 ## Sources tab
-![SourcesTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/Sources.png)
+![SourcesTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/SourcesTab.png)
 ## Search for articles tab
-![SearchForArticlesTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/Search.png)
+![SearchForArticlesTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/SearchTab.png)
 ## WebView
 ![WebView](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/WebView.png)
