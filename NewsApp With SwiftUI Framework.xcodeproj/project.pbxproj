@@ -146,6 +146,7 @@
 				AB358CE622BA8DE700C67275 /* ArticlesList.swift */,
 				ABF65BBB22B4F23F00B032A0 /* ArticleRow.swift */,
 				ABF742E922C6BF21009DD878 /* SafariView.swift */,
+				AB08BB8D22CFD10D00FF285E /* ActivityIndicator.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -217,7 +218,6 @@
 				ABBECF7D22B60F2300EF13F3 /* TopHeadlineRow.swift */,
 				AB08BB8922CE849C00FF285E /* PageViewController.swift */,
 				AB08BB8B22CE84D700FF285E /* PageView.swift */,
-				AB08BB8D22CFD10D00FF285E /* ActivityIndicator.swift */,
 			);
 			path = TopHeadlines;
 			sourceTree = "<group>";
