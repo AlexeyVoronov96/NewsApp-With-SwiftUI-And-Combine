@@ -16,6 +16,7 @@ struct ArticlesResponse: Codable {
 }
 
 struct Article: Codable, Hashable {
+    let source: ArticleSource?
     let author: String?
     let title: String?
     let description: String?
