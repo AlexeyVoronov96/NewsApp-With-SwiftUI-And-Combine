@@ -30,14 +30,23 @@ struct ArticleRow : View {
             Rectangle()
                 .foregroundColor(.black)
                 .opacity(0.6)
-            
-            Text(verbatim: article.title ?? "")
-                .color(.white)
-                .frame(width: UIScreen.main.bounds.width - 64,
-                       alignment: .bottomLeading)
-                .font(.headline)
-                .lineLimit(nil)
-                .padding()
+            VStack {
+                Text(verbatim: article.source?.name ?? "")
+                    .color(.white)
+                    .font(.subheadline)
+                    .lineLimit(nil)
+                    .padding([.leading, .trailing])
+                    .frame(width: UIScreen.main.bounds.width - 64,
+                           alignment: .bottomLeading)
+                
+                Text(verbatim: article.title ?? "")
+                    .color(.white)
+                    .font(.headline)
+                    .lineLimit(nil)
+                    .padding([.leading, .bottom, .trailing])
+                    .frame(width: UIScreen.main.bounds.width - 64,
+                           alignment: .bottomLeading)
+            }
         }
         .cornerRadius(8)
         .padding([.leading, .trailing], 16)

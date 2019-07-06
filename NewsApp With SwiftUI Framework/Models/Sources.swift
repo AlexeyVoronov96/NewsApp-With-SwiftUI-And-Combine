@@ -24,3 +24,8 @@ struct Source: Codable, Hashable {
     let language: String
     let country: String
 }
+
+struct ArticleSource: Codable, Hashable {
+    let id: String?
+    let name: String?
+}
