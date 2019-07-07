@@ -44,14 +44,16 @@ struct MainView : View {
                 self.viewModel.getTopHeadlines()
             })
             .navigationBarTitle(Text("Overview".localized()), displayMode: .large)
-                .navigationBarItems(trailing: Button(action: {
+            .navigationBarItems(trailing:
+                Button(action: {
                     self.viewModel.clearTopHeadlines()
                     self.viewModel.getTopHeadlines()
                 }, label: {
                     Image(systemName: "arrow.2.circlepath")
-                        .accentColor(.black)
+                        .accentColor(Color("BlackColor"))
                         .imageScale(.large)
-                }))
+                })
+            )
         })
     }
 }
