@@ -16,14 +16,7 @@ struct SearchForArticlesView : View {
     var body: some View {
         NavigationView(content: {
             VStack {
-                TextField("Search articles...".localized(),
-                          text: $searchFilter,
-                          onEditingChanged: { (isOpened) in
-                            if !isOpened {
-                                self.viewModel.searchForArticles(searchFilter: self.searchFilter)
-                            }
-                        }
-                )
+                searchBar
                     .padding([.leading, .trailing], 8)
                     .frame(height: 32)
                     .background(Color.gray.opacity(0.1))
@@ -34,5 +27,16 @@ struct SearchForArticlesView : View {
             }
             .navigationBarTitle(Text("Search".localized()), displayMode: .large)
         })
+    }
+    
+    private var searchBar: some View {
+        TextField("Search articles...".localized(),
+                  text: $searchFilter,
+                  onEditingChanged: { (isOpened) in
+                    if !isOpened {
+                        self.viewModel.searchForArticles(searchFilter: self.searchFilter)
+                    }
+                }
+        )
     }
 }

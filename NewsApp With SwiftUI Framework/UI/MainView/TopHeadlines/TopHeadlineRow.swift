@@ -34,24 +34,28 @@ struct TopHeadlineRow : View {
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
             
-            PresentationLink(destination: SafariView(url: article.url)) {
-                VStack {
-                    Text(verbatim: article.source?.name ?? "")
-                        .color(.white)
-                        .font(.subheadline)
-                        .lineLimit(nil)
-                        .padding([.leading, .trailing])
-                        .frame(width: UIScreen.main.bounds.width,
-                               alignment: .bottomLeading)
-                    
-                    Text(verbatim: article.title ?? "")
-                        .color(.white)
-                        .font(.headline)
-                        .lineLimit(nil)
-                        .padding([.leading, .bottom, .trailing])
-                        .frame(width: UIScreen.main.bounds.width,
-                               alignment: .bottomLeading)
-                }
+            topHeadlineInfo
+        }
+    }
+    
+    private var topHeadlineInfo: some View {
+        PresentationLink(destination: SafariView(url: article.url)) {
+            VStack {
+                Text(verbatim: article.source?.name ?? "")
+                    .color(.white)
+                    .font(.subheadline)
+                    .lineLimit(nil)
+                    .padding([.leading, .trailing])
+                    .frame(width: UIScreen.main.bounds.width,
+                           alignment: .bottomLeading)
+                
+                Text(verbatim: article.title ?? "")
+                    .color(.white)
+                    .font(.headline)
+                    .lineLimit(nil)
+                    .padding([.leading, .bottom, .trailing])
+                    .frame(width: UIScreen.main.bounds.width,
+                           alignment: .bottomLeading)
             }
         }
     }

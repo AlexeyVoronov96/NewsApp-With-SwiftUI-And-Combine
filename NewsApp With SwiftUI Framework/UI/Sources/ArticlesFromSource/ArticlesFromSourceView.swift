@@ -24,6 +24,7 @@ struct ArticlesFromSourceView: View {
                                height: Length(150),
                                alignment: .center)
                 }
+                
                 ForEach(viewModel.articles.identified(by: \.self)) { article in
                     PresentationLink(destination: SafariView(url: article.url)) {
                         ArticleRow(article: article)
