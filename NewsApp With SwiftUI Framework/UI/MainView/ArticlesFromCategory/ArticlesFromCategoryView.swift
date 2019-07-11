@@ -14,9 +14,18 @@ struct ArticlesFromCategoryView : View {
     var category: String = ""
     
     var body: some View {
-        ArticlesList(articles: viewModel.articles)
-            .onAppear {
-                self.viewModel.getArticles(from: self.category)
+        VStack {
+            if viewModel.articles.isEmpty {
+                ActivityIndicator()
+                    .frame(width: UIScreen.main.bounds.width,
+                           height: 50,
+                           alignment: .center)
+            } else {
+                ArticlesList(articles: viewModel.articles)
             }
+        }
+        .onAppear {
+            self.viewModel.getArticles(from: self.category)
+        }
     }
 }
