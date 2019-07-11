@@ -33,6 +33,13 @@ struct TopHeadlineRow : View {
                 .frame(width: UIScreen.main.bounds.width,
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
+            
+            topHeadlineInfo
+        }
+    }
+    
+    private var topHeadlineInfo: some View {
+        PresentationLink(destination: SafariView(url: article.url)) {
             VStack {
                 Text(verbatim: article.source?.name ?? "")
                     .color(.white)
