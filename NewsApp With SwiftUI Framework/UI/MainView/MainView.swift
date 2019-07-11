@@ -36,16 +36,17 @@ struct MainView : View {
     
     private var mainViewList: some View {
         List {
-            if !viewModel.topHeadlines.isEmpty {
+            if viewModel.topHeadlines.isEmpty {
+                ActivityIndicator()
+                    .frame(width: UIScreen.main.bounds.width,
+                           height: 50,
+                           alignment: .center)
+            } else {
                 TopHeadlinesView(topHeadlines: viewModel.topHeadlines)
                     .frame(height: UIScreen.main.bounds.width / 4 * 3,
                            alignment: .center)
                     .clipped()
                     .listRowInsets(EdgeInsets())
-            } else {
-                ActivityIndicator().frame(width: UIScreen.main.bounds.width,
-                                          height: 50,
-                                          alignment: .center)
             }
             
             Section(header: Text(verbatim: "Categories".localized())) {

@@ -13,15 +13,24 @@ struct SourcesListView : View {
     
     var body: some View {
         NavigationView(content: {
-            List(viewModel.sources.identified(by: \.self)) { source in
-                NavigationLink(
-                    destination: ArticlesFromSourceView(source: source)
-                        .navigationBarTitle(Text(source.name))
-                ) {
-                    Text(source.name)
+            VStack{
+                if viewModel.sources.isEmpty {
+                    ActivityIndicator()
+                        .frame(width: UIScreen.main.bounds.width,
+                               height: 50,
+                               alignment: .center)
+                } else {
+                    List(viewModel.sources.identified(by: \.self)) { source in
+                        NavigationLink(
+                            destination: ArticlesFromSourceView(source: source)
+                                .navigationBarTitle(Text(source.name))
+                        ) {
+                            Text(source.name)
+                        }
+                    }
+                    .animation(.spring())
                 }
             }
-            .animation(.spring())
             .onAppear {
                 self.viewModel.getSources()
             }
