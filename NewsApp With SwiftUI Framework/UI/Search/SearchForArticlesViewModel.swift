@@ -25,7 +25,7 @@ final class SearchForArticlesViewModel: BindableObject {
     }
     
     func searchForArticles(searchFilter: String) {
-        apiProvider.searchForArticles(search: searchFilter)
+        apiProvider.performRequest(.searchForArticles(searchFilter: searchFilter), type: ArticlesResponse.self)
             .map { $0.articles }
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (articles) in

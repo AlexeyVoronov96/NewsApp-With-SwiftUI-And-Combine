@@ -10,13 +10,5 @@ import Foundation
 import Combine
 
 protocol APIProviderProtocol {
-    func getSources() -> AnyPublisher<SourcesResponse, Error>
-    
-    func getArticlesFromSource(_ source: String) -> AnyPublisher<ArticlesResponse, Error>
-    
-    func searchForArticles(search value: String) -> AnyPublisher<ArticlesResponse, Error>
-    
-    func getTopHeadlines() -> AnyPublisher<ArticlesResponse, Error>
-    
-    func getArticlesFromCategory(_ category: String) -> AnyPublisher<ArticlesResponse, Error>
+    func performRequest<T: Decodable>(_ request: Requests, type: T.Type) -> AnyPublisher<T, Error>
 }

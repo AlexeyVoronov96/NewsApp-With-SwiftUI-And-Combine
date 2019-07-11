@@ -25,7 +25,7 @@ final class ArticlesFromSourceViewModel: BindableObject {
     }
     
     func getArticles(from source: String) {
-        apiProvider.getArticlesFromSource(source)
+        apiProvider.performRequest(.getArticlesFromSource(source), type: ArticlesResponse.self)
             .map { $0.articles }
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (articles) in
