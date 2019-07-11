@@ -25,7 +25,7 @@ final class SourcesListViewModel: BindableObject {
     }
     
     func getSources() {
-        apiProvider.getSources()
+        apiProvider.performRequest(.getSources, type: SourcesResponse.self)
             .map { $0.sources }
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (sources) in

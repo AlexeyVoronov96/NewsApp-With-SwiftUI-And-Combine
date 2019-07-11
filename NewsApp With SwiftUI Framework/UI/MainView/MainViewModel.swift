@@ -29,7 +29,7 @@ final class MainViewModel: BindableObject {
     }
     
     func getTopHeadlines() {
-        apiProvider.getTopHeadlines()
+        apiProvider.performRequest(.getTopHeadlines, type: ArticlesResponse.self)
             .map { $0.articles }
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (articles) in

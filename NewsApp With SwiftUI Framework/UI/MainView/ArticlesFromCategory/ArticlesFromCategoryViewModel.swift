@@ -25,7 +25,7 @@ final class ArticlesFromCategoryViewModel: BindableObject {
     }
     
     func getArticles(from category: String) {
-        apiProvider.getArticlesFromCategory(category)
+        apiProvider.performRequest(.getArticlesFromCategory(category), type: ArticlesResponse.self)
             .map { $0.articles }
             .replaceError(with: [])
             .sink(receiveValue: { [weak self] (articles) in
