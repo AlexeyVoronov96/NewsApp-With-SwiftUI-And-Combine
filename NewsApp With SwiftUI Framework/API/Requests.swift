@@ -23,20 +23,20 @@ enum Requests {
         return Locale.current.regionCode ?? "us"
     }
     
-    var baseURL: String {
+    private var baseURL: String {
         return "https://newsapi.org/v2"
     }
     
-    var path: String {
+    var absoluteURL: String {
         switch self {
         case .getTopHeadlines, .getArticlesFromCategory:
-            return "/top-headlines"
+            return baseURL + "/top-headlines"
             
         case .getSources:
-            return "/sources"
+            return baseURL + "/sources"
             
         case .getArticlesFromSource, .searchForArticles:
-            return "/everything"
+            return baseURL + "/everything"
         }
     }
     
