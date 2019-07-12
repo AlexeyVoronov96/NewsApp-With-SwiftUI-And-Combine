@@ -23,6 +23,10 @@ enum Requests {
         return Locale.current.regionCode ?? "us"
     }
     
+    var baseURL: String {
+        return "https://newsapi.org/v2"
+    }
+    
     var path: String {
         switch self {
         case .getTopHeadlines, .getArticlesFromCategory:
@@ -53,5 +57,14 @@ enum Requests {
         case let .searchForArticles(searchFilter):
             return ["q": searchFilter, "language": locale]
         }
+    }
+    
+    var headers: [String: String] {
+        return [
+            /// API key url: https://newsapi.org
+            "X-Api-Key": "YOUR_API_KEY",
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        ]
     }
 }
