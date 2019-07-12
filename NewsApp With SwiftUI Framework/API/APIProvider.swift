@@ -10,21 +10,11 @@ import Foundation
 import Combine
 
 class APIProvider: APIProviderProtocol {
-    private let baseUrl: String = "https://newsapi.org/v2"
     private let jsonDecoder: JSONDecoder = JSONDecoder()
-    
-    private var headers: [String: String] {
-        return [
-            /// API key url: https://newsapi.org
-            "X-Api-Key": "YOUR_API_KEY",
-            "Content-type": "application/json",
-            "Accept": "application/json"
-        ]
-    }
     
     // MARK: - Request building
     func performRequest<T: Decodable>(_ request: Requests, type: T.Type) -> AnyPublisher<T, Error> {
-        guard var urlComponents = URLComponents(string: baseUrl + request.path) else {
+        guard var urlComponents = URLComponents(string: request.baseURL + request.path) else {
             return Publishers.Fail(error: APIProviderErrors.invalidURL)
                 .eraseToAnyPublisher()
         }
@@ -38,13 +28,15 @@ class APIProvider: APIProviderProtocol {
                 .eraseToAnyPublisher()
         }
         
-        var request = URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 30)
+        var urlRequest = URLRequest(url: url,
+                                    cachePolicy: .reloadRevalidatingCacheData,
+                                    timeoutInterval: 30)
         
-        for header in headers {
-            request.setValue(header.value, forHTTPHeaderField: header.key)
+        for header in request.headers {
+            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
         }
         
-        return getData(with: request)
+        return getData(with: urlRequest)
             .decode(type: type, decoder: jsonDecoder)
             .mapError { _ in APIProviderErrors.decodingError }
             .receive(on: RunLoop.main)
