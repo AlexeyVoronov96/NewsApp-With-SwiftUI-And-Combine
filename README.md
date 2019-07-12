@@ -5,7 +5,7 @@
 #### Used: New Apple frameworks [SwiftUI](https://developer.apple.com/documentation/swiftui) and [Combine](https://developer.apple.com/documentation/combine)
 #### Installation:
 ##### 1. Get your [API key](https://newsapi.org)
-##### 2. Insert your key into APIProvider header value
+##### 2. Insert your key into Requests.swift header value
 ##### 3. Run app
 ## Overview tab
 ![OverviewTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/OverviewTab.png)
