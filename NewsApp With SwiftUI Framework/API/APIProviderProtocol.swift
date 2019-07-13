@@ -6,7 +6,6 @@
 //  Copyright © 2019 Алексей Воронов. All rights reserved.
 //
 
-import Foundation
 import Combine
 
 protocol APIProviderProtocol {
