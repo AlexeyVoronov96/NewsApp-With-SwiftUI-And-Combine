@@ -10,10 +10,10 @@ import Foundation
 import Combine
 
 class APIProvider: APIProviderProtocol {
-    private let jsonDecoder: JSONDecoder = JSONDecoder()
+    static let shared: APIProviderProtocol = APIProvider()
     
     // MARK: - Request building
-    func performRequest<T: Decodable>(_ request: Requests, type: T.Type) -> AnyPublisher<T, Error> {
+    func performRequest(_ request: Requests) -> AnyPublisher<Data, Error> {
         guard var urlComponents = URLComponents(string: request.absoluteURL) else {
             return Publishers.Fail(error: APIProviderErrors.invalidURL)
                 .eraseToAnyPublisher()
@@ -37,9 +37,6 @@ class APIProvider: APIProviderProtocol {
         }
         
         return getData(with: urlRequest)
-            .decode(type: type, decoder: jsonDecoder)
-            .mapError { _ in APIProviderErrors.decodingError }
-            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     

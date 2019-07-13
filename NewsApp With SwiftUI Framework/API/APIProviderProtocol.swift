@@ -7,7 +7,8 @@
 //
 
 import Combine
+import Foundation
 
 protocol APIProviderProtocol {
-    func performRequest<T: Decodable>(_ request: Requests, type: T.Type) -> AnyPublisher<T, Error>
+    func performRequest(_ request: Requests) -> AnyPublisher<Data, Error>
 }
