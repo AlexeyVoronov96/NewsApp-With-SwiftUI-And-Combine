@@ -62,7 +62,7 @@ enum Requests {
     var headers: [String: String] {
         return [
             /// API key url: https://newsapi.org
-            "X-Api-Key": "YOUR_API_KEY",
+            "X-Api-Key": "fc1eed17fad1450491713d283b0dedb1",
             "Content-type": "application/json",
             "Accept": "application/json"
         ]

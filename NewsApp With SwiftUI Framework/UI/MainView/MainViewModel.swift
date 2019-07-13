@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class MainViewModel: BindableObject {
-    private let apiProvider: APIProviderProtocol
+    private let apiProvider: APIProviderProtocol = APIProvider.shared
     
     private(set) var topHeadlines: Articles = [] {
         didSet {
@@ -20,18 +20,16 @@ final class MainViewModel: BindableObject {
     
     var didChange = PassthroughSubject<MainViewModel, Never>()
     
-    init() {
-        self.apiProvider = APIProvider()
-    }
-    
     func clearTopHeadlines() {
         self.topHeadlines = []
     }
     
     func getTopHeadlines() {
-        apiProvider.performRequest(.getTopHeadlines, type: ArticlesResponse.self)
+        apiProvider.performRequest(.getTopHeadlines)
+            .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
+            .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] (articles) in
                 self?.topHeadlines = articles
             })

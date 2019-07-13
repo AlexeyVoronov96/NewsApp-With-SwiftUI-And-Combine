@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class ArticlesFromSourceViewModel: BindableObject {
-    private let apiProvider: APIProviderProtocol
+    private let apiProvider: APIProviderProtocol = APIProvider.shared
     
     private(set) var articles: Articles = [] {
         didSet {
@@ -20,14 +20,12 @@ final class ArticlesFromSourceViewModel: BindableObject {
     
     var didChange = PassthroughSubject<ArticlesFromSourceViewModel, Never>()
     
-    init() {
-        self.apiProvider = APIProvider()
-    }
-    
     func getArticles(from source: String) {
-        apiProvider.performRequest(.getArticlesFromSource(source), type: ArticlesResponse.self)
+        apiProvider.performRequest(.getArticlesFromSource(source))
+            .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
+            .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] (articles) in
                 self?.articles = articles
             })

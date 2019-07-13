@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB026B2722D9C7530036EBFE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB026B2622D9C7530036EBFE /* Container.swift */; };
 		AB08BB8A22CE849C00FF285E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8922CE849C00FF285E /* PageViewController.swift */; };
 		AB08BB8C22CE84D700FF285E /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8B22CE84D700FF285E /* PageView.swift */; };
 		AB08BB8E22CFD10D00FF285E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8D22CFD10D00FF285E /* ActivityIndicator.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB026B2622D9C7530036EBFE /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		AB08BB8922CE849C00FF285E /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		AB08BB8B22CE84D700FF285E /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		AB08BB8D22CFD10D00FF285E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				ABBECF8122B6249600EF13F3 /* String+Extension.swift */,
+				AB026B2622D9C7530036EBFE /* Container.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				ABD5AEA922BC094200203B6A /* ArticlesFromCategoryViewModel.swift in Sources */,
 				ABBECF8222B6249600EF13F3 /* String+Extension.swift in Sources */,
 				ABF65BBC22B4F23F00B032A0 /* ArticleRow.swift in Sources */,
+				AB026B2722D9C7530036EBFE /* Container.swift in Sources */,
 				ABD5AEA022BBF3B800203B6A /* SearchForArticlesViewModel.swift in Sources */,
 				ABEC946A22BF5B72008259D0 /* Requests.swift in Sources */,
 				ABD5AEA722BC078B00203B6A /* MainViewModel.swift in Sources */,
