@@ -50,7 +50,7 @@ struct TopHeadlineRow : View {
                            alignment: .bottomLeading)
                 
                 Text(verbatim: article.title ?? "")
-                    .color(.white)
+                    .foregroundColor(.white)
                     .font(.headline)
                     .lineLimit(nil)
                     .padding([.leading, .bottom, .trailing])

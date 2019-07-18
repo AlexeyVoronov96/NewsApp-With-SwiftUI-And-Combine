@@ -20,7 +20,7 @@ struct SourcesListView : View {
                                height: 50,
                                alignment: .center)
                 } else {
-                    List(viewModel.sources.identified(by: \.self)) { source in
+                    List(viewModel.sources, id: \.self) { source in
                         NavigationLink(
                             destination: ArticlesFromSourceView(source: source)
                                 .navigationBarTitle(Text(source.name))

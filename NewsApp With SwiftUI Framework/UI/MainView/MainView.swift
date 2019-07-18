@@ -50,7 +50,7 @@ struct MainView : View {
             }
             
             Section(header: Text(verbatim: "Categories".localized())) {
-                ForEach(self.categories.identified(by: \.self)) { category in
+                ForEach(categories, id: \.self) { category in
                     NavigationLink(
                         destination: ArticlesFromCategoryView(category: category)
                             .navigationBarTitle(Text(category.localized().capitalizeFirstLetter()), displayMode: .large)
