@@ -14,11 +14,11 @@ final class SearchForArticlesViewModel: BindableObject {
     
     private(set) var articles: Articles = [] {
         didSet {
-            didChange.send(self)
+            willChange.send(self)
         }
     }
     
-    var didChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
+    var willChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
     
     func searchForArticles(searchFilter: String) {
         apiProvider.performRequest(.searchForArticles(searchFilter: searchFilter))

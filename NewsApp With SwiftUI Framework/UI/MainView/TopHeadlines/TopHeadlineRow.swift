@@ -42,7 +42,7 @@ struct TopHeadlineRow : View {
         PresentationLink(destination: SafariView(url: article.url)) {
             VStack {
                 Text(verbatim: article.source?.name ?? "")
-                    .color(.white)
+                    .foregroundColor(.white)
                     .font(.subheadline)
                     .lineLimit(nil)
                     .padding([.leading, .trailing])
