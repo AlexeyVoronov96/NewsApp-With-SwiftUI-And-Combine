@@ -14,6 +14,7 @@ enum Requests {
     case getSources
     case getArticlesFromSource(_ source: String)
     case searchForArticles(searchFilter: String)
+    case getCurrentWeather(latitude: Double, longitude: Double)
     
     private var locale: String {
         return Locale.current.languageCode ?? "en"
@@ -24,7 +25,12 @@ enum Requests {
     }
     
     private var baseURL: String {
-        return "https://newsapi.org/v2"
+        switch self {
+        case .getCurrentWeather:
+            return "https://api.darksky.net"
+        default:
+            return "https://newsapi.org/v2"
+        }
     }
     
     var absoluteURL: String {
@@ -37,6 +43,9 @@ enum Requests {
             
         case .getArticlesFromSource, .searchForArticles:
             return baseURL + "/everything"
+            
+        case let .getCurrentWeather(latitude, longitude):
+            return baseURL + "/forecast/\(Container.weatherAPIKey)/\(latitude),\(longitude)"
         }
     }
     
@@ -56,15 +65,26 @@ enum Requests {
             
         case let .searchForArticles(searchFilter):
             return ["q": searchFilter, "language": locale]
+
+        case .getCurrentWeather:
+            return ["lang": locale]
         }
     }
     
     var headers: [String: String] {
-        return [
-            /// API key url: https://newsapi.org
-            "X-Api-Key": "YOUR_API_KEY",
-            "Content-type": "application/json",
-            "Accept": "application/json"
-        ]
+        switch self {
+        case .getCurrentWeather:
+            return [
+                "Content-type": "application/json",
+                "Accept": "application/json"
+            ]
+            
+        default:
+            return [
+                "X-Api-Key": Container.newsAPIKey,
+                "Content-type": "application/json",
+                "Accept": "application/json"
+            ]
+        }
     }
 }

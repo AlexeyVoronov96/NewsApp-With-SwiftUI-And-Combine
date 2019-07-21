@@ -22,6 +22,10 @@ struct TabView : View {
             SearchForArticlesView()
                 .tabItem({ Image("search") })
                 .tag(2)
+            
+            WeatherView()
+                .tabItem({ Image("weather") })
+                .tag(3)
         })
         .accentColor(.black)
     }
