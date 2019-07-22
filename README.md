@@ -17,4 +17,4 @@
 ## Current weather tab
 ![CurrentWeatherTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/WeatherTab.png)
 ## WebView
-![WebView](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/Webview.png)
+![WebView](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/WebView.png)
