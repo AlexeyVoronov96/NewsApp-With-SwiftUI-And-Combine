@@ -13,7 +13,7 @@ struct HourlyWeatherView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .center) {
+            HStack(alignment: .center, spacing: 16) {
                 ForEach(hourlyWeather, id: \.self) { weather in
                     VStack(alignment: .center) {
                         Text(verbatim: weather.time.hour())
@@ -23,9 +23,11 @@ struct HourlyWeatherView: View {
                             .font(.largeTitle)
                         
                         Text(verbatim: weather.convertTemperature)
+                            .frame(width: 50, alignment: .center)
                             .font(.headline)
                             .padding([.top], 4)
                     }
+                    .frame(width: 50, alignment: .center)
                 }
             }
         }

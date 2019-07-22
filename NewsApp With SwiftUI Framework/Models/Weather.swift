@@ -9,30 +9,24 @@
 import Foundation
 
 struct WeatherResponse: Codable {
-    let currently: CurrentWeather
+    let currently: Weather
     let hourly: HourlyWeatherData
     let daily: DailyWeatherData
 }
 
-struct CurrentWeather: Codable {
-    let time: Date
-    let icon: WeatherIcon
-    let temperature: Double
-}
-
 struct HourlyWeatherData: Codable {
     let summary: String
-    let data: [HourlyWeather]
-}
-
-struct HourlyWeather: Codable, Hashable {
-    let time: Date
-    let icon: WeatherIcon
-    let temperature: Double
+    let data: [Weather]
 }
 
 struct DailyWeatherData: Codable {
     let data: [DailyWeather]
+}
+
+struct Weather: Codable {
+    let time: Date
+    let icon: WeatherIcon
+    let temperature: Double
 }
 
 struct DailyWeather: Codable, Hashable {
@@ -42,16 +36,10 @@ struct DailyWeather: Codable, Hashable {
     let temperatureLow: Double
 }
 
-extension CurrentWeather {
+extension Weather {
     var convertTemperature: String {
         return "\(Int(5 / 9 * (temperature - 32)))˚C"
     }
-}
-
-extension HourlyWeather {
-    var convertTemperature: String {
-            return "\(Int(5 / 9 * (temperature - 32)))˚C"
-        }
 }
 
 extension DailyWeather {
@@ -62,7 +50,7 @@ extension DailyWeather {
 
 enum WeatherIcon: String, Codable {
     case clearDay = "clear-day"
-    case clearNight
+    case clearNight = "clear-night"
     case rain
     case snow
     case sleet

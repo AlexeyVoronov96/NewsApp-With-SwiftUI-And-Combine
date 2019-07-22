@@ -10,14 +10,14 @@ import Foundation
 import CoreLocation
 import Combine
 
-class WeatherService {
-    static let shared: WeatherService = WeatherService()
+class WeatherService: WeatherServiceProtocol {
+    static let shared: WeatherServiceProtocol = WeatherService()
     
-    let apiProvider: APIProviderProtocol = APIProvider.shared
+    private let apiProvider: APIProviderProtocol = APIProvider.shared
 
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
     
-    var location: CLLocation? {
+    private var location: CLLocation? {
         return self.locationManager.location
     }
     

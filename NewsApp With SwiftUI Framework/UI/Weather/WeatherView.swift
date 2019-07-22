@@ -18,32 +18,9 @@ struct WeatherView: View {
                     ActivityIndicator()
                 } else {
                     List(content: {
-                        Section(header: Text(verbatim: "Current weather".localized())) {
-                            VStack(alignment: .leading) {
-                                HStack(alignment: .center) {
-                                    Image(systemName: viewModel.weather?.currently.icon.systemImage ?? "sun.min.fill")
-                                        .font(.largeTitle)
-                                    Text(verbatim: viewModel.weather?.currently.convertTemperature ?? "")
-                                        .font(.largeTitle)
-                                }
-                                Text(verbatim: viewModel.weather?.hourly.summary ?? "")
-                                    .font(.subheadline)
-                                    .lineLimit(nil)
-                            }
-                        }
-                        Section(header: Text(verbatim: "Hourly".localized())) {
-                            HourlyWeatherView(hourlyWeather: viewModel.weather?.hourly.data ?? [])
-                        }
-                        Section(header: Text(verbatim: "Daily".localized())) {
-                            ForEach(viewModel.weather?.daily.data ?? [], id: \.self) { weather in
-                                HStack() {
-                                    Text(verbatim: weather.time.day())
-                                    Spacer()
-                                    Image(systemName: weather.icon.systemImage)
-                                    Text(verbatim: weather.averageTemperature)
-                                }
-                            }
-                        }
+                        currentWeatherSection
+                        hourlyWeatherSection
+                        dailyWeatherSection
                     })
                 }
             }
@@ -51,6 +28,41 @@ struct WeatherView: View {
         }
         .onAppear {
             self.viewModel.getCurrentWeather()
+        }
+    }
+    
+    private var currentWeatherSection: some View {
+        Section(header: Text(verbatim: "Current weather".localized())) {
+            VStack(alignment: .leading) {
+                HStack(alignment: .center) {
+                    Image(systemName: viewModel.weather?.currently.icon.systemImage ?? "sun.min.fill")
+                        .font(.largeTitle)
+                    Text(verbatim: viewModel.weather?.currently.convertTemperature ?? "")
+                        .font(.largeTitle)
+                }
+                Text(verbatim: viewModel.weather?.hourly.summary ?? "")
+                    .font(.subheadline)
+                    .lineLimit(nil)
+            }
+        }
+    }
+    
+    private var hourlyWeatherSection: some View {
+        Section(header: Text(verbatim: "Hourly".localized())) {
+            HourlyWeatherView(hourlyWeather: viewModel.weather?.hourly.data ?? [])
+        }
+    }
+    
+    private var dailyWeatherSection: some View {
+        Section(header: Text(verbatim: "Daily".localized())) {
+            ForEach(viewModel.weather?.daily.data ?? [], id: \.self) { weather in
+                HStack() {
+                    Text(verbatim: weather.time.day())
+                    Spacer()
+                    Image(systemName: weather.icon.systemImage)
+                    Text(verbatim: weather.averageTemperature)
+                }
+            }
         }
     }
 }

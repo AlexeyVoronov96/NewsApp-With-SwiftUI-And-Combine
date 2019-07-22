@@ -21,7 +21,7 @@ enum APIProviderErrors: LocalizedError {
         case .decodingError:
             return "Data has invalid format.".localized()
         default:
-            return "Something goes wrong."
+            return "Something goes wrong.".localized()
         }
     }
 }

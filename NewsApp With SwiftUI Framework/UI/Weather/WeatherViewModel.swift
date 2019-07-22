@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class WeatherViewModel: BindableObject {
-    private let weatherService = WeatherService.shared
+    private let weatherService: WeatherServiceProtocol = WeatherService.shared
     
     private(set) var weather: WeatherResponse? {
         didSet {
