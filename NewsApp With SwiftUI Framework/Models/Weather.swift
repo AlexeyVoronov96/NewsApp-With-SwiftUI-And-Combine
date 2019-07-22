@@ -23,7 +23,7 @@ struct DailyWeatherData: Codable {
     let data: [DailyWeather]
 }
 
-struct Weather: Codable {
+struct Weather: Codable, Hashable {
     let time: Date
     let icon: WeatherIcon
     let temperature: Double

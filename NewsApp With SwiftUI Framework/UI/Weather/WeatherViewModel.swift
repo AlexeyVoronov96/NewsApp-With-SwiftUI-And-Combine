@@ -19,9 +19,9 @@ final class WeatherViewModel: BindableObject {
     }
     
     var emptyWeather: WeatherResponse {
-        return WeatherResponse(currently: CurrentWeather(time: Date(),
-                                                         icon: .clearDay,
-                                                         temperature: 0.0),
+        return WeatherResponse(currently: Weather(time: Date(),
+                                                  icon: .clearDay,
+                                                  temperature: 0.0),
                                hourly: HourlyWeatherData(summary: "",
                                                          data: []),
                                daily: DailyWeatherData(data: []))

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HourlyWeatherView: View {
-    var hourlyWeather: [HourlyWeather]
+    var hourlyWeather: [Weather]
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
