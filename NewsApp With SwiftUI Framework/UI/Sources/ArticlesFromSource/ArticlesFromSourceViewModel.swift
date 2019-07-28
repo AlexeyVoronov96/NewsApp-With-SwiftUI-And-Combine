@@ -14,11 +14,11 @@ final class ArticlesFromSourceViewModel: BindableObject {
     
     private(set) var articles: Articles = [] {
         didSet {
-            didChange.send(self)
+            willChange.send(self)
         }
     }
     
-    var didChange = PassthroughSubject<ArticlesFromSourceViewModel, Never>()
+    var willChange = PassthroughSubject<ArticlesFromSourceViewModel, Never>()
     
     func getArticles(from source: String) {
         apiProvider.performRequest(.getArticlesFromSource(source))

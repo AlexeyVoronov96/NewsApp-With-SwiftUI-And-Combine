@@ -23,9 +23,16 @@
 "sports" = "спорт";
 "technology" = "технологии";
 
+// MARK: - Weather
+"Weather" = "Погода";
+"Current weather" = "Текущая погода";
+"Hourly" = "В течении дня";
+"Daily" = "В течении недели";
+
 // MARK: Errors
 "You made too many requests within a window of time and have been rate limited. Back off for a while." = "Вы превысили допустимое количество запросов. Попробуйте повторить попытку через некоторое время";
 "Server error." = "Ошибка сервера";
 "Empty data." = "Данные отсутствуют";
 "Data has invalid format." = "Не удалось прочитать данные, так как они имеют неверный формат";
 "Something goes wrong." = "Что-то пошло не так";
+"You've denied location authorization" = "Необходимо разрешить приложению использовать вашу геопозицию";

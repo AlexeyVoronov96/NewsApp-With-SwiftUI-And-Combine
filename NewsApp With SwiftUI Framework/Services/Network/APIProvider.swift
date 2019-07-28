@@ -15,7 +15,7 @@ class APIProvider: APIProviderProtocol {
     // MARK: - Request building
     func performRequest(_ request: Requests) -> AnyPublisher<Data, Error> {
         guard var urlComponents = URLComponents(string: request.absoluteURL) else {
-            return Publishers.Fail(error: APIProviderErrors.invalidURL)
+            return Fail(error: APIProviderErrors.invalidURL)
                 .eraseToAnyPublisher()
         }
         
@@ -24,7 +24,7 @@ class APIProvider: APIProviderProtocol {
         })
         
         guard let url = urlComponents.url else {
-            return Publishers.Fail(error: APIProviderErrors.invalidURL)
+            return Fail(error: APIProviderErrors.invalidURL)
                 .eraseToAnyPublisher()
         }
         

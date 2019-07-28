@@ -57,7 +57,7 @@ struct ArticlesFromSourceView: View {
                                        alignment: .center)
                         }
                         
-                        ForEach(viewModel.articles.identified(by: \.self)) { article in
+                        ForEach(viewModel.articles, id: \.self) { article in
                             PresentationLink(destination: SafariView(url: article.url)) {
                                 ArticleRow(article: article)
                                     .animation(.spring())

@@ -14,11 +14,11 @@ final class SourcesListViewModel: BindableObject {
     
     private(set) var sources: Sources = [] {
         didSet {
-            didChange.send(self)
+            willChange.send(self)
         }
     }
     
-    var didChange = PassthroughSubject<SourcesListViewModel, Never>()
+    var willChange = PassthroughSubject<SourcesListViewModel, Never>()
     
     func getSources() {
         apiProvider.performRequest(.getSources)

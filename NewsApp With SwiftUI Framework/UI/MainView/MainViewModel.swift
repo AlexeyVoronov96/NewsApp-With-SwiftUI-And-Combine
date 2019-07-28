@@ -14,11 +14,11 @@ final class MainViewModel: BindableObject {
     
     private(set) var topHeadlines: Articles = [] {
         didSet {
-            self.didChange.send(self)
+            self.willChange.send(self)
         }
     }
     
-    var didChange = PassthroughSubject<MainViewModel, Never>()
+    var willChange = PassthroughSubject<MainViewModel, Never>()
     
     func clearTopHeadlines() {
         self.topHeadlines = []
