@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SourcesListView : View {
-    @ObjectBinding var viewModel = SourcesListViewModel()
+    @ObservedObject var viewModel = SourcesListViewModel()
     
     var body: some View {
         NavigationView(content: {

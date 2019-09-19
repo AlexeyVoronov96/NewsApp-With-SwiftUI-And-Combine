@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct MainView : View {
-    @ObjectBinding var viewModel = MainViewModel()
+    @ObservedObject var viewModel = MainViewModel()
     
     private var categories: [String] = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
     

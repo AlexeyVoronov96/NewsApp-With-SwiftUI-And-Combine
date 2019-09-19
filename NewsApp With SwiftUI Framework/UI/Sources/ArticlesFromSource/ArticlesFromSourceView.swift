@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ArticlesFromSourceView: View {
-    @ObjectBinding var viewModel = ArticlesFromSourceViewModel()
+    @ObservedObject var viewModel = ArticlesFromSourceViewModel()
     @State private var isInfo: Bool = false
     
     var source: Source
@@ -52,13 +52,13 @@ struct ArticlesFromSourceView: View {
                         if isInfo {
                             Text(verbatim: "About source:\n".localized() + (source.description ?? ""))
                                 .lineLimit(nil)
-                                .frame(width: Length(UIScreen.main.bounds.width - 32),
-                                       height: Length(150),
+                                .frame(width: UIScreen.main.bounds.width - 32,
+                                       height: 150,
                                        alignment: .center)
                         }
                         
                         ForEach(viewModel.articles, id: \.self) { article in
-                            PresentationLink(destination: SafariView(url: article.url)) {
+                            NavigationLink(destination: SafariView(url: article.url)) {
                                 ArticleRow(article: article)
                                     .animation(.spring())
                             }

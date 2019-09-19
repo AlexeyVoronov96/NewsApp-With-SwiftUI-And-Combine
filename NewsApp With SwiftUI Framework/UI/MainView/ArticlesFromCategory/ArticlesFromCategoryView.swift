@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ArticlesFromCategoryView : View {
-    @ObjectBinding var viewModel = ArticlesFromCategoryViewModel()
+    @ObservedObject var viewModel = ArticlesFromCategoryViewModel()
     
     var category: String = ""
     

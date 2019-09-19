@@ -39,7 +39,7 @@ struct TopHeadlineRow : View {
     }
     
     private var topHeadlineInfo: some View {
-        PresentationLink(destination: SafariView(url: article.url)) {
+        NavigationLink(destination: SafariView(url: article.url)) {
             VStack {
                 Text(verbatim: article.source?.name ?? "")
                     .foregroundColor(.white)
@@ -63,7 +63,7 @@ struct TopHeadlineRow : View {
     private func downloadWebImage() {
         guard let url = URL(string: article.urlToImage ?? "") else { return }
         
-        URLSession.shared.dataTaskPublisher(for: url)
+        _ = URLSession.shared.dataTaskPublisher(for: url)
             .map { $0.data }
             .replaceError(with: Data())
             .map({ (data) -> UIImage? in
@@ -73,6 +73,5 @@ struct TopHeadlineRow : View {
             .sink { (image) in
                 self.headlineImage = image
         }
-        .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }

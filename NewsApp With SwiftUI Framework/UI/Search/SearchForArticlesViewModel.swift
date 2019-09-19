@@ -9,8 +9,10 @@
 import SwiftUI
 import Combine
 
-final class SearchForArticlesViewModel: BindableObject {
+final class SearchForArticlesViewModel: ObservableObject {
     private let apiProvider: APIProviderProtocol = APIProvider.shared
+    
+    private var cancellable: Cancellable?
     
     private(set) var articles: Articles = [] {
         didSet {
@@ -18,10 +20,14 @@ final class SearchForArticlesViewModel: BindableObject {
         }
     }
     
+    deinit {
+        cancellable?.cancel()
+    }
+    
     var willChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
     
     func searchForArticles(searchFilter: String) {
-        apiProvider.performRequest(.searchForArticles(searchFilter: searchFilter))
+        cancellable = apiProvider.performRequest(.searchForArticles(searchFilter: searchFilter))
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
@@ -29,6 +35,5 @@ final class SearchForArticlesViewModel: BindableObject {
             .sink(receiveValue: { [weak self] (articles) in
                 self?.articles = articles
             })
-            .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }
