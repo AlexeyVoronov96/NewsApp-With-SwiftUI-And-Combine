@@ -8,25 +8,21 @@
 
 import SwiftUI
 
-struct TabView : View {
+struct TabedView : View {
     var body: some View {
-        TabbedView(content: {
+        TabView {
             MainView()
-                .tabItem({ Image("top_headlines") })
-                .tag(0)
+                .tabItem { Image("top_headlines") }
             
             SourcesListView()
-                .tabItem({ Image("sources") })
-                .tag(1)
+                .tabItem { Image("sources") }
             
             SearchForArticlesView()
-                .tabItem({ Image("search") })
-                .tag(2)
+                .tabItem { Image("search") }
             
             WeatherView()
-                .tabItem({ Image("weather") })
-                .tag(3)
-        })
+                .tabItem { Image("weather") }
+        }
         .accentColor(.black)
     }
 }

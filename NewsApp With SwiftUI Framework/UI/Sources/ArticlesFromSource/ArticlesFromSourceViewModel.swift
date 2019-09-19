@@ -9,8 +9,10 @@
 import SwiftUI
 import Combine
 
-final class ArticlesFromSourceViewModel: BindableObject {
+final class ArticlesFromSourceViewModel: ObservableObject {
     private let apiProvider: APIProviderProtocol = APIProvider.shared
+    
+    private var cancellable: Cancellable?
     
     private(set) var articles: Articles = [] {
         didSet {
@@ -18,10 +20,14 @@ final class ArticlesFromSourceViewModel: BindableObject {
         }
     }
     
+    deinit {
+        cancellable?.cancel()
+    }
+    
     var willChange = PassthroughSubject<ArticlesFromSourceViewModel, Never>()
     
     func getArticles(from source: String) {
-        apiProvider.performRequest(.getArticlesFromSource(source))
+        cancellable = apiProvider.performRequest(.getArticlesFromSource(source))
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
@@ -29,6 +35,5 @@ final class ArticlesFromSourceViewModel: BindableObject {
             .sink(receiveValue: { [weak self] (articles) in
                 self?.articles = articles
             })
-            .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }

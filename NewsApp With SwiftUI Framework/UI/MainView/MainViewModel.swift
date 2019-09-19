@@ -9,13 +9,19 @@
 import SwiftUI
 import Combine
 
-final class MainViewModel: BindableObject {
+final class MainViewModel: ObservableObject {
     private let apiProvider: APIProviderProtocol = APIProvider.shared
+    
+    private var cancellable: Cancellable?
     
     private(set) var topHeadlines: Articles = [] {
         didSet {
             self.willChange.send(self)
         }
+    }
+    
+    deinit {
+        cancellable?.cancel()
     }
     
     var willChange = PassthroughSubject<MainViewModel, Never>()
@@ -25,7 +31,7 @@ final class MainViewModel: BindableObject {
     }
     
     func getTopHeadlines() {
-        apiProvider.performRequest(.getTopHeadlines)
+        cancellable = apiProvider.performRequest(.getTopHeadlines)
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
@@ -33,6 +39,5 @@ final class MainViewModel: BindableObject {
             .sink(receiveValue: { [weak self] (articles) in
                 self?.topHeadlines = articles
             })
-            .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }

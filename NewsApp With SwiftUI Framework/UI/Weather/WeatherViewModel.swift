@@ -9,13 +9,19 @@
 import SwiftUI
 import Combine
 
-final class WeatherViewModel: BindableObject {
+final class WeatherViewModel: ObservableObject {
     private let weatherService: WeatherServiceProtocol = WeatherService.shared
+    
+    private var cancellable: Cancellable?
     
     private(set) var weather: WeatherResponse? {
         didSet {
             willChange.send(self)
         }
+    }
+    
+    deinit {
+        cancellable?.cancel()
     }
     
     var emptyWeather: WeatherResponse {
@@ -30,13 +36,12 @@ final class WeatherViewModel: BindableObject {
     var willChange = PassthroughSubject<WeatherViewModel, Never>()
     
     func getCurrentWeather() {
-        weatherService.requestCurrentWeather()
+        cancellable = weatherService.requestCurrentWeather()
             .decode(type: WeatherResponse.self, decoder: Container.weatherJSONDecoder)
             .replaceError(with: emptyWeather)
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] (weather) in
                 self?.weather = weather
             })
-            .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }

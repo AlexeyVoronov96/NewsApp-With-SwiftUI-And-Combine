@@ -15,7 +15,7 @@ struct ArticlesList : View {
         ScrollView {
             VStack(alignment: .center) {
                 ForEach(articles, id: \.self) { article in
-                    PresentationLink(destination: SafariView(url: article.url)) {
+                    NavigationLink(destination: SafariView(url: article.url)) {
                         ArticleRow(article: article)
                             .animation(.spring())
                     }

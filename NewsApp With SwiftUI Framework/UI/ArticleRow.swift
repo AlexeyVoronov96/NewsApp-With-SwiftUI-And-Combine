@@ -62,7 +62,7 @@ struct ArticleRow : View {
     private func downloadWebImage() {
         guard let url = URL(string: article.urlToImage ?? "") else { return }
         
-        URLSession.shared.dataTaskPublisher(for: url)
+        _ = URLSession.shared.dataTaskPublisher(for: url)
             .map { $0.data }
             .replaceError(with: Data())
             .map({ (data) -> UIImage? in
@@ -72,6 +72,5 @@ struct ArticleRow : View {
             .sink { (image) in
                 self.headlineImage = image
             }
-            .receive(completion: Subscribers.Completion<Never>.finished)
     }
 }

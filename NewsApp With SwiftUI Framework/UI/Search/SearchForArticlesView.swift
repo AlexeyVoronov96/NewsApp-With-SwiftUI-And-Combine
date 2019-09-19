@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SearchForArticlesView : View {
-    @ObjectBinding var viewModel = SearchForArticlesViewModel()
+    @ObservedObject var viewModel = SearchForArticlesViewModel()
     
     @State private var searchFilter: String = ""
     
