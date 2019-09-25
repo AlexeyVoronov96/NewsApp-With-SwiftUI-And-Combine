@@ -14,11 +14,7 @@ final class WeatherViewModel: ObservableObject {
     
     private var cancellable: Cancellable?
     
-    private(set) var weather: WeatherResponse? {
-        didSet {
-            willChange.send(self)
-        }
-    }
+    @Published private (set) var weather: WeatherResponse?
     
     deinit {
         cancellable?.cancel()
@@ -32,8 +28,6 @@ final class WeatherViewModel: ObservableObject {
                                                          data: []),
                                daily: DailyWeatherData(data: []))
     }
-    
-    var willChange = PassthroughSubject<WeatherViewModel, Never>()
     
     func getCurrentWeather() {
         cancellable = weatherService.requestCurrentWeather()

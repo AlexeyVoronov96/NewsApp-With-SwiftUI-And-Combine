@@ -14,17 +14,11 @@ final class ArticlesFromCategoryViewModel: ObservableObject {
     
     private var cancellable: Cancellable?
     
-    private(set) var articles: Articles = [] {
-        didSet {
-            willChange.send(self)
-        }
-    }
+    @Published private(set) var articles: Articles = []
     
     deinit {
         cancellable?.cancel()
     }
-    
-    var willChange = PassthroughSubject<ArticlesFromCategoryViewModel, Never>()
     
     func getArticles(from category: String) {
         cancellable = apiProvider.performRequest(.getArticlesFromCategory(category))

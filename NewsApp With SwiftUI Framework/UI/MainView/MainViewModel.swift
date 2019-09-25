@@ -14,17 +14,11 @@ final class MainViewModel: ObservableObject {
     
     private var cancellable: Cancellable?
     
-    private(set) var topHeadlines: Articles = [] {
-        didSet {
-            self.willChange.send(self)
-        }
-    }
+    @Published private(set) var topHeadlines: Articles = []
     
     deinit {
         cancellable?.cancel()
     }
-    
-    var willChange = PassthroughSubject<MainViewModel, Never>()
     
     func clearTopHeadlines() {
         self.topHeadlines = []

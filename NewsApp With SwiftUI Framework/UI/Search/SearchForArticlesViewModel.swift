@@ -14,17 +14,11 @@ final class SearchForArticlesViewModel: ObservableObject {
     
     private var cancellable: Cancellable?
     
-    private(set) var articles: Articles = [] {
-        didSet {
-            willChange.send(self)
-        }
-    }
+    @Published private (set) var articles: Articles = []
     
     deinit {
         cancellable?.cancel()
     }
-    
-    var willChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
     
     func searchForArticles(searchFilter: String) {
         cancellable = apiProvider.performRequest(.searchForArticles(searchFilter: searchFilter))
