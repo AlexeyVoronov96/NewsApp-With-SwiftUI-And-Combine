@@ -21,7 +21,7 @@ final class SearchForArticlesViewModel: ObservableObject {
     }
     
     func searchForArticles(searchFilter: String) {
-        cancellable = apiProvider.performRequest(.searchForArticles(searchFilter: searchFilter))
+        cancellable = apiProvider.getData(from: .searchForArticles(searchFilter: searchFilter))
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])

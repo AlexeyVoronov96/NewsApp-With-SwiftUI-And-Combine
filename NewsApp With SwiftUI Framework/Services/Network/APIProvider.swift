@@ -12,32 +12,39 @@ import Combine
 class APIProvider: APIProviderProtocol {
     static let shared: APIProviderProtocol = APIProvider()
     
-    // MARK: - Request building
-    func performRequest(_ request: Requests) -> AnyPublisher<Data, Error> {
-        guard var urlComponents = URLComponents(string: request.absoluteURL) else {
+    func getData(from endpoint: Endpoints) -> AnyPublisher<Data, Error> {
+        guard let request = performRequest(for: endpoint) else {
             return Fail(error: APIProviderErrors.invalidURL)
                 .eraseToAnyPublisher()
         }
         
-        urlComponents.queryItems = request.params.compactMap({ (param) -> URLQueryItem in
+        return getData(with: request)
+            .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Request building
+    private func performRequest(for endpoint: Endpoints) -> URLRequest? {
+        guard var urlComponents = URLComponents(string: endpoint.absoluteURL) else {
+            return nil
+        }
+
+        urlComponents.queryItems = endpoint.params.compactMap({ (param) -> URLQueryItem in
             return URLQueryItem(name: param.key, value: param.value)
         })
-        
+
         guard let url = urlComponents.url else {
-            return Fail(error: APIProviderErrors.invalidURL)
-                .eraseToAnyPublisher()
+            return nil
         }
-        
+
         var urlRequest = URLRequest(url: url,
                                     cachePolicy: .reloadRevalidatingCacheData,
                                     timeoutInterval: 30)
-        
-        for header in request.headers {
+
+        for header in endpoint.headers {
             urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
         }
         
-        return getData(with: urlRequest)
-            .eraseToAnyPublisher()
+        return urlRequest
     }
     
     // MARK: - Getting data

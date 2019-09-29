@@ -33,7 +33,7 @@ class WeatherService: WeatherServiceProtocol {
                     .eraseToAnyPublisher()
             }
             
-            return apiProvider.performRequest(Requests.getCurrentWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+            return apiProvider.getData(from: .getCurrentWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
                 .map { (data) -> Data in
                     self.locationManager.stopUpdatingLocation()
                     return data

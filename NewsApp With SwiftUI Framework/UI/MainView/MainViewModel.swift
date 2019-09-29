@@ -25,7 +25,7 @@ final class MainViewModel: ObservableObject {
     }
     
     func getTopHeadlines() {
-        cancellable = apiProvider.performRequest(.getTopHeadlines)
+        cancellable = apiProvider.getData(from: .getTopHeadlines)
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])

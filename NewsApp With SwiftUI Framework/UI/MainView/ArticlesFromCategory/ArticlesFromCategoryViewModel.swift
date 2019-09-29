@@ -21,7 +21,7 @@ final class ArticlesFromCategoryViewModel: ObservableObject {
     }
     
     func getArticles(from category: String) {
-        cancellable = apiProvider.performRequest(.getArticlesFromCategory(category))
+        cancellable = apiProvider.getData(from: .getArticlesFromCategory(category))
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
