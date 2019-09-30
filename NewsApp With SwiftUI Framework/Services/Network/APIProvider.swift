@@ -12,18 +12,18 @@ import Combine
 class APIProvider: APIProviderProtocol {
     static let shared: APIProviderProtocol = APIProvider()
     
-    func getData(from endpoint: Endpoints) -> AnyPublisher<Data, Error> {
+    func getData(from endpoint: Endpoint) -> AnyPublisher<Data, Error> {
         guard let request = performRequest(for: endpoint) else {
             return Fail(error: APIProviderErrors.invalidURL)
                 .eraseToAnyPublisher()
         }
         
-        return getData(with: request)
+        return loadData(with: request)
             .eraseToAnyPublisher()
     }
     
     // MARK: - Request building
-    private func performRequest(for endpoint: Endpoints) -> URLRequest? {
+    private func performRequest(for endpoint: Endpoint) -> URLRequest? {
         guard var urlComponents = URLComponents(string: endpoint.absoluteURL) else {
             return nil
         }
@@ -48,7 +48,7 @@ class APIProvider: APIProviderProtocol {
     }
     
     // MARK: - Getting data
-    private func getData(with request: URLRequest) -> AnyPublisher<Data, Error> {
+    private func loadData(with request: URLRequest) -> AnyPublisher<Data, Error> {
         return URLSession.shared.dataTaskPublisher(for: request)
             .mapError({ (error) -> Error in
                 APIErrors(rawValue: error.code.rawValue) ?? APIProviderErrors.unknownError

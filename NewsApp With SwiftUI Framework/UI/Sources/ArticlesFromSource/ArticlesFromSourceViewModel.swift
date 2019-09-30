@@ -21,7 +21,7 @@ final class ArticlesFromSourceViewModel: ObservableObject {
     }
     
     func getArticles(from source: String) {
-        cancellable = apiProvider.getData(from: .getArticlesFromSource(source))
+        cancellable = apiProvider.getData(from: ArticlesEndpoints.getArticlesFromSource(source))
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])

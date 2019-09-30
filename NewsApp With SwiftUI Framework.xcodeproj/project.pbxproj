@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB01EA4123425E3C004018D4 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01EA4023425E3C004018D4 /* Endpoint.swift */; };
+		AB01EA4323425ED0004018D4 /* WeatherEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01EA4223425ED0004018D4 /* WeatherEndpoints.swift */; };
 		AB026B2722D9C7530036EBFE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB026B2622D9C7530036EBFE /* Container.swift */; };
 		AB08BB8A22CE849C00FF285E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8922CE849C00FF285E /* PageViewController.swift */; };
 		AB08BB8C22CE84D700FF285E /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8B22CE84D700FF285E /* PageView.swift */; };
@@ -45,7 +47,7 @@
 		ABE1181A22E8C25000915F0C /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE1181422E8C1FD00915F0C /* WeatherService.swift */; };
 		ABE13DA922B628D3005CA99D /* APIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBECF8522B6269100EF13F3 /* APIProvider.swift */; };
 		ABEC946822BDFC2C008259D0 /* APIProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946722BDFC2C008259D0 /* APIProviderProtocol.swift */; };
-		ABEC946A22BF5B72008259D0 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946922BF5B72008259D0 /* Endpoints.swift */; };
+		ABEC946A22BF5B72008259D0 /* ArticlesEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946922BF5B72008259D0 /* ArticlesEndpoints.swift */; };
 		ABEC946D22BF8B71008259D0 /* Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946C22BF8B71008259D0 /* Sources.swift */; };
 		ABEC946F22BF8B87008259D0 /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946E22BF8B87008259D0 /* Articles.swift */; };
 		ABF65BBC22B4F23F00B032A0 /* ArticleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF65BBB22B4F23F00B032A0 /* ArticleRow.swift */; };
@@ -53,6 +55,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB01EA4023425E3C004018D4 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		AB01EA4223425ED0004018D4 /* WeatherEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEndpoints.swift; sourceTree = "<group>"; };
 		AB026B2622D9C7530036EBFE /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		AB08BB8922CE849C00FF285E /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		AB08BB8B22CE84D700FF285E /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
@@ -94,7 +98,7 @@
 		ABE1181522E8C20000915F0C /* WeatherServiceErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceErrors.swift; sourceTree = "<group>"; };
 		ABE1181622E8C20200915F0C /* WeatherServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceProtocol.swift; sourceTree = "<group>"; };
 		ABEC946722BDFC2C008259D0 /* APIProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProviderProtocol.swift; sourceTree = "<group>"; };
-		ABEC946922BF5B72008259D0 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		ABEC946922BF5B72008259D0 /* ArticlesEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesEndpoints.swift; sourceTree = "<group>"; };
 		ABEC946C22BF8B71008259D0 /* Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources.swift; sourceTree = "<group>"; };
 		ABEC946E22BF8B87008259D0 /* Articles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Articles.swift; sourceTree = "<group>"; };
 		ABF65BBB22B4F23F00B032A0 /* ArticleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRow.swift; sourceTree = "<group>"; };
@@ -112,6 +116,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB01EA442342602D004018D4 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				AB01EA4023425E3C004018D4 /* Endpoint.swift */,
+				ABEC946922BF5B72008259D0 /* ArticlesEndpoints.swift */,
+				AB01EA4223425ED0004018D4 /* WeatherEndpoints.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
 		AB76F27422E4696D007CBF77 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,9 +286,9 @@
 		ABE1181722E8C21800915F0C /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				AB01EA442342602D004018D4 /* Endpoints */,
 				ABEC946722BDFC2C008259D0 /* APIProviderProtocol.swift */,
 				ABBECF8522B6269100EF13F3 /* APIProvider.swift */,
-				ABEC946922BF5B72008259D0 /* Endpoints.swift */,
 				AB42C98922B7E04700DE29C0 /* APIErrors.swift */,
 				AB42C98B22B7E3D500DE29C0 /* APIProviderErrors.swift */,
 			);
@@ -393,15 +407,17 @@
 				AB69876C22B570EC00FAEAC3 /* SearchForArticlesView.swift in Sources */,
 				ABBECF7E22B60F2300EF13F3 /* TopHeadlineRow.swift in Sources */,
 				ABEC946D22BF8B71008259D0 /* Sources.swift in Sources */,
+				AB01EA4323425ED0004018D4 /* WeatherEndpoints.swift in Sources */,
 				AB42C98C22B7E3D500DE29C0 /* APIProviderErrors.swift in Sources */,
 				ABF742EA22C6BF21009DD878 /* SafariView.swift in Sources */,
 				ABBECF7A22B60E1200EF13F3 /* MainView.swift in Sources */,
 				ABD5AEA922BC094200203B6A /* ArticlesFromCategoryViewModel.swift in Sources */,
 				ABBECF8222B6249600EF13F3 /* String+Extension.swift in Sources */,
+				AB01EA4123425E3C004018D4 /* Endpoint.swift in Sources */,
 				ABF65BBC22B4F23F00B032A0 /* ArticleRow.swift in Sources */,
 				AB026B2722D9C7530036EBFE /* Container.swift in Sources */,
 				ABD5AEA022BBF3B800203B6A /* SearchForArticlesViewModel.swift in Sources */,
-				ABEC946A22BF5B72008259D0 /* Endpoints.swift in Sources */,
+				ABEC946A22BF5B72008259D0 /* ArticlesEndpoints.swift in Sources */,
 				ABD5AEA722BC078B00203B6A /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

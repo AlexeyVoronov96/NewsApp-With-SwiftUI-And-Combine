@@ -1,0 +1,46 @@
+//
+//  WeatherEndpoints.swift
+//  NewsApp With SwiftUI Framework
+//
+//  Created by Алексей Воронов on 30.09.2019.
+//  Copyright © 2019 Алексей Воронов. All rights reserved.
+//
+
+import Foundation
+
+enum WeatherEndpoints: Endpoint {
+    case getCurrentWeather(latitude: Double, longitude: Double)
+    
+    private var locale: String {
+        return Locale.current.languageCode ?? "en"
+    }
+    
+    private var region: String {
+        return Locale.current.regionCode ?? "us"
+    }
+    
+    var baseURL: String {
+        return "https://api.darksky.net"
+    }
+    
+    var absoluteURL: String {
+        switch self {
+        case let .getCurrentWeather(latitude, longitude):
+            return baseURL + "/forecast/\(Container.weatherAPIKey)/\(latitude),\(longitude)"
+        }
+    }
+    
+    var params: [String : String] {
+        switch self {
+        case .getCurrentWeather:
+            return ["lang": locale]
+        }
+    }
+    
+    var headers: [String : String] {
+        return [
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        ]
+    }
+}

@@ -10,5 +10,5 @@ import Combine
 import Foundation
 
 protocol APIProviderProtocol {
-    func getData(from endpoint: Endpoints) -> AnyPublisher<Data, Error>
+    func getData(from endpoint: Endpoint) -> AnyPublisher<Data, Error>
 }
