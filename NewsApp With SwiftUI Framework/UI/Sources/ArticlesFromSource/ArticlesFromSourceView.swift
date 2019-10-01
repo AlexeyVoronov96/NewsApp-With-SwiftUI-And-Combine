@@ -58,10 +58,8 @@ struct ArticlesFromSourceView: View {
                         }
                         
                         ForEach(viewModel.articles, id: \.self) { article in
-                            NavigationLink(destination: SafariView(url: article.url)) {
-                                ArticleRow(article: article)
-                                    .animation(.spring())
-                            }
+                            ArticleRow(article: article)
+                                .animation(.spring())
                         }
                     }
                     .animation(.spring())

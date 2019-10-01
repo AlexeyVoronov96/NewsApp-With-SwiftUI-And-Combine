@@ -15,7 +15,7 @@ struct ArticleRow : View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            KFImage(article.urlToImage)
+            KFImage(URL(string: article.urlToImage ?? ""))
                 .renderingMode(.original)
                 .resizable()
                 .scaledToFill()
