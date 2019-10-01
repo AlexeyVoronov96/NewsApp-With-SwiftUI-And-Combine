@@ -11,14 +11,6 @@ import Foundation
 enum WeatherEndpoints: Endpoint {
     case getCurrentWeather(latitude: Double, longitude: Double)
     
-    private var locale: String {
-        return Locale.current.languageCode ?? "en"
-    }
-    
-    private var region: String {
-        return Locale.current.regionCode ?? "us"
-    }
-    
     var baseURL: String {
         return "https://api.darksky.net"
     }

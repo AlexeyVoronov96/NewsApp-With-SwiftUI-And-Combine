@@ -15,14 +15,6 @@ enum ArticlesEndpoints: Endpoint {
     case getArticlesFromSource(_ source: String)
     case searchForArticles(searchFilter: String)
     
-    private var locale: String {
-        return Locale.current.languageCode ?? "en"
-    }
-    
-    private var region: String {
-        return Locale.current.regionCode ?? "us"
-    }
-    
     var baseURL: String {
         return "https://newsapi.org/v2"
     }
