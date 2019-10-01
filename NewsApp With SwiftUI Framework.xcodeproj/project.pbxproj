@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -52,6 +52,7 @@
 		ABEC946F22BF8B87008259D0 /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946E22BF8B87008259D0 /* Articles.swift */; };
 		ABF65BBC22B4F23F00B032A0 /* ArticleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF65BBB22B4F23F00B032A0 /* ArticleRow.swift */; };
 		ABF742EA22C6BF21009DD878 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF742E922C6BF21009DD878 /* SafariView.swift */; };
+		EF695B8F2343312500311202 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = EF695B8E2343312500311202 /* KingfisherSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF695B8F2343312500311202 /* KingfisherSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +323,9 @@
 			dependencies = (
 			);
 			name = "NewsApp With SwiftUI Framework";
+			packageProductDependencies = (
+				EF695B8E2343312500311202 /* KingfisherSwiftUI */,
+			);
 			productName = "NewsApp With SwiftUI Framework";
 			productReference = AB90019F22B4E084002C45C6 /* NewsApp With SwiftUI Framework.app */;
 			productType = "com.apple.product-type.application";
@@ -350,6 +355,9 @@
 				ru,
 			);
 			mainGroup = AB90019622B4E084002C45C6;
+			packageReferences = (
+				EF695B8D2343312500311202 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = AB9001A022B4E084002C45C6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -623,6 +631,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EF695B8D2343312500311202 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EF695B8E2343312500311202 /* KingfisherSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF695B8D2343312500311202 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = KingfisherSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AB90019722B4E084002C45C6 /* Project object */;
 }

@@ -7,22 +7,18 @@
 //
 
 import Combine
+import KingfisherSwiftUI
 import SwiftUI
 
 struct TopHeadlineRow : View {
-    @State private var headlineImage = UIImage(named: "logo")
-    
-    private let placeholder = #imageLiteral(resourceName: "logo")
-    
     var article: Article
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Image(uiImage: headlineImage ?? placeholder)
+            KFImage(article.urlToImage)
                 .renderingMode(.original)
                 .resizable()
                 .aspectRatio(4 / 3, contentMode: .fit)
-                .onAppear(perform: downloadWebImage)
                 .frame(width: UIScreen.main.bounds.width,
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
@@ -57,21 +53,6 @@ struct TopHeadlineRow : View {
                     .frame(width: UIScreen.main.bounds.width,
                            alignment: .bottomLeading)
             }
-        }
-    }
-    
-    private func downloadWebImage() {
-        guard let url = URL(string: article.urlToImage ?? "") else { return }
-        
-        _ = URLSession.shared.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .replaceError(with: Data())
-            .map({ (data) -> UIImage? in
-                return UIImage(data: data)
-            })
-            .receive(on: RunLoop.main)
-            .sink { (image) in
-                self.headlineImage = image
         }
     }
 }
