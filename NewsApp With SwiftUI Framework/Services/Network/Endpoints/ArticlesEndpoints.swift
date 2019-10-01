@@ -1,5 +1,5 @@
 //
-//  Endpoints.swift
+//  ArticlesEndpoints.swift
 //  NewsApp With SwiftUI Framework
 //
 //  Created by Алексей Воронов on 23.06.2019.
