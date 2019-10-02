@@ -7,7 +7,7 @@
 ##### 1. Get your [News API key](https://newsapi.org)
 ##### 2. Get your [Weather API key](https://darksky.net)
 ##### 3. Insert your keys into Container.swift file
-##### 3. Run app
+##### 4. Run app
 ## Overview tab
 ![OverviewTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/OverviewTab.png)
 ## Sources tab
