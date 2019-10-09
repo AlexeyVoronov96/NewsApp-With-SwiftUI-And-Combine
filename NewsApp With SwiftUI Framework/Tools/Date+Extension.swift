@@ -20,10 +20,10 @@ extension Date {
     
     func day() -> String {
         let dateFormatter = DateFormatter()
-                
-                dateFormatter.dateFormat = "EEEE"
-                dateFormatter.locale = Locale.current
-                
-                return dateFormatter.string(from: self)
+        
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale.current
+        
+        return dateFormatter.string(from: self)
     }
 }

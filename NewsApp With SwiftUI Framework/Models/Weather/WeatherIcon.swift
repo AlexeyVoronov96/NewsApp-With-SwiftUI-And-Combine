@@ -1,52 +1,12 @@
 //
-//  Weather.swift
+//  WeatherIcon.swift
 //  NewsApp With SwiftUI Framework
 //
-//  Created by Алексей Воронов on 21.07.2019.
+//  Created by Алексей Воронов on 09.10.2019.
 //  Copyright © 2019 Алексей Воронов. All rights reserved.
 //
 
 import Foundation
-
-struct WeatherResponse: Codable {
-    let currently: Weather
-    let hourly: HourlyWeatherData
-    let daily: DailyWeatherData
-}
-
-struct HourlyWeatherData: Codable {
-    let summary: String
-    let data: [Weather]
-}
-
-struct DailyWeatherData: Codable {
-    let data: [DailyWeather]
-}
-
-struct Weather: Codable, Hashable {
-    let time: Date
-    let icon: WeatherIcon
-    let temperature: Double
-}
-
-struct DailyWeather: Codable, Hashable {
-    let time: Date
-    let icon: WeatherIcon
-    let temperatureHigh: Double
-    let temperatureLow: Double
-}
-
-extension Weather {
-    var convertTemperature: String {
-        return "\(Int(5 / 9 * (temperature - 32)))˚C"
-    }
-}
-
-extension DailyWeather {
-    var averageTemperature: String {
-        return "\(Int(5 / 9 * (((temperatureHigh + temperatureLow) / 2 ) - 32)))˚C"
-    }
-}
 
 enum WeatherIcon: String, Codable {
     case clearDay = "clear-day"
