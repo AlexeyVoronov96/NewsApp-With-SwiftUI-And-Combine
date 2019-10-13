@@ -10,11 +10,6 @@ import Foundation
 
 typealias Articles = [Article]
 
-struct ArticlesResponse: Codable {
-    let status: String
-    let articles: Articles
-}
-
 struct Article: Codable, Hashable {
     let source: ArticleSource?
     let author: String?
