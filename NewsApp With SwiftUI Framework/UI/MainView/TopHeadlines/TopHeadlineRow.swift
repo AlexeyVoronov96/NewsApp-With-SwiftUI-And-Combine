@@ -33,11 +33,14 @@ struct TopHeadlineRow : View {
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
             
-            Button(action: {
-                self.shouldPresentURL = true
-            }, label: {
-                topHeadlineInfo
-            })
+            Button(
+                action: {
+                    self.shouldPresentURL = true
+                },
+                label: {
+                    topHeadlineInfo
+                }
+            )
         }
         .sheet(isPresented: $shouldPresentURL) {
             SafariView(url: self.article.url)

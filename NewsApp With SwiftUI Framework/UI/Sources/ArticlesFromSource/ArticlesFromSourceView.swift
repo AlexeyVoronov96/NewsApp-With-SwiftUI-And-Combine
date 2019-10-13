@@ -35,12 +35,15 @@ struct ArticlesFromSourceView: View {
                                 .imageScale(.large)
                         }
                     }
-                    Button(action: {
-                        UIApplication.shared.open(self.source.url)
-                    }) {
-                        Image(systemName: "safari")
-                            .imageScale(.large)
-                    }
+                    Button(
+                        action: {
+                            UIApplication.shared.open(self.source.url)
+                        },
+                        label: {
+                            Image(systemName: "safari")
+                                .imageScale(.large)
+                        }
+                    )
                 }
             )
     }
@@ -64,13 +67,16 @@ struct ArticlesFromSourceView: View {
                         }
                         
                         ForEach(viewModel.articles, id: \.self) { article in
-                            Button(action: {
-                                self.articleURL = article.url
-                                self.shouldPresent = true
-                            }, label: {
-                                ArticleRow(article: article)
-                                    .animation(.spring())
-                            })
+                            Button(
+                                action: {
+                                    self.articleURL = article.url
+                                    self.shouldPresent = true
+                                },
+                                label: {
+                                    ArticleRow(article: article)
+                                        .animation(.spring())
+                                }
+                            )
                         }
                     }
                     .animation(.spring())
