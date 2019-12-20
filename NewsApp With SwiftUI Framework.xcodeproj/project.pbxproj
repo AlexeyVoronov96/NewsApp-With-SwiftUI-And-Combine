@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB01EA4123425E3C004018D4 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01EA4023425E3C004018D4 /* Endpoint.swift */; };
-		AB01EA4323425ED0004018D4 /* WeatherEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01EA4223425ED0004018D4 /* WeatherEndpoints.swift */; };
+		17A2DAC2DF6518A82891F8FA /* Pods_NewsApp_With_SwiftUI_Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B9DD3955083141A5345346 /* Pods_NewsApp_With_SwiftUI_Framework.framework */; };
+		AB01EA4123425E3C004018D4 /* EndpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01EA4023425E3C004018D4 /* EndpointProtocol.swift */; };
+		AB01EA4323425ED0004018D4 /* WeatherEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01EA4223425ED0004018D4 /* WeatherEndpoint.swift */; };
 		AB026B2722D9C7530036EBFE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB026B2622D9C7530036EBFE /* Container.swift */; };
 		AB08BB8A22CE849C00FF285E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8922CE849C00FF285E /* PageViewController.swift */; };
 		AB08BB8C22CE84D700FF285E /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8B22CE84D700FF285E /* PageView.swift */; };
@@ -46,8 +47,7 @@
 		ABE1181922E8C24E00915F0C /* WeatherServiceErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE1181522E8C20000915F0C /* WeatherServiceErrors.swift */; };
 		ABE1181A22E8C25000915F0C /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE1181422E8C1FD00915F0C /* WeatherService.swift */; };
 		ABE13DA922B628D3005CA99D /* APIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBECF8522B6269100EF13F3 /* APIProvider.swift */; };
-		ABEC946822BDFC2C008259D0 /* APIProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946722BDFC2C008259D0 /* APIProviderProtocol.swift */; };
-		ABEC946A22BF5B72008259D0 /* ArticlesEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946922BF5B72008259D0 /* ArticlesEndpoints.swift */; };
+		ABEC946A22BF5B72008259D0 /* ArticleEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946922BF5B72008259D0 /* ArticleEndpoint.swift */; };
 		ABEC946D22BF8B71008259D0 /* Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946C22BF8B71008259D0 /* Sources.swift */; };
 		ABEC946F22BF8B87008259D0 /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC946E22BF8B87008259D0 /* Articles.swift */; };
 		ABF65BBC22B4F23F00B032A0 /* ArticleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF65BBB22B4F23F00B032A0 /* ArticleRow.swift */; };
@@ -60,12 +60,12 @@
 		EF15F43B234DA4B000D5D596 /* DailyWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15F43A234DA4B000D5D596 /* DailyWeatherData.swift */; };
 		EF15F43D234DA4CB00D5D596 /* DailyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15F43C234DA4CB00D5D596 /* DailyWeather.swift */; };
 		EF15F43F234DA4F500D5D596 /* WeatherIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15F43E234DA4F500D5D596 /* WeatherIcon.swift */; };
-		EF695B8F2343312500311202 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = EF695B8E2343312500311202 /* KingfisherSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AB01EA4023425E3C004018D4 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		AB01EA4223425ED0004018D4 /* WeatherEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEndpoints.swift; sourceTree = "<group>"; };
+		AA427358EECBBEE929D7D271 /* Pods-NewsApp With SwiftUI Framework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsApp With SwiftUI Framework.release.xcconfig"; path = "Target Support Files/Pods-NewsApp With SwiftUI Framework/Pods-NewsApp With SwiftUI Framework.release.xcconfig"; sourceTree = "<group>"; };
+		AB01EA4023425E3C004018D4 /* EndpointProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointProtocol.swift; sourceTree = "<group>"; };
+		AB01EA4223425ED0004018D4 /* WeatherEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEndpoint.swift; sourceTree = "<group>"; };
 		AB026B2622D9C7530036EBFE /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		AB08BB8922CE849C00FF285E /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		AB08BB8B22CE84D700FF285E /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
@@ -106,12 +106,13 @@
 		ABE1181422E8C1FD00915F0C /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		ABE1181522E8C20000915F0C /* WeatherServiceErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceErrors.swift; sourceTree = "<group>"; };
 		ABE1181622E8C20200915F0C /* WeatherServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceProtocol.swift; sourceTree = "<group>"; };
-		ABEC946722BDFC2C008259D0 /* APIProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProviderProtocol.swift; sourceTree = "<group>"; };
-		ABEC946922BF5B72008259D0 /* ArticlesEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesEndpoints.swift; sourceTree = "<group>"; };
+		ABEC946922BF5B72008259D0 /* ArticleEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleEndpoint.swift; sourceTree = "<group>"; };
 		ABEC946C22BF8B71008259D0 /* Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources.swift; sourceTree = "<group>"; };
 		ABEC946E22BF8B87008259D0 /* Articles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Articles.swift; sourceTree = "<group>"; };
 		ABF65BBB22B4F23F00B032A0 /* ArticleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRow.swift; sourceTree = "<group>"; };
 		ABF742E922C6BF21009DD878 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		C1619A28FB1C5BF9F737B5EF /* Pods-NewsApp With SwiftUI Framework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsApp With SwiftUI Framework.debug.xcconfig"; path = "Target Support Files/Pods-NewsApp With SwiftUI Framework/Pods-NewsApp With SwiftUI Framework.debug.xcconfig"; sourceTree = "<group>"; };
+		D5B9DD3955083141A5345346 /* Pods_NewsApp_With_SwiftUI_Framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsApp_With_SwiftUI_Framework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF15F42F234DA42100D5D596 /* ArticlesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesResponse.swift; sourceTree = "<group>"; };
 		EF15F432234DA44000D5D596 /* SourcesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesResponse.swift; sourceTree = "<group>"; };
 		EF15F434234DA45700D5D596 /* ArticleSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSource.swift; sourceTree = "<group>"; };
@@ -127,19 +128,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF695B8F2343312500311202 /* KingfisherSwiftUI in Frameworks */,
+				17A2DAC2DF6518A82891F8FA /* Pods_NewsApp_With_SwiftUI_Framework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		139939AEAE83AC91CDFD6132 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C1619A28FB1C5BF9F737B5EF /* Pods-NewsApp With SwiftUI Framework.debug.xcconfig */,
+				AA427358EECBBEE929D7D271 /* Pods-NewsApp With SwiftUI Framework.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		AB01EA442342602D004018D4 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
-				AB01EA4023425E3C004018D4 /* Endpoint.swift */,
-				ABEC946922BF5B72008259D0 /* ArticlesEndpoints.swift */,
-				AB01EA4223425ED0004018D4 /* WeatherEndpoints.swift */,
+				AB01EA4023425E3C004018D4 /* EndpointProtocol.swift */,
+				ABEC946922BF5B72008259D0 /* ArticleEndpoint.swift */,
+				AB01EA4223425ED0004018D4 /* WeatherEndpoint.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -168,6 +178,8 @@
 			children = (
 				AB9001A122B4E084002C45C6 /* NewsApp With SwiftUI Framework */,
 				AB9001A022B4E084002C45C6 /* Products */,
+				139939AEAE83AC91CDFD6132 /* Pods */,
+				F9B92FABD67D7855DEEBE125 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -305,7 +317,6 @@
 			isa = PBXGroup;
 			children = (
 				AB01EA442342602D004018D4 /* Endpoints */,
-				ABEC946722BDFC2C008259D0 /* APIProviderProtocol.swift */,
 				ABBECF8522B6269100EF13F3 /* APIProvider.swift */,
 				AB42C98922B7E04700DE29C0 /* APIErrors.swift */,
 				AB42C98B22B7E3D500DE29C0 /* APIProviderErrors.swift */,
@@ -363,6 +374,14 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		F9B92FABD67D7855DEEBE125 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5B9DD3955083141A5345346 /* Pods_NewsApp_With_SwiftUI_Framework.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -370,18 +389,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB9001B322B4E087002C45C6 /* Build configuration list for PBXNativeTarget "NewsApp With SwiftUI Framework" */;
 			buildPhases = (
+				FA31F59C81812E37AAB07678 /* [CP] Check Pods Manifest.lock */,
 				AB90019B22B4E084002C45C6 /* Sources */,
 				AB90019C22B4E084002C45C6 /* Frameworks */,
 				AB90019D22B4E084002C45C6 /* Resources */,
+				D379E10BDAB53BFD274A21C6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "NewsApp With SwiftUI Framework";
-			packageProductDependencies = (
-				EF695B8E2343312500311202 /* KingfisherSwiftUI */,
-			);
 			productName = "NewsApp With SwiftUI Framework";
 			productReference = AB90019F22B4E084002C45C6 /* NewsApp With SwiftUI Framework.app */;
 			productType = "com.apple.product-type.application";
@@ -411,9 +429,6 @@
 				ru,
 			);
 			mainGroup = AB90019622B4E084002C45C6;
-			packageReferences = (
-				EF695B8D2343312500311202 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-			);
 			productRefGroup = AB9001A022B4E084002C45C6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -437,6 +452,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D379E10BDAB53BFD274A21C6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsApp With SwiftUI Framework/Pods-NewsApp With SwiftUI Framework-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsApp With SwiftUI Framework/Pods-NewsApp With SwiftUI Framework-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsApp With SwiftUI Framework/Pods-NewsApp With SwiftUI Framework-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA31F59C81812E37AAB07678 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NewsApp With SwiftUI Framework-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AB90019B22B4E084002C45C6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -451,7 +508,6 @@
 				ABC9DF6E22B4ECB200734270 /* ArticlesFromSourceView.swift in Sources */,
 				ABD5AEAB22BC0A0300203B6A /* TopHeadlinesView.swift in Sources */,
 				AB76F27F22E4823B007CBF77 /* WeatherView.swift in Sources */,
-				ABEC946822BDFC2C008259D0 /* APIProviderProtocol.swift in Sources */,
 				AB08BB8C22CE84D700FF285E /* PageView.swift in Sources */,
 				ABBECF8A22B626C500EF13F3 /* SourceRow.swift in Sources */,
 				AB42C98A22B7E04700DE29C0 /* APIErrors.swift in Sources */,
@@ -473,7 +529,7 @@
 				AB69876C22B570EC00FAEAC3 /* SearchForArticlesView.swift in Sources */,
 				ABBECF7E22B60F2300EF13F3 /* TopHeadlineRow.swift in Sources */,
 				ABEC946D22BF8B71008259D0 /* Sources.swift in Sources */,
-				AB01EA4323425ED0004018D4 /* WeatherEndpoints.swift in Sources */,
+				AB01EA4323425ED0004018D4 /* WeatherEndpoint.swift in Sources */,
 				EF15F43D234DA4CB00D5D596 /* DailyWeather.swift in Sources */,
 				AB42C98C22B7E3D500DE29C0 /* APIProviderErrors.swift in Sources */,
 				ABF742EA22C6BF21009DD878 /* SafariView.swift in Sources */,
@@ -482,14 +538,14 @@
 				ABD5AEA922BC094200203B6A /* ArticlesFromCategoryViewModel.swift in Sources */,
 				ABBECF8222B6249600EF13F3 /* String+Extension.swift in Sources */,
 				EF15F430234DA42100D5D596 /* ArticlesResponse.swift in Sources */,
-				AB01EA4123425E3C004018D4 /* Endpoint.swift in Sources */,
+				AB01EA4123425E3C004018D4 /* EndpointProtocol.swift in Sources */,
 				EF15F439234DA49B00D5D596 /* HourlyWeatherData.swift in Sources */,
 				ABF65BBC22B4F23F00B032A0 /* ArticleRow.swift in Sources */,
 				EF15F43F234DA4F500D5D596 /* WeatherIcon.swift in Sources */,
 				EF15F435234DA45700D5D596 /* ArticleSource.swift in Sources */,
 				AB026B2722D9C7530036EBFE /* Container.swift in Sources */,
 				ABD5AEA022BBF3B800203B6A /* SearchForArticlesViewModel.swift in Sources */,
-				ABEC946A22BF5B72008259D0 /* ArticlesEndpoints.swift in Sources */,
+				ABEC946A22BF5B72008259D0 /* ArticleEndpoint.swift in Sources */,
 				ABD5AEA722BC078B00203B6A /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,11 +691,12 @@
 		};
 		AB9001B422B4E087002C45C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1619A28FB1C5BF9F737B5EF /* Pods-NewsApp With SwiftUI Framework.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"NewsApp With SwiftUI Framework\"/Preview\\ Content";
-				DEVELOPMENT_TEAM = N8AX386RTP;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "NewsApp With SwiftUI Framework/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -648,6 +705,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "AlexeyVoronov.NewsApp-With-SwiftUI-Framework";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -655,11 +713,12 @@
 		};
 		AB9001B522B4E087002C45C6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA427358EECBBEE929D7D271 /* Pods-NewsApp With SwiftUI Framework.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"NewsApp With SwiftUI Framework\"/Preview\\ Content";
-				DEVELOPMENT_TEAM = N8AX386RTP;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "NewsApp With SwiftUI Framework/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -668,6 +727,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "AlexeyVoronov.NewsApp-With-SwiftUI-Framework";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -695,25 +755,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		EF695B8D2343312500311202 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.8.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		EF695B8E2343312500311202 /* KingfisherSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EF695B8D2343312500311202 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = KingfisherSwiftUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AB90019722B4E084002C45C6 /* Project object */;
 }

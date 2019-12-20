@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class SearchForArticlesViewModel: ObservableObject {
-    private let apiProvider: APIProviderProtocol = APIProvider.shared
+    private let apiProvider = APIProvider<ArticleEndpoint>()
     
     private var cancellable: Cancellable?
     
@@ -21,7 +21,7 @@ final class SearchForArticlesViewModel: ObservableObject {
     }
     
     func searchForArticles(searchFilter: String) {
-        cancellable = apiProvider.getData(from: ArticlesEndpoints.searchForArticles(searchFilter: searchFilter))
+        cancellable = apiProvider.getData(from: .searchForArticles(searchFilter: searchFilter))
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])

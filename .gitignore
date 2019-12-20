@@ -1,2 +1,6 @@
 .DS_Store
 UserInterfaceState.xcuserstate
+Pods
+Podfile.lock
+NewsApp-With-SwiftUI-And-Combine.xcodeproj/project.xcworkspace/xcuserdata
+NewsApp-With-SwiftUI-And-Combine.xcodeproj/xcuserdata

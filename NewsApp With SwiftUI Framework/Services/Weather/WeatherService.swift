@@ -11,9 +11,7 @@ import CoreLocation
 import Combine
 
 class WeatherService: WeatherServiceProtocol {
-    static let shared: WeatherServiceProtocol = WeatherService()
-    
-    private let apiProvider: APIProviderProtocol = APIProvider.shared
+    private let apiProvider = APIProvider<WeatherEndpoint>()
 
     private let locationManager = CLLocationManager()
     
@@ -23,25 +21,24 @@ class WeatherService: WeatherServiceProtocol {
     
     func requestCurrentWeather() -> AnyPublisher<Data, Error> {
         self.locationManager.requestWhenInUseAuthorization()
-
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-            
-            guard let location = self.location else {
-                return Fail(error: WeatherServiceErrors.locationNil)
-                    .eraseToAnyPublisher()
-            }
-            
-            return apiProvider.getData(from: WeatherEndpoints.getCurrentWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
-                .map { (data) -> Data in
-                    self.locationManager.stopUpdatingLocation()
-                    return data
-                }
+        
+        guard CLLocationManager.locationServicesEnabled() else {
+            return Fail(error: WeatherServiceErrors.userDeniedWhenInUseAuthorization)
+                .eraseToAnyPublisher()
+        }
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
+        
+        guard let location = self.location else {
+            return Fail(error: WeatherServiceErrors.locationNil)
                 .eraseToAnyPublisher()
         }
         
-        return Fail(error: WeatherServiceErrors.userDeniedWhenInUseAuthorization)
-            .eraseToAnyPublisher()
+        return apiProvider.getData(from: .getCurrentWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+            .map { (data) -> Data in
+                self.locationManager.stopUpdatingLocation()
+                return data
+        }
+        .eraseToAnyPublisher()
     }
 }

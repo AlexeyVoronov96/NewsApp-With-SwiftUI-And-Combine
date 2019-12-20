@@ -7,7 +7,7 @@
 //
 
 import Combine
-import KingfisherSwiftUI
+import Kingfisher
 import SwiftUI
 
 struct TopHeadlineRow : View {

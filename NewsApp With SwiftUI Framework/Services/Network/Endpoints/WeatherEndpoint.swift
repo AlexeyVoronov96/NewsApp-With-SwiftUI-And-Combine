@@ -1,5 +1,5 @@
 //
-//  WeatherEndpoints.swift
+//  WeatherEndpoint.swift
 //  NewsApp With SwiftUI Framework
 //
 //  Created by Алексей Воронов on 30.09.2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum WeatherEndpoints: Endpoint {
+enum WeatherEndpoint: EndpointProtocol {
     case getCurrentWeather(latitude: Double, longitude: Double)
     
     var baseURL: String {

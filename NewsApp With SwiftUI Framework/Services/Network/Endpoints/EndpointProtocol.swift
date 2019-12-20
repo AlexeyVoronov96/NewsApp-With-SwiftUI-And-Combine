@@ -1,5 +1,5 @@
 //
-//  Endpoint.swift
+//  EndpointProtocol.swift
 //  NewsApp With SwiftUI Framework
 //
 //  Created by Алексей Воронов on 30.09.2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Endpoint {
+protocol EndpointProtocol {
     var locale: String { get }
     
     var region: String { get }
@@ -22,7 +22,7 @@ protocol Endpoint {
     var headers: [String: String] { get }
 }
 
-extension Endpoint {
+extension EndpointProtocol {
     var locale: String {
         return Locale.current.languageCode ?? "en"
     }

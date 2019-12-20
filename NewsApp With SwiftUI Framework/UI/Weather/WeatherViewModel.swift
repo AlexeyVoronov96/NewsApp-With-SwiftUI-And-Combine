@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class WeatherViewModel: ObservableObject {
-    private let weatherService: WeatherServiceProtocol = WeatherService.shared
+    private let weatherService: WeatherServiceProtocol = WeatherService()
     
     private var cancellable: Cancellable?
     

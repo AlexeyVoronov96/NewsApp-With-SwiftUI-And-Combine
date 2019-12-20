@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class MainViewModel: ObservableObject {
-    private let apiProvider: APIProviderProtocol = APIProvider.shared
+    private let apiProvider = APIProvider<ArticleEndpoint>()
     
     private var cancellable: Cancellable?
     
@@ -25,7 +25,7 @@ final class MainViewModel: ObservableObject {
     }
     
     func getTopHeadlines() {
-        cancellable = apiProvider.getData(from: ArticlesEndpoints.getTopHeadlines)
+        cancellable = apiProvider.getData(from: .getTopHeadlines)
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])

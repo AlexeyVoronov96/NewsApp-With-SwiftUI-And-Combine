@@ -1,5 +1,5 @@
 //
-//  ArticlesEndpoints.swift
+//  ArticleEndpoint.swift
 //  NewsApp With SwiftUI Framework
 //
 //  Created by Алексей Воронов on 23.06.2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ArticlesEndpoints: Endpoint {
+enum ArticleEndpoint: EndpointProtocol {
     case getTopHeadlines
     case getArticlesFromCategory(_ category: String)
     case getSources

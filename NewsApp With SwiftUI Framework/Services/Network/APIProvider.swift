@@ -9,9 +9,7 @@
 import Foundation
 import Combine
 
-class APIProvider: APIProviderProtocol {
-    static let shared: APIProviderProtocol = APIProvider()
-    
+class APIProvider<Endpoint: EndpointProtocol> {
     func getData(from endpoint: Endpoint) -> AnyPublisher<Data, Error> {
         guard let request = performRequest(for: endpoint) else {
             return Fail(error: APIProviderErrors.invalidURL)
