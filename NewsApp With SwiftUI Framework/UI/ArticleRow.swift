@@ -7,7 +7,7 @@
 //
 
 import Combine
-import Kingfisher
+import KingfisherSwiftUI
 import SwiftUI
 
 struct ArticleRow : View {
