@@ -26,7 +26,7 @@ class APIProvider<Endpoint: EndpointProtocol> {
             return nil
         }
 
-        urlComponents.queryItems = endpoint.params.compactMap({ (param) -> URLQueryItem in
+        urlComponents.queryItems = endpoint.params.compactMap({ param -> URLQueryItem in
             return URLQueryItem(name: param.key, value: param.value)
         })
 
@@ -37,10 +37,8 @@ class APIProvider<Endpoint: EndpointProtocol> {
         var urlRequest = URLRequest(url: url,
                                     cachePolicy: .reloadRevalidatingCacheData,
                                     timeoutInterval: 30)
-
-        for header in endpoint.headers {
-            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
-        }
+        
+        endpoint.headers.forEach { urlRequest.setValue($0.value, forHTTPHeaderField: $0.key) }
         
         return urlRequest
     }
@@ -48,7 +46,7 @@ class APIProvider<Endpoint: EndpointProtocol> {
     // MARK: - Getting data
     private func loadData(with request: URLRequest) -> AnyPublisher<Data, Error> {
         return URLSession.shared.dataTaskPublisher(for: request)
-            .mapError({ (error) -> Error in
+            .mapError({ error -> Error in
                 APIErrors(rawValue: error.code.rawValue) ?? APIProviderErrors.unknownError
             })
             .map { $0.data }

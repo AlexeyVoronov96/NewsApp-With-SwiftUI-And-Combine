@@ -12,26 +12,17 @@ import Combine
 final class MainViewModel: ObservableObject {
     private let apiProvider = APIProvider<ArticleEndpoint>()
     
-    private var cancellable: Cancellable?
+    private var bag = Set<AnyCancellable>()
     
     @Published private(set) var topHeadlines: Articles = []
     
-    deinit {
-        cancellable?.cancel()
-    }
-    
-    func clearTopHeadlines() {
-        self.topHeadlines = []
-    }
-    
     func getTopHeadlines() {
-        cancellable = apiProvider.getData(from: .getTopHeadlines)
+        apiProvider.getData(from: .getTopHeadlines)
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] (articles) in
-                self?.topHeadlines = articles
-            })
+            .assign(to: \.topHeadlines, on: self)
+            .store(in: &bag)
     }
 }

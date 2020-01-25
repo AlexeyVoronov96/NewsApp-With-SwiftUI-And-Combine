@@ -11,7 +11,7 @@ import KingfisherSwiftUI
 import SwiftUI
 
 struct ArticleRow : View {
-    var article: Article
+    let article: Article
     
     var body: some View {
         ZStack(alignment: .bottom) {

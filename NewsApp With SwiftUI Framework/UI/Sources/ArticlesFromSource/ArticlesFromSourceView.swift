@@ -15,7 +15,7 @@ struct ArticlesFromSourceView: View {
     @State var shouldPresent: Bool = false
     @State var articleURL: URL?
     
-    var source: Source
+    let source: Source
     
     var body: some View {
         mainView

@@ -12,13 +12,9 @@ import Combine
 final class WeatherViewModel: ObservableObject {
     private let weatherService: WeatherServiceProtocol = WeatherService()
     
-    private var cancellable: Cancellable?
+    private var bag = Set<AnyCancellable>()
     
     @Published private (set) var weather: WeatherResponse?
-    
-    deinit {
-        cancellable?.cancel()
-    }
     
     var emptyWeather: WeatherResponse {
         return WeatherResponse(currently: Weather(time: Date(),
@@ -30,12 +26,13 @@ final class WeatherViewModel: ObservableObject {
     }
     
     func getCurrentWeather() {
-        cancellable = weatherService.requestCurrentWeather()
+        weatherService.requestCurrentWeather()
             .decode(type: WeatherResponse.self, decoder: Container.weatherJSONDecoder)
             .replaceError(with: emptyWeather)
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] (weather) in
+            .sink(receiveValue: { [weak self] weather in
                 self?.weather = weather
             })
+            .store(in: &bag)
     }
 }

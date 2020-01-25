@@ -24,7 +24,6 @@ struct MainView : View {
                 .navigationBarItems(trailing:
                     Button(
                         action: {
-                            self.viewModel.clearTopHeadlines()
                             self.viewModel.getTopHeadlines()
                         },
                         label: {

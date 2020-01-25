@@ -11,7 +11,7 @@ import SwiftUI
 struct ArticlesFromCategoryView : View {
     @ObservedObject var viewModel = ArticlesFromCategoryViewModel()
     
-    var category: String = ""
+    let category: String
     
     var body: some View {
         VStack {

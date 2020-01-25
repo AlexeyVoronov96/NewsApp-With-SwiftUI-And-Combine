@@ -12,7 +12,7 @@ struct ArticlesList : View {
     @State var shouldPresent: Bool = false
     @State var articleURL: URL?
     
-    var articles: [Article]
+    let articles: [Article]
     
     var body: some View {
         ScrollView {

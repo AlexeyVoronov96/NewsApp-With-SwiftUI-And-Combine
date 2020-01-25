@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct PageView<Page: View>: View {
-    var viewControllers: [UIHostingController<Page>]
+    private let viewControllers: [UIHostingController<Page>]
     
     init(_ views: [Page]) {
         self.viewControllers = views.map { UIHostingController(rootView: $0) }

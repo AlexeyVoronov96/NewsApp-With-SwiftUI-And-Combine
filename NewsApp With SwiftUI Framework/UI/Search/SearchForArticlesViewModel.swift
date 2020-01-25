@@ -12,22 +12,17 @@ import Combine
 final class SearchForArticlesViewModel: ObservableObject {
     private let apiProvider = APIProvider<ArticleEndpoint>()
     
-    private var cancellable: Cancellable?
+    private var bag = Set<AnyCancellable>()
     
     @Published private (set) var articles: Articles = []
     
-    deinit {
-        cancellable?.cancel()
-    }
-    
     func searchForArticles(searchFilter: String) {
-        cancellable = apiProvider.getData(from: .searchForArticles(searchFilter: searchFilter))
+        apiProvider.getData(from: .searchForArticles(searchFilter: searchFilter))
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] (articles) in
-                self?.articles = articles
-            })
+            .assign(to: \.articles, on: self)
+            .store(in: &bag)
     }
 }
