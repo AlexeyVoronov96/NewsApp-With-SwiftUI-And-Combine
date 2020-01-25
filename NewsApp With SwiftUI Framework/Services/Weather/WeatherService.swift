@@ -16,11 +16,11 @@ class WeatherService: WeatherServiceProtocol {
     private let locationManager = CLLocationManager()
     
     private var location: CLLocation? {
-        return self.locationManager.location
+        return locationManager.location
     }
     
     func requestCurrentWeather() -> AnyPublisher<Data, Error> {
-        self.locationManager.requestWhenInUseAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         
         guard CLLocationManager.locationServicesEnabled() else {
             return Fail(error: WeatherServiceErrors.userDeniedWhenInUseAuthorization)
@@ -29,16 +29,16 @@ class WeatherService: WeatherServiceProtocol {
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.startUpdatingLocation()
         
-        guard let location = self.location else {
+        guard let location = location else {
             return Fail(error: WeatherServiceErrors.locationNil)
                 .eraseToAnyPublisher()
         }
         
         return apiProvider.getData(from: .getCurrentWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
-            .map { (data) -> Data in
-                self.locationManager.stopUpdatingLocation()
+            .map { [weak self] (data) -> Data in
+                self?.locationManager.stopUpdatingLocation()
                 return data
-        }
-        .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
 }
