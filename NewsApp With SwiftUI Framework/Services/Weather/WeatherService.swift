@@ -10,13 +10,40 @@ import Foundation
 import CoreLocation
 import Combine
 
+typealias LocationNameResultType = Result<String, Error>
+
 class WeatherService: WeatherServiceProtocol {
+    
     private let apiProvider = APIProvider<WeatherEndpoint>()
 
     private let locationManager = CLLocationManager()
     
-    private var location: CLLocation? {
-        return locationManager.location
+    private lazy var location: CLLocation? = locationManager.location
+    
+    init() {
+        startUpdatingLocation()
+    }
+    
+    func getCityName(completion: @escaping (LocationNameResultType) -> Void) {
+        guard let location = location else {
+            completion(.failure(WeatherServiceErrors.locationNil))
+            return
+        }
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error {
+                completion(.failure(error))
+            }
+            
+            guard let placemark = placemarks?.first,
+                let cityName = placemark.locality else {
+                completion(.failure(WeatherServiceErrors.placeMarkNil))
+                return
+            }
+            
+            completion(.success(cityName))
+        }
     }
     
     func requestCurrentWeather() -> AnyPublisher<Data, Error> {
@@ -34,11 +61,30 @@ class WeatherService: WeatherServiceProtocol {
                 .eraseToAnyPublisher()
         }
         
-        return apiProvider.getData(from: .getCurrentWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
-            .map { [weak self] (data) -> Data in
-                self?.locationManager.stopUpdatingLocation()
-                return data
-            }
+        return apiProvider.getData(
+            from: .getCurrentWeather(latitude: location.coordinate.latitude,
+                                     longitude: location.coordinate.longitude)
+        )
             .eraseToAnyPublisher()
+    }
+    
+    deinit {
+        stopUpdatingLocation()
+    }
+}
+
+private extension WeatherService {
+    func startUpdatingLocation() {
+        locationManager.requestWhenInUseAuthorization()
+        
+        guard CLLocationManager.locationServicesEnabled() else {
+            return
+        }
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
+    }
+    
+    func stopUpdatingLocation() {
+        locationManager.stopUpdatingLocation()
     }
 }

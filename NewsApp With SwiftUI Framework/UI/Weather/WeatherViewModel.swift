@@ -15,6 +15,7 @@ final class WeatherViewModel: ObservableObject {
     private var bag = Set<AnyCancellable>()
     
     @Published private (set) var weather: WeatherResponse?
+    @Published private (set) var locationName: String = "Getting your location"
     
     var emptyWeather: WeatherResponse {
         return WeatherResponse(currently: Weather(time: Date(),
@@ -23,6 +24,19 @@ final class WeatherViewModel: ObservableObject {
                                hourly: HourlyWeatherData(summary: "",
                                                          data: []),
                                daily: DailyWeatherData(data: []))
+    }
+    
+    func getCityName() {
+        weatherService.getCityName { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case let .success(locationName):
+                self.locationName = locationName
+            case .failure:
+                self.locationName = "Can't get your location name"
+            }
+        }
     }
     
     func getCurrentWeather() {

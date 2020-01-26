@@ -24,9 +24,10 @@ struct WeatherView: View {
                     })
                 }
             }
-            .navigationBarTitle(Text(verbatim: "Weather".localized()), displayMode: .large)
+            .navigationBarTitle(Text(verbatim: viewModel.locationName), displayMode: .large)
         }
         .onAppear {
+            self.viewModel.getCityName()
             self.viewModel.getCurrentWeather()
         }
     }
