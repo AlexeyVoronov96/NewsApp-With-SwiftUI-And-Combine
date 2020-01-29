@@ -42,6 +42,18 @@ struct TopHeadlineRow : View {
                 }
             )
         }
+        .contextMenu {
+            Button(
+                action: {
+                    LocalArticle.saveArticle(self.article)
+                    CoreDataManager.shared.saveContext()
+            },
+                label: {
+                    Text("Add to favorites".localized())
+                    Image(systemName: "heart.fill")
+            }
+            )
+        }
         .sheet(isPresented: $shouldPresentURL) {
             SafariView(url: self.article.url)
         }

@@ -1,17 +1,16 @@
 //
-//  ArticleRow.swift
+//  LocalArticleRow.swift
 //  NewsApp With SwiftUI Framework
 //
-//  Created by Алексей Воронов on 15.06.2019.
-//  Copyright © 2019 Алексей Воронов. All rights reserved.
+//  Created by Алексей Воронов on 28.01.2020.
+//  Copyright © 2020 Алексей Воронов. All rights reserved.
 //
 
-import Combine
-import KingfisherSwiftUI
 import SwiftUI
+import KingfisherSwiftUI
 
-struct ArticleRow : View {
-    let article: Article
+struct LocalArticleRow: View {
+    let article: LocalArticle
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -36,12 +35,12 @@ struct ArticleRow : View {
         .contextMenu {
             Button(
                 action: {
-                    LocalArticle.saveArticle(self.article)
+                    CoreDataManager.shared.managedObjectContext.delete(self.article)
                     CoreDataManager.shared.saveContext()
                 },
                 label: {
-                    Text("Add to favorites".localized())
-                    Image(systemName: "heart.fill")
+                    Text(Constants.removeFromFavorites)
+                    Image(systemName: Constants.removeFromFavoritesImageName)
                 }
             )
         }
@@ -65,5 +64,13 @@ struct ArticleRow : View {
                 .frame(width: UIScreen.main.bounds.width - 64,
                        alignment: .bottomLeading)
         }
+    }
+}
+
+private extension LocalArticleRow {
+    
+    struct Constants {
+        static let removeFromFavorites = "Remove from favorites".localized()
+        static let removeFromFavoritesImageName = "heart.slash.fill"
     }
 }

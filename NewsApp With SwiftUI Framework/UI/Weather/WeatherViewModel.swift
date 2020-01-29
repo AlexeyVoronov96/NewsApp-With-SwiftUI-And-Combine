@@ -15,7 +15,7 @@ final class WeatherViewModel: ObservableObject {
     private var bag = Set<AnyCancellable>()
     
     @Published private (set) var weather: WeatherResponse?
-    @Published private (set) var locationName: String = "Getting your location"
+    @Published private (set) var locationName: String = Constants.gettingYourLocationText
     
     var emptyWeather: WeatherResponse {
         return WeatherResponse(currently: Weather(time: Date(),
@@ -34,7 +34,7 @@ final class WeatherViewModel: ObservableObject {
             case let .success(locationName):
                 self.locationName = locationName
             case .failure:
-                self.locationName = "Can't get your location name"
+                self.locationName = Constants.gettingLocationErrorText
             }
         }
     }
@@ -48,5 +48,13 @@ final class WeatherViewModel: ObservableObject {
                 self?.weather = weather
             })
             .store(in: &bag)
+    }
+}
+
+private extension WeatherViewModel {
+    
+    struct Constants {
+        static let gettingYourLocationText = "Getting your location".localized()
+        static let gettingLocationErrorText = "Can't get your location name".localized()
     }
 }

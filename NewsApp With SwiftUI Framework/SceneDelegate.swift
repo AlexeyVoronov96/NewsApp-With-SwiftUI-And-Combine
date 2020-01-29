@@ -19,5 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UIHostingController(rootView: TabedView())
         window?.makeKeyAndVisible()
     }
+    
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        CoreDataManager.shared.saveContext()
+    }
 }
 

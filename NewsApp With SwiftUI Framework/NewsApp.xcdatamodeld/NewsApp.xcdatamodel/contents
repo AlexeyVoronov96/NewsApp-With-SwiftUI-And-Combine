@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19D62e" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="LocalArticle" representedClassName=".LocalArticle" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="savingDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="subTitle" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+        <attribute name="urlToImage" optional="YES" attributeType="String"/>
+        <relationship name="source" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="LocalSource" inverseName="article" inverseEntity="LocalSource"/>
+    </entity>
+    <entity name="LocalSource" representedClassName=".LocalSource" parentEntity="LocalArticle" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="article" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalArticle" inverseName="source" inverseEntity="LocalArticle"/>
+    </entity>
+    <elements>
+        <element name="LocalArticle" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="LocalSource" positionX="-54" positionY="-9" width="128" height="88"/>
+    </elements>
+</model>
