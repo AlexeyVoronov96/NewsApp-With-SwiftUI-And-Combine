@@ -10,5 +10,6 @@ import Combine
 import Foundation
 
 protocol WeatherServiceProtocol {
+    func getCityName(completion: @escaping (LocationNameResultType) -> Void)
     func requestCurrentWeather() -> AnyPublisher<Data, Error>
 }

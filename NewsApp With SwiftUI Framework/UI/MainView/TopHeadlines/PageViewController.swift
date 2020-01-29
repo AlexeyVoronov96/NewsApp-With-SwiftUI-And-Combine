@@ -32,7 +32,7 @@ struct PageViewController: UIViewControllerRepresentable {
     }
     
     class Coordinator: NSObject, UIPageViewControllerDataSource {
-        var parent: PageViewController
+        private let parent: PageViewController
         
         init(_ pageViewController: PageViewController) {
             self.parent = pageViewController

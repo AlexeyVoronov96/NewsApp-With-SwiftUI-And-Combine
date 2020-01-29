@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SourceRow : View {
-    var source: Source
+    let source: Source
     
     var body: some View {
         HStack {

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TopHeadlinesView : View {
-    var topHeadlines: Articles
+    let topHeadlines: Articles
     
     var body: some View {
         PageView(topHeadlines.map { TopHeadlineRow(article: $0) })

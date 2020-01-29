@@ -11,6 +11,7 @@ import Foundation
 enum WeatherServiceErrors: LocalizedError {
     case userDeniedWhenInUseAuthorization
     case locationNil
+    case placeMarkNil
     
     var errorDescription: String? {
         switch self {
@@ -19,6 +20,9 @@ enum WeatherServiceErrors: LocalizedError {
             
         case .locationNil:
             return "Something goes wrong.".localized()
+            
+        case .placeMarkNil:
+            return "Can't get location name"
         }
     }
 }

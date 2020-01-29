@@ -11,11 +11,11 @@ import Foundation
 class Container {
     static let jsonDecoder: JSONDecoder = JSONDecoder()
     
-    static var weatherJSONDecoder: JSONDecoder {
+    static var weatherJSONDecoder: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .secondsSince1970
         return jsonDecoder
-    }
+    }()
     
     /// News API key url: https://newsapi.org
     static let newsAPIKey: String = "YOUR_NEWS_API_KEY"

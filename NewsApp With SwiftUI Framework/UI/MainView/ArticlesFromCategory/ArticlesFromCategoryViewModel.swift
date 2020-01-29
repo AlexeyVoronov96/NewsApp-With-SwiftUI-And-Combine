@@ -10,31 +10,20 @@ import SwiftUI
 import Combine
 
 final class ArticlesFromCategoryViewModel: ObservableObject {
-    private let apiProvider: APIProviderProtocol = APIProvider.shared
+    private let apiProvider = APIProvider<ArticleEndpoint>()
     
-    private var cancellable: Cancellable?
+    private var bag = Set<AnyCancellable>()
     
-    private(set) var articles: Articles = [] {
-        didSet {
-            willChange.send(self)
-        }
-    }
-    
-    deinit {
-        cancellable?.cancel()
-    }
-    
-    var willChange = PassthroughSubject<ArticlesFromCategoryViewModel, Never>()
+    @Published private(set) var articles: Articles = []
     
     func getArticles(from category: String) {
-        cancellable = apiProvider.performRequest(.getArticlesFromCategory(category))
+        apiProvider.getData(from: ArticleEndpoint.getArticlesFromCategory(category))
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] (articles) in
-                self?.articles = articles
-            })
+            .assign(to: \.articles, on: self)
+            .store(in: &bag)
     }
 }
 

@@ -7,22 +7,21 @@
 //
 
 import Combine
+import KingfisherSwiftUI
 import SwiftUI
 
 struct TopHeadlineRow : View {
-    @State private var headlineImage = UIImage(named: "logo")
-    
-    private let placeholder = #imageLiteral(resourceName: "logo")
+    @State var shouldPresentURL: Bool = false
+    @State var selectedURL: URL?
     
     var article: Article
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Image(uiImage: headlineImage ?? placeholder)
+            KFImage(URL(string: article.urlToImage ?? ""))
                 .renderingMode(.original)
                 .resizable()
                 .aspectRatio(4 / 3, contentMode: .fit)
-                .onAppear(perform: downloadWebImage)
                 .frame(width: UIScreen.main.bounds.width,
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
@@ -34,44 +33,49 @@ struct TopHeadlineRow : View {
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
             
-            topHeadlineInfo
+            Button(
+                action: {
+                    self.shouldPresentURL = true
+                },
+                label: {
+                    topHeadlineInfo
+                }
+            )
+        }
+        .contextMenu {
+            Button(
+                action: {
+                    LocalArticle.saveArticle(self.article)
+                    CoreDataManager.shared.saveContext()
+            },
+                label: {
+                    Text("Add to favorites".localized())
+                    Image(systemName: "heart.fill")
+            }
+            )
+        }
+        .sheet(isPresented: $shouldPresentURL) {
+            SafariView(url: self.article.url)
         }
     }
     
     private var topHeadlineInfo: some View {
-        NavigationLink(destination: SafariView(url: article.url)) {
-            VStack {
-                Text(verbatim: article.source?.name ?? "")
-                    .foregroundColor(.white)
-                    .font(.subheadline)
-                    .lineLimit(nil)
-                    .padding([.leading, .trailing])
-                    .frame(width: UIScreen.main.bounds.width,
-                           alignment: .bottomLeading)
-                
-                Text(verbatim: article.title ?? "")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .lineLimit(nil)
-                    .padding([.leading, .bottom, .trailing])
-                    .frame(width: UIScreen.main.bounds.width,
-                           alignment: .bottomLeading)
-            }
-        }
-    }
-    
-    private func downloadWebImage() {
-        guard let url = URL(string: article.urlToImage ?? "") else { return }
-        
-        _ = URLSession.shared.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .replaceError(with: Data())
-            .map({ (data) -> UIImage? in
-                return UIImage(data: data)
-            })
-            .receive(on: RunLoop.main)
-            .sink { (image) in
-                self.headlineImage = image
+        VStack {
+            Text(verbatim: article.source?.name ?? "")
+                .foregroundColor(.white)
+                .font(.subheadline)
+                .lineLimit(nil)
+                .padding([.leading, .trailing])
+                .frame(width: UIScreen.main.bounds.width,
+                       alignment: .bottomLeading)
+            
+            Text(verbatim: article.title ?? "")
+                .foregroundColor(.white)
+                .font(.headline)
+                .lineLimit(nil)
+                .padding([.leading, .bottom, .trailing])
+                .frame(width: UIScreen.main.bounds.width,
+                       alignment: .bottomLeading)
         }
     }
 }

@@ -10,30 +10,19 @@ import SwiftUI
 import Combine
 
 final class SearchForArticlesViewModel: ObservableObject {
-    private let apiProvider: APIProviderProtocol = APIProvider.shared
+    private let apiProvider = APIProvider<ArticleEndpoint>()
     
-    private var cancellable: Cancellable?
+    private var bag = Set<AnyCancellable>()
     
-    private(set) var articles: Articles = [] {
-        didSet {
-            willChange.send(self)
-        }
-    }
-    
-    deinit {
-        cancellable?.cancel()
-    }
-    
-    var willChange = PassthroughSubject<SearchForArticlesViewModel, Never>()
+    @Published private (set) var articles: Articles = []
     
     func searchForArticles(searchFilter: String) {
-        cancellable = apiProvider.performRequest(.searchForArticles(searchFilter: searchFilter))
+        apiProvider.getData(from: .searchForArticles(searchFilter: searchFilter))
             .decode(type: ArticlesResponse.self, decoder: Container.jsonDecoder)
             .map { $0.articles }
             .replaceError(with: [])
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] (articles) in
-                self?.articles = articles
-            })
+            .assign(to: \.articles, on: self)
+            .store(in: &bag)
     }
 }

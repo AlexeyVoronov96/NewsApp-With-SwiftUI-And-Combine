@@ -10,15 +10,21 @@ import SwiftUI
 
 struct ArticlesFromSourceView: View {
     @ObservedObject var viewModel = ArticlesFromSourceViewModel()
-    @State private var isInfo: Bool = false
     
-    var source: Source
+    @State private var isInfo: Bool = false
+    @State var shouldPresent: Bool = false
+    @State var articleURL: URL?
+    
+    let source: Source
     
     var body: some View {
         mainView
             .onAppear(perform: {
                 self.viewModel.getArticles(from: self.source.id)
             })
+            .sheet(isPresented: $shouldPresent) {
+                SafariView(url: self.articleURL!)
+            }
             .navigationBarItems(trailing:
                 HStack {
                     if self.source.description != nil {
@@ -29,12 +35,15 @@ struct ArticlesFromSourceView: View {
                                 .imageScale(.large)
                         }
                     }
-                    Button(action: {
-                        UIApplication.shared.open(self.source.url)
-                    }) {
-                        Image(systemName: "safari")
-                            .imageScale(.large)
-                    }
+                    Button(
+                        action: {
+                            UIApplication.shared.open(self.source.url)
+                        },
+                        label: {
+                            Image(systemName: "safari")
+                                .imageScale(.large)
+                        }
+                    )
                 }
             )
     }
@@ -58,10 +67,16 @@ struct ArticlesFromSourceView: View {
                         }
                         
                         ForEach(viewModel.articles, id: \.self) { article in
-                            NavigationLink(destination: SafariView(url: article.url)) {
-                                ArticleRow(article: article)
-                                    .animation(.spring())
-                            }
+                            Button(
+                                action: {
+                                    self.articleURL = article.url
+                                    self.shouldPresent = true
+                                },
+                                label: {
+                                    ArticleRow(article: article)
+                                        .animation(.spring())
+                                }
+                            )
                         }
                     }
                     .animation(.spring())

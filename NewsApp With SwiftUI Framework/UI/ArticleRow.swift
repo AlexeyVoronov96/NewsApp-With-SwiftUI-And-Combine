@@ -7,22 +7,18 @@
 //
 
 import Combine
+import KingfisherSwiftUI
 import SwiftUI
 
 struct ArticleRow : View {
-    @State private var headlineImage = UIImage(named: "logo")
-    
-    private let placeholder = #imageLiteral(resourceName: "logo")
-    
-    var article: Article
+    let article: Article
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Image(uiImage: headlineImage ?? placeholder)
+            KFImage(URL(string: article.urlToImage ?? ""))
                 .renderingMode(.original)
                 .resizable()
                 .scaledToFill()
-                .onAppear(perform: downloadWebImage)
                 .frame(width: UIScreen.main.bounds.width - 32,
                        height: 250,
                        alignment: .center)
@@ -37,6 +33,18 @@ struct ArticleRow : View {
         .padding([.leading, .trailing], 16)
         .padding([.top, .bottom], 8)
         .shadow(color: .black, radius: 3, x: 0, y: 0)
+        .contextMenu {
+            Button(
+                action: {
+                    LocalArticle.saveArticle(self.article)
+                    CoreDataManager.shared.saveContext()
+                },
+                label: {
+                    Text("Add to favorites".localized())
+                    Image(systemName: "heart.fill")
+                }
+            )
+        }
     }
     
     private var articleInfo: some View {
@@ -57,20 +65,5 @@ struct ArticleRow : View {
                 .frame(width: UIScreen.main.bounds.width - 64,
                        alignment: .bottomLeading)
         }
-    }
-    
-    private func downloadWebImage() {
-        guard let url = URL(string: article.urlToImage ?? "") else { return }
-        
-        _ = URLSession.shared.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .replaceError(with: Data())
-            .map({ (data) -> UIImage? in
-                return UIImage(data: data)
-            })
-            .receive(on: RunLoop.main)
-            .sink { (image) in
-                self.headlineImage = image
-            }
     }
 }

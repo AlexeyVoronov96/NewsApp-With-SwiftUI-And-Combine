@@ -10,11 +10,6 @@ import Foundation
 
 typealias Sources = [Source]
 
-struct SourcesResponse: Codable {
-    let status: String
-    let sources: Sources
-}
-
 struct Source: Codable, Hashable {
     let id: String
     let name: String
@@ -23,9 +18,4 @@ struct Source: Codable, Hashable {
     let category: String
     let language: String
     let country: String
-}
-
-struct ArticleSource: Codable, Hashable {
-    let id: String?
-    let name: String?
 }

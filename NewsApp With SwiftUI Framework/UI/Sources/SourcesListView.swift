@@ -13,7 +13,7 @@ struct SourcesListView : View {
     
     var body: some View {
         NavigationView(content: {
-            VStack{
+            VStack {
                 if viewModel.sources.isEmpty {
                     ActivityIndicator()
                         .frame(width: UIScreen.main.bounds.width,
@@ -23,10 +23,11 @@ struct SourcesListView : View {
                     List(viewModel.sources, id: \.self) { source in
                         NavigationLink(
                             destination: ArticlesFromSourceView(source: source)
-                                .navigationBarTitle(Text(source.name))
-                        ) {
-                            Text(source.name)
-                        }
+                                .navigationBarTitle(Text(source.name)),
+                            label: {
+                                Text(source.name)
+                            }
+                        )
                     }
                     .animation(.spring())
                 }

@@ -25,12 +25,12 @@ struct SearchForArticlesView : View {
             
                 ArticlesList(articles: viewModel.articles)
             }
-            .navigationBarTitle(Text("Search".localized()), displayMode: .large)
+            .navigationBarTitle(Text(Constants.title), displayMode: .large)
         })
     }
     
     private var searchBar: some View {
-        TextField("Search articles...".localized(),
+        TextField(Constants.searchbarPlaceholder,
                   text: $searchFilter,
                   onEditingChanged: { (isOpened) in
                     if !isOpened {
@@ -40,3 +40,12 @@ struct SearchForArticlesView : View {
         )
     }
 }
+
+private extension SearchForArticlesView {
+    
+    struct Constants {
+        static let title = "Search".localized()
+        static let searchbarPlaceholder = "Search articles...".localized()
+    }
+}
+

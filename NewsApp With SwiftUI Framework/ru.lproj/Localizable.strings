@@ -10,8 +10,11 @@
 "Top headlines" = "Лучшие заголовки";
 "Sources" = "Ресурсы";
 "Search" = "Поиск";
+"Favorites" = "Избранное";
 "Search articles..." = "Поиск статей...";
 "About source:\n" = "О ресурсе:\n";
+"Remove from favorites" = "Убрать из избранного";
+"Add to favorites" = "Добавить в избранное";
 
 // MARK: - Categories
 "Categories" = "Категории";
@@ -25,6 +28,8 @@
 
 // MARK: - Weather
 "Weather" = "Погода";
+"Getting your location" = "Получаем вашу локацию";
+"Can't get your location name" = "Не удалось получить название вашей локации";
 "Current weather" = "Текущая погода";
 "Hourly" = "В течении дня";
 "Daily" = "В течении недели";

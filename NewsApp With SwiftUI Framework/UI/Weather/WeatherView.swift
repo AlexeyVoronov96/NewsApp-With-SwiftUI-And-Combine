@@ -24,18 +24,19 @@ struct WeatherView: View {
                     })
                 }
             }
-            .navigationBarTitle(Text(verbatim: "Weather".localized()), displayMode: .large)
+            .navigationBarTitle(Text(verbatim: viewModel.locationName), displayMode: .large)
         }
         .onAppear {
+            self.viewModel.getCityName()
             self.viewModel.getCurrentWeather()
         }
     }
     
     private var currentWeatherSection: some View {
-        Section(header: Text(verbatim: "Current weather".localized())) {
+        Section(header: Text(verbatim: Constants.currentWeather)) {
             VStack(alignment: .leading) {
                 HStack(alignment: .center) {
-                    Image(systemName: viewModel.weather?.currently.icon.systemImage ?? "sun.min.fill")
+                    Image(systemName: viewModel.weather?.currently.icon.systemImage ?? Constants.defaultImageName)
                         .font(.largeTitle)
                     Text(verbatim: viewModel.weather?.currently.convertTemperature ?? "")
                         .font(.largeTitle)
@@ -48,13 +49,13 @@ struct WeatherView: View {
     }
     
     private var hourlyWeatherSection: some View {
-        Section(header: Text(verbatim: "Hourly".localized())) {
+        Section(header: Text(verbatim: Constants.hourly)) {
             HourlyWeatherView(hourlyWeather: viewModel.weather?.hourly.data ?? [])
         }
     }
     
     private var dailyWeatherSection: some View {
-        Section(header: Text(verbatim: "Daily".localized())) {
+        Section(header: Text(verbatim: Constants.daily)) {
             ForEach(viewModel.weather?.daily.data ?? [], id: \.self) { weather in
                 HStack() {
                     Text(verbatim: weather.time.day())
@@ -64,5 +65,15 @@ struct WeatherView: View {
                 }
             }
         }
+    }
+}
+
+private extension WeatherView {
+    
+    struct Constants {
+        static let currentWeather = "Current weather".localized()
+        static let defaultImageName = "sun.min.fill"
+        static let hourly = "Hourly".localized()
+        static let daily = "Daily".localized()
     }
 }
