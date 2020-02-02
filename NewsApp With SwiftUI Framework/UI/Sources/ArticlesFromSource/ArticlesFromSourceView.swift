@@ -67,16 +67,12 @@ struct ArticlesFromSourceView: View {
                         }
                         
                         ForEach(viewModel.articles, id: \.self) { article in
-                            Button(
-                                action: {
-                                    self.articleURL = article.url
-                                    self.shouldPresent = true
-                                },
-                                label: {
-                                    ArticleRow(article: article)
-                                        .animation(.spring())
-                                }
-                            )
+                            ArticleRow(article: article)
+                            .animation(.spring())
+                            .onTapGesture {
+                                self.articleURL = article.url
+                                self.shouldPresent = true
+                            }
                         }
                     }
                     .animation(.spring())

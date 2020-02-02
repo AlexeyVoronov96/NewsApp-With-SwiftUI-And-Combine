@@ -21,16 +21,12 @@ struct FavoritesView: View {
             ScrollView {
                 VStack(alignment: .center) {
                     ForEach(articles, id: \.self) { article in
-                        Button(
-                            action: {
+                        LocalArticleRow(article: article)
+                            .animation(.spring())
+                            .onTapGesture {
                                 self.articleURL = article.url
                                 self.shouldPresent = true
-                            },
-                            label: {
-                                LocalArticleRow(article: article)
-                                    .animation(.spring())
                             }
-                        )
                     }
                 }
             }

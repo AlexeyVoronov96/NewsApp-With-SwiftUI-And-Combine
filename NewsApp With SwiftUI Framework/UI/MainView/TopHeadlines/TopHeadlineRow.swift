@@ -11,8 +11,8 @@ import KingfisherSwiftUI
 import SwiftUI
 
 struct TopHeadlineRow : View {
-    @State var shouldPresentURL: Bool = false
-    @State var selectedURL: URL?
+    @State private var shouldPresentURL: Bool = false
+    @State private var shouldShowShareSheet: Bool = false
     
     var article: Article
     
@@ -47,15 +47,30 @@ struct TopHeadlineRow : View {
                 action: {
                     LocalArticle.saveArticle(self.article)
                     CoreDataManager.shared.saveContext()
-            },
+                },
                 label: {
                     Text("Add to favorites".localized())
                     Image(systemName: "heart.fill")
-            }
+                }
+            )
+            Button(
+                action: {
+                    self.shouldShowShareSheet.toggle()
+                },
+                label: {
+                    Text("Share".localized())
+                    Image(systemName: "square.and.arrow.up")
+                }
             )
         }
         .sheet(isPresented: $shouldPresentURL) {
             SafariView(url: self.article.url)
+        }
+        .sheet(isPresented: $shouldShowShareSheet) {
+            ActivityViewController(activityItems: [
+                self.article.title ?? "",
+                self.article.url
+            ])
         }
     }
     
