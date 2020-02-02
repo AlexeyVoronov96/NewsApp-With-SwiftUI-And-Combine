@@ -13,6 +13,8 @@ import SwiftUI
 struct ArticleRow : View {
     let article: Article
     
+    @State private var shouldShowShareSheet: Bool = false
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             KFImage(URL(string: article.urlToImage ?? ""))
@@ -32,7 +34,7 @@ struct ArticleRow : View {
         .cornerRadius(8)
         .padding([.leading, .trailing], 16)
         .padding([.top, .bottom], 8)
-        .shadow(color: .black, radius: 3, x: 0, y: 0)
+        .shadow(color: .black, radius: 5, x: 0, y: 0)
         .contextMenu {
             Button(
                 action: {
@@ -44,6 +46,21 @@ struct ArticleRow : View {
                     Image(systemName: "heart.fill")
                 }
             )
+            Button(
+                action: {
+                    self.shouldShowShareSheet.toggle()
+                },
+                label: {
+                    Text("Share".localized())
+                    Image(systemName: "square.and.arrow.up")
+                }
+            )
+        }
+        .sheet(isPresented: $shouldShowShareSheet) {
+            ActivityViewController(activityItems: [
+                self.article.title ?? "",
+                self.article.url
+            ])
         }
     }
     

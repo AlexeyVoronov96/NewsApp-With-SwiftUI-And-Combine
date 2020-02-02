@@ -12,6 +12,8 @@ import KingfisherSwiftUI
 struct LocalArticleRow: View {
     let article: LocalArticle
     
+    @State private var shouldShowShareSheet: Bool = false
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             KFImage(URL(string: article.urlToImage ?? ""))
@@ -43,6 +45,21 @@ struct LocalArticleRow: View {
                     Image(systemName: Constants.removeFromFavoritesImageName)
                 }
             )
+            Button(
+                action: {
+                    self.shouldShowShareSheet.toggle()
+                },
+                label: {
+                    Text("Share".localized())
+                    Image(systemName: "square.and.arrow.up")
+                }
+            )
+        }
+        .sheet(isPresented: $shouldShowShareSheet) {
+            ActivityViewController(activityItems: [
+                self.article.title ?? "",
+                self.article.url as Any
+            ])
         }
     }
     
