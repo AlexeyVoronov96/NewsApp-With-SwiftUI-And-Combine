@@ -19,9 +19,7 @@ struct TopHeadlineRow : View {
     var body: some View {
         ZStack(alignment: .bottom) {
             KFImage(URL(string: article.urlToImage ?? ""))
-                .renderingMode(.original)
                 .resizable()
-                .aspectRatio(4 / 3, contentMode: .fit)
                 .frame(width: UIScreen.main.bounds.width,
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
