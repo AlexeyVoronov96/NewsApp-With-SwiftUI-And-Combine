@@ -14,7 +14,7 @@
 ## Sources tab
 ![SourcesTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/Sources.png)
 ## Search for articles tab
-![SearchForArticlesTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/Search.png)
+![SearchForArticlesTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/SearchTab.png)
 ## Favorites tab
 ![FavoritesTab](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI/blob/master/NewsApp%20With%20SwiftUI%20Framework/ScreenShots/FavoritesTab.png)
 ## Current weather tab

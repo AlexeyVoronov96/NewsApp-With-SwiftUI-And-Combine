@@ -11,33 +11,16 @@ import SwiftUI
 struct SearchForArticlesView : View {
     @ObservedObject var viewModel = SearchForArticlesViewModel()
     
-    @State private var searchFilter: String = ""
-    
     var body: some View {
         NavigationView(content: {
             VStack {
-                searchBar
+                SearchBarView(text: $viewModel.searchText)
                     .padding([.leading, .trailing], 8)
-                    .frame(height: 32)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(8)
-                    .padding([.leading, .trailing], 16)
-            
+                
                 ArticlesList(articles: viewModel.articles)
             }
             .navigationBarTitle(Text(Constants.title), displayMode: .large)
         })
-    }
-    
-    private var searchBar: some View {
-        TextField(Constants.searchbarPlaceholder,
-                  text: $searchFilter,
-                  onEditingChanged: { (isOpened) in
-                    if !isOpened {
-                        self.viewModel.searchForArticles(searchFilter: self.searchFilter)
-                    }
-                }
-        )
     }
 }
 
@@ -45,7 +28,6 @@ private extension SearchForArticlesView {
     
     struct Constants {
         static let title = "Search".localized()
-        static let searchbarPlaceholder = "Search articles...".localized()
     }
 }
 

@@ -11,7 +11,6 @@ import SwiftUI
 struct ArticlesFromSourceView: View {
     @ObservedObject var viewModel = ArticlesFromSourceViewModel()
     
-    @State private var isInfo: Bool = false
     @State var shouldPresent: Bool = false
     @State var articleURL: URL?
     
@@ -27,14 +26,6 @@ struct ArticlesFromSourceView: View {
             }
             .navigationBarItems(trailing:
                 HStack {
-                    if self.source.description != nil {
-                        Button(action: {
-                            self.isInfo.toggle()
-                        }) {
-                            Image(systemName: isInfo ? "info.circle.fill" : "info.circle")
-                                .imageScale(.large)
-                        }
-                    }
                     Button(
                         action: {
                             UIApplication.shared.open(self.source.url)
@@ -58,14 +49,13 @@ struct ArticlesFromSourceView: View {
             } else {
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .center) {
-                        if isInfo {
+                        if self.source.description != nil {
                             Text(verbatim: "About source:\n".localized() + (source.description ?? ""))
                                 .lineLimit(nil)
                                 .frame(width: UIScreen.main.bounds.width - 32,
                                        height: 150,
                                        alignment: .center)
                         }
-                        
                         ForEach(viewModel.articles, id: \.self) { article in
                             ArticleRow(article: article)
                             .animation(.spring())

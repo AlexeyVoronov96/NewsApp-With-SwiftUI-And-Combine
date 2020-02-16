@@ -14,6 +14,11 @@ final class SearchForArticlesViewModel: ObservableObject {
     
     private var bag = Set<AnyCancellable>()
     
+    @Published var searchText: String = "" {
+        didSet {
+            searchForArticles(searchFilter: searchText)
+        }
+    }
     @Published private (set) var articles: Articles = []
     
     func searchForArticles(searchFilter: String) {
@@ -22,7 +27,9 @@ final class SearchForArticlesViewModel: ObservableObject {
             .map { $0.articles }
             .replaceError(with: [])
             .receive(on: RunLoop.main)
-            .assign(to: \.articles, on: self)
+            .sink(receiveValue: { [weak self] articles in
+                self?.articles = articles
+            })
             .store(in: &bag)
     }
 }

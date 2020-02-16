@@ -10,6 +10,7 @@
 		AB01EA4123425E3C004018D4 /* EndpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01EA4023425E3C004018D4 /* EndpointProtocol.swift */; };
 		AB01EA4323425ED0004018D4 /* WeatherEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01EA4223425ED0004018D4 /* WeatherEndpoint.swift */; };
 		AB026B2722D9C7530036EBFE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB026B2622D9C7530036EBFE /* Container.swift */; };
+		AB02A85223F920FD0096908F /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB02A85123F920FD0096908F /* SearchBarView.swift */; };
 		AB08BB8A22CE849C00FF285E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8922CE849C00FF285E /* PageViewController.swift */; };
 		AB08BB8C22CE84D700FF285E /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8B22CE84D700FF285E /* PageView.swift */; };
 		AB08BB8E22CFD10D00FF285E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB08BB8D22CFD10D00FF285E /* ActivityIndicator.swift */; };
@@ -74,6 +75,7 @@
 		AB01EA4023425E3C004018D4 /* EndpointProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointProtocol.swift; sourceTree = "<group>"; };
 		AB01EA4223425ED0004018D4 /* WeatherEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEndpoint.swift; sourceTree = "<group>"; };
 		AB026B2622D9C7530036EBFE /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		AB02A85123F920FD0096908F /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		AB08BB8922CE849C00FF285E /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		AB08BB8B22CE84D700FF285E /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		AB08BB8D22CFD10D00FF285E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			children = (
 				AB69876B22B570EC00FAEAC3 /* SearchForArticlesView.swift */,
 				ABD5AE9F22BBF3B800203B6A /* SearchForArticlesViewModel.swift */,
+				AB02A85123F920FD0096908F /* SearchBarView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -539,6 +542,7 @@
 				EF15F435234DA45700D5D596 /* ArticleSource.swift in Sources */,
 				AB026B2722D9C7530036EBFE /* Container.swift in Sources */,
 				ABD5AEA022BBF3B800203B6A /* SearchForArticlesViewModel.swift in Sources */,
+				AB02A85223F920FD0096908F /* SearchBarView.swift in Sources */,
 				ABEC946A22BF5B72008259D0 /* ArticleEndpoint.swift in Sources */,
 				AB7132FC23E6FA080036CD0E /* LocalSource.swift in Sources */,
 				ABD5AEA722BC078B00203B6A /* MainViewModel.swift in Sources */,
@@ -700,7 +704,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "AlexeyVoronov.NewsApp-With-SwiftUI-Framework";
+				PRODUCT_BUNDLE_IDENTIFIER = AlexeyVoronov.NewsApp;
 				PRODUCT_NAME = News;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -722,7 +726,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "AlexeyVoronov.NewsApp-With-SwiftUI-Framework";
+				PRODUCT_BUNDLE_IDENTIFIER = AlexeyVoronov.NewsApp;
 				PRODUCT_NAME = News;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
