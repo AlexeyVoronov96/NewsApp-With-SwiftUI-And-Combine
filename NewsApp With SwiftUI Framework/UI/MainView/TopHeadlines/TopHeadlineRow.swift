@@ -20,14 +20,14 @@ struct TopHeadlineRow : View {
         ZStack(alignment: .bottom) {
             KFImage(URL(string: article.urlToImage ?? ""))
                 .resizable()
-                .frame(width: UIScreen.main.bounds.width,
+                .frame(width: UIScreen.main.bounds.width - 32,
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
             
             Rectangle()
                 .foregroundColor(.black)
                 .opacity(0.6)
-                .frame(width: UIScreen.main.bounds.width,
+                .frame(width: UIScreen.main.bounds.width - 32,
                        height: UIScreen.main.bounds.width / 4 * 3,
                        alignment: .center)
             
@@ -79,16 +79,12 @@ struct TopHeadlineRow : View {
                 .font(.subheadline)
                 .lineLimit(nil)
                 .padding([.leading, .trailing])
-                .frame(width: UIScreen.main.bounds.width,
-                       alignment: .bottomLeading)
             
             Text(verbatim: article.title ?? "")
                 .foregroundColor(.white)
                 .font(.headline)
                 .lineLimit(nil)
                 .padding([.leading, .bottom, .trailing])
-                .frame(width: UIScreen.main.bounds.width,
-                       alignment: .bottomLeading)
         }
     }
 }

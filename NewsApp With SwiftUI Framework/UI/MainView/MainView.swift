@@ -62,5 +62,7 @@ struct MainView : View {
                 }
             }
         }
+        .listStyle(GroupedListStyle())
+        .environment(\.horizontalSizeClass, .regular)
     }
 }

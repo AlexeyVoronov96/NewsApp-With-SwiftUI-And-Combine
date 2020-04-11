@@ -22,6 +22,8 @@ struct WeatherView: View {
                         hourlyWeatherSection
                         dailyWeatherSection
                     })
+                    .listStyle(GroupedListStyle())
+                    .environment(\.horizontalSizeClass, .regular)
                 }
             }
             .navigationBarTitle(Text(verbatim: viewModel.locationName), displayMode: .large)

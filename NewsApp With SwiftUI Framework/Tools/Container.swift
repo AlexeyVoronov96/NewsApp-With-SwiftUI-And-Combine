@@ -18,8 +18,8 @@ class Container {
     }()
     
     /// News API key url: https://newsapi.org
-    static let newsAPIKey: String = "2dd517ab40234c28ac65a27b4845a4aa"
+    static let newsAPIKey: String = "YOUR_API_KEY"
     
     /// Weather API key url: https://darksky.net
-    static let weatherAPIKey: String = "7aaa77c1ca5f9bb8a2db5169856d5af6"
+    static let weatherAPIKey: String = "YOUR_API_KEY"
 }
