@@ -29,6 +29,8 @@ struct SourcesListView : View {
                             }
                         )
                     }
+                    .listStyle(GroupedListStyle())
+                    .environment(\.horizontalSizeClass, .regular)
                     .animation(.spring())
                 }
             }

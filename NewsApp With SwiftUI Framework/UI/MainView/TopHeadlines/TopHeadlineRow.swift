@@ -73,7 +73,7 @@ struct TopHeadlineRow : View {
     }
     
     private var topHeadlineInfo: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text(verbatim: article.source?.name ?? "")
                 .foregroundColor(.white)
                 .font(.subheadline)

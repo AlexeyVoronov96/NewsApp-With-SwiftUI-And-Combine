@@ -40,9 +40,6 @@ struct MainView : View {
         List {
             if viewModel.topHeadlines.isEmpty {
                 ActivityIndicator()
-                    .frame(width: UIScreen.main.bounds.width,
-                           height: 50,
-                           alignment: .center)
             } else {
                 TopHeadlinesView(topHeadlines: viewModel.topHeadlines)
                     .frame(height: UIScreen.main.bounds.width / 4 * 3,
