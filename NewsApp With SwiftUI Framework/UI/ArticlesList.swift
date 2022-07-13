@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ArticlesList : View {
-    @State var shouldPresent: Bool = false
     @State var articleURL: URL?
     
     @State var articles: [Article]
@@ -22,13 +21,12 @@ struct ArticlesList : View {
                         .animation(.spring())
                         .onTapGesture {
                             self.articleURL = article.url
-                            self.shouldPresent = true
                         }
                 }
             }
         }
-        .sheet(isPresented: $shouldPresent) {
-            SafariView(url: self.articleURL!)
+        .sheet(item: $articleURL) { url in
+            SafariView(url: url)
         }
     }
 }

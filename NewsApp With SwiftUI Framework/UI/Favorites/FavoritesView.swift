@@ -13,7 +13,6 @@ struct FavoritesView: View {
     @FetchRequest(entity: LocalArticle.entity(), sortDescriptors: [
         NSSortDescriptor(key: "savingDate", ascending: false)
     ]) var articles: FetchedResults<LocalArticle>
-    @State var shouldPresent: Bool = false
     @State var articleURL: URL?
     
     var body: some View {
@@ -25,14 +24,13 @@ struct FavoritesView: View {
                             .animation(.spring())
                             .onTapGesture {
                                 self.articleURL = article.url
-                                self.shouldPresent = true
                             }
                     }
                 }
             }
             .navigationBarTitle(Text(Constants.title), displayMode: .automatic)
-            .sheet(isPresented: $shouldPresent) {
-                SafariView(url: self.articleURL!)
+            .sheet(item: $articleURL) { url in
+                SafariView(url: url)
             }
         }
     }
