@@ -11,7 +11,6 @@ import SwiftUI
 struct ArticlesFromSourceView: View {
     @ObservedObject var viewModel = ArticlesFromSourceViewModel()
     
-    @State var shouldPresent: Bool = false
     @State var articleURL: URL?
     
     let source: Source
@@ -21,8 +20,8 @@ struct ArticlesFromSourceView: View {
             .onAppear(perform: {
                 self.viewModel.getArticles(from: self.source.id)
             })
-            .sheet(isPresented: $shouldPresent) {
-                SafariView(url: self.articleURL!)
+            .sheet(item: $articleURL) { url in
+                SafariView(url: url)
             }
             .navigationBarItems(trailing:
                 HStack {
@@ -61,7 +60,6 @@ struct ArticlesFromSourceView: View {
                             .animation(.spring())
                             .onTapGesture {
                                 self.articleURL = article.url
-                                self.shouldPresent = true
                             }
                         }
                     }
